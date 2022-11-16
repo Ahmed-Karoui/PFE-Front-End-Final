@@ -1,10 +1,22 @@
 import { Component, OnInit } from '@angular/core';
+import {ProjectsService} from '../../projects.service';
+import {LeavesService} from '../../leaves.service';
+import {TicketsService} from '../../tickets.service';
+import {UserService} from '../../../login/register/user.service';
 @Component({
   selector: 'app-admin-dashboard',
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.css'],
 })
 export class AdminDashboardComponent implements OnInit {
+  public nb_Project:any;
+  public nb_Projects:any;
+  public nb_Employee:any;
+  public nb_Employees:any;
+  public nb_Leaves:any;
+  public nb_Leavess:any;
+  public nb_Ticketss:any;
+  public nb_Tickets:any;
   public chartData;
   public chartOptions;
   public lineData;
@@ -18,9 +30,25 @@ export class AdminDashboardComponent implements OnInit {
     b: '#0253cc',
   };
 
-  constructor() { }
+  constructor(private serviceProject: ProjectsService,private serviceLeaves:LeavesService,private serviceTicket:TicketsService,private serviceUser:UserService) { }
 
   ngOnInit() {
+    this.serviceProject.getAllProjects().subscribe((data) => {
+      this.nb_Projects = data;
+      this.nb_Project = this.nb_Projects.length;
+    });
+    this.serviceLeaves.getAllLeaves().subscribe((data) => {
+      this.nb_Leavess= data;
+      this.nb_Leaves = this.nb_Leavess.length;
+    });
+    this.serviceTicket.getAllTickets().subscribe((data) => {
+      this.nb_Ticketss = data;
+      this.nb_Tickets = this.nb_Ticketss.length;
+    });
+    this.serviceProject.getAllProjects().subscribe((data) => {
+      this.nb_Projects = data;
+      this.nb_Project = this.nb_Projects.length;
+    });
     this.chartOptions = {
       xkey: 'y',
       ykeys: ['a', 'b'],

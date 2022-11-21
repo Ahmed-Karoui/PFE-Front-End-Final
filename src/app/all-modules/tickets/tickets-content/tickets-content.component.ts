@@ -149,6 +149,7 @@ export class TicketsContentComponent implements OnInit, OnDestroy {
       $('#add_ticket').modal('hide');
       this.addTicketForm.reset();
       this.toastr.success('Tickets added', 'Success');
+      this.getTickets();
     }
 
   // Edit Ticket Modal Api Call

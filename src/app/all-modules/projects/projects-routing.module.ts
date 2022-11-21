@@ -9,27 +9,27 @@ import { TasksComponent } from './tasks/tasks.component';
 
 const routes: Routes = [
   {
-    path: "",
+    path: '',
     component: ProjectsComponent,
     children: [
       {
-        path: "projectpage",
+        path: 'projectpage',
         component: ProjectContentComponent
       },
       {
-        path: "projectlist",
+        path: 'projectlist',
         component: ProjectListComponent
       },
       {
-        path: "projectview/:id",
+        path: 'projectview/:id',
         component: ProjectViewComponent
       },
       {
-        path: "taskboard",
+        path: 'taskboard',
         component: TaskBoardComponent
       },
       {
-        path: "tasks",
+        path: 'tasks',
         component: TasksComponent
       },
 

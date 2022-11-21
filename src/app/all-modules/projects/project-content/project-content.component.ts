@@ -170,7 +170,7 @@ export class ProjectContentComponent implements OnInit, OnDestroy {
     this.rows.splice(0, this.rows.length);
     const temp = this.srch.filter(function (d) {
       val = val.toLowerCase();
-      return d.name.toLowerCase().indexOf(val) !== -1 || !val;
+      return d.project_name.toLowerCase().indexOf(val) !== -1 || !val;
     });
     this.rows.push(...temp);
   }
@@ -180,7 +180,7 @@ export class ProjectContentComponent implements OnInit, OnDestroy {
     this.rows.splice(0, this.rows.length);
     const temp = this.srch.filter(function (d) {
       val = val.toLowerCase();
-      return d.teamMember.toLowerCase().indexOf(val) !== -1 || !val;
+      return d.description.toLowerCase().indexOf(val) !== -1 || !val;
     });
     this.rows.push(...temp);
   }

@@ -24,4 +24,8 @@ export class TasksService {
   deleteTask(id: string): Observable<any> {
     return this.http.delete(`${this.baseURL}/delete-task/${id}`)
   }
+
+  loadTasksByProject(id: string): Observable<any> {
+    return this.http.get(`${this.baseURL}/get-tasks-by-project/${id}`)
+  }
 }

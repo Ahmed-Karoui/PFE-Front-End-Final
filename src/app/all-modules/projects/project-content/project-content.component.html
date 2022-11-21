@@ -24,31 +24,19 @@
 
     <!-- Search Filter -->
     <div class="row filter-row">
-        <div class="col-sm-6 col-md-3">
+        <div class="col-sm-6 col-md-4">
             <div class="form-group form-focus">
                 <input type="text" class="form-control floating" (input)="searchName($event.target.value)">
                 <label class="focus-label">Project Name</label>
             </div>
         </div>
-        <div class="col-sm-6 col-md-3">
+        <div class="col-sm-6 col-md-4">
             <div class="form-group form-focus">
                 <input type="text" class="form-control floating" (input)="searchByEmpname($event.target.value)">
-                <label class="focus-label">Employee Name</label>
+                <label class="focus-label">Project Description</label>
             </div>
         </div>
-        <div class="col-sm-6 col-md-3">
-            <div class="form-group form-focus select-focus">
-                <select class="form-select floating form-control">
-                    <option>Select Roll</option>
-                    <option>Web Developer</option>
-                    <option>Web Designer</option>
-                    <option>Android Developer</option>
-                    <option>Ios Developer</option>
-                </select>
-                <label class="focus-label">Designation</label>
-            </div>
-        </div>
-        <div class="col-sm-6 col-md-3">
+        <div class="col-sm-6 col-md-4">
             <a class="btn btn-success w-100"> Search </a>
         </div>
     </div>
@@ -72,7 +60,9 @@
                     </h4>
                     <small class="block text-ellipsis m-b-15">
                     </small>
-                    <p class="text-muted" >{{project.description}}
+                    <p class="text-muted" >{{ project.description | slice:0:50 }}
+
+
                     </p>
                     <div class="pro-deadline m-b-15">
                         <div class="sub-title">
@@ -86,90 +76,8 @@
                         <div>Project Leader :</div>
                         <ul class="team-members">
                             <li>
-                                <a data-bs-toggle="tooltip" title="Jeffery Lalor"><img alt=""
-                                        src="assets/img/profiles/avatar-9.jpg"></a>
-                            </li>
-                            <li>
-                                <a data-bs-toggle="tooltip" title="Jeffery Lalor"><img alt=""
-                                        src="assets/img/profiles/avatar-8.jpg"></a>
-                            </li>
-                            <li>
-                                <a data-bs-toggle="tooltip" title="Jeffery Lalor"><img alt=""
-                                        src="assets/img/profiles/avatar-7.jpg"></a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="project-members m-b-15">
-                        <div>Team :</div>
-                        <ul class="team-members">
-                            <li>
-                                <a data-bs-toggle="tooltip" title="John Doe"><img alt=""
-                                        src="assets/img/profiles/avatar-2.jpg"></a>
-                            </li>
-                            <li>
-                                <a data-bs-toggle="tooltip" title="Richard Miles"><img alt=""
-                                        src="assets/img/profiles/avatar-9.jpg"></a>
-                            </li>
-                            <li>
-                                <a data-bs-toggle="tooltip" title="John Smith"><img alt=""
-                                        src="assets/img/profiles/avatar-8.jpg"></a>
-                            </li>
-                            <li>
-                                <a data-bs-toggle="tooltip" title="Mike Litorus"><img alt=""
-                                        src="assets/img/profiles/avatar-5.jpg"></a>
-                            </li>
-                            <li class="dropdown avatar-dropdown">
-                                <a class="all-users dropdown-toggle" data-bs-toggle="dropdown"
-                                    aria-expanded="false">+15</a>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <div class="avatar-group">
-                                        <a class="avatar avatar-xs">
-                                            <img alt="" src="assets/img/profiles/avatar-2.jpg">
-                                        </a>
-                                        <a class="avatar avatar-xs">
-                                            <img alt="" src="assets/img/profiles/avatar-9.jpg">
-                                        </a>
-                                        <a class="avatar avatar-xs">
-                                            <img alt="" src="assets/img/profiles/avatar-8.jpg">
-                                        </a>
-                                        <a class="avatar avatar-xs">
-                                            <img alt="" src="assets/img/profiles/avatar-5.jpg">
-                                        </a>
-                                        <a class="avatar avatar-xs">
-                                            <img alt="" src="assets/img/profiles/avatar-6.jpg">
-                                        </a>
-                                        <a class="avatar avatar-xs">
-                                            <img alt="" src="assets/img/profiles/avatar-7.jpg">
-                                        </a>
-                                        <a class="avatar avatar-xs">
-                                            <img alt="" src="assets/img/profiles/avatar-9.jpg">
-                                        </a>
-                                        <a class="avatar avatar-xs">
-                                            <img alt="" src="assets/img/profiles/avatar-1.jpg">
-                                        </a>
-                                        <a class="avatar avatar-xs">
-                                            <img alt="" src="assets/img/profiles/avatar-5.jpg">
-                                        </a>
-                                    </div>
-                                    <div class="avatar-pagination">
-                                        <ul class="pagination">
-                                            <li class="page-item">
-                                                <a class="page-link" aria-label="Previous">
-                                                    <span aria-hidden="true">«</span>
-                                                    <span class="visually-hidden">Previous</span>
-                                                </a>
-                                            </li>
-                                            <li class="page-item"><a class="page-link">1</a></li>
-                                            <li class="page-item"><a class="page-link">2</a></li>
-                                            <li class="page-item">
-                                                <a class="page-link" aria-label="Next">
-                                                    <span aria-hidden="true">»</span>
-                                                    <span class="visually-hidden">Next</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                <a data-bs-toggle="tooltip" title="Project Manager"><img alt=""
+                                        src="https://www.kindpng.com/picc/m/616-6169200_supervised-distribution-team-project-manager-icon-hd-png.png"></a>
                             </li>
                         </ul>
                     </div>

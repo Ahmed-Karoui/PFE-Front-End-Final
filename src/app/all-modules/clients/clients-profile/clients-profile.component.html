@@ -31,12 +31,10 @@
                             <div class="row">
                                 <div class="col-md-5">
                                     <div class="profile-info-left">
-                                        <h3 class="user-name m-t-0">{{client[0]?.company}}</h3>
-                                        <h5 class="company-role m-t-0 mb-0">{{client[0]?.name}}</h5>
-                                        <small class="text-muted">{{ client[0]?.role}}</small>
-                                        <div class="staff-id">Employee ID : {{client[0]?.clientId}}</div>
-                                        <div class="staff-msg"><a routerLink="/layout/apps/chat" class="btn btn-custom">Send
-                                                Message</a></div>
+                                        <h3 class="user-name m-t-0">{{client[0]?.name}}</h3>
+                                        <h5 class="company-role m-t-0 mb-0">{{client[0]?.last_name}}</h5>
+                                        <small class="text-muted">{{ client[0]?.email}}</small>
+                                        <div class="staff-id">Employee Name : {{client[0]?.clientId}}</div>
                                     </div>
                                 </div>
                                 <div class="col-md-7">

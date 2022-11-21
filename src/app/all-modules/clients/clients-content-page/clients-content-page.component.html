@@ -14,11 +14,10 @@
             <div class="col-auto float-end ms-auto">
                 <a  class="btn add-btn" data-bs-toggle="modal" data-bs-target="#add_client" (click)="resetForm()"><i
                         class="fa fa-plus"></i>
-                    Add Client</a>
+                    Add User</a>
                 <div class="view-icons">
                     <a routerLink="/layout/clients/clientspage" class="grid-view btn btn-link active"><i
                             class="fa fa-th"></i></a>
-                    <a routerLink="/layout/clients/clientslist" class="list-view btn btn-link"><i class="fa fa-bars"></i></a>
                 </div>
             </div>
         </div>
@@ -63,13 +62,12 @@
                     </div>
                 </div>
                 <h4 class="user-name m-t-10 mb-0 text-ellipsis"><a
-                        routerLink="/layout/clients/clientsprofile/{{data.id}}">{{data.name}} {{data.last_name}}</a>
+                        routerLink="/layout/clients/clientsprofile/{{data._id}}">{{data.name}} {{data.last_name}}</a>
                 </h4>
                 <h5 class="user-name m-t-10 mb-0 text-ellipsis"><a
-                        routerLink="/layout/clients/clientsprofile/{{data.id}}">{{data.name}}{{data.role}}</a></h5>
+                        routerLink="/layout/clients/clientsprofile/{{data._id}}">{{data.name}}{{data.role}}</a></h5>
                 <div class="small text-muted">{{data.email}}</div>
-                <a routerLink="/layout/apps/chat" class="btn btn-white btn-sm m-t-10 me-1">Message</a>
-                <a routerLink="/layout/clients/clientsprofile/{{data.id}}" class="btn btn-white btn-sm m-t-10 ms-1">View Profile</a>
+                <a routerLink="/layout/clients/userprofile/{{data._id}}" class="btn btn-white btn-sm m-t-10 ms-1">View Profile</a>
             </div>
         </div>
     </div>

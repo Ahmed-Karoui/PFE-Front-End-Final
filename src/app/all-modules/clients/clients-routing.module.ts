@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ClientsComponent } from './clients.component';
 import { ClientsContentPageComponent } from './clients-content-page/clients-content-page.component';
-import { ClientsListComponent } from './clients-list/clients-list.component';
 import { ClientsProfileComponent } from './clients-profile/clients-profile.component';
 const routes: Routes = [
   {
@@ -14,11 +13,7 @@ const routes: Routes = [
         component: ClientsContentPageComponent
       },
       {
-        path: 'clientslist',
-        component: ClientsListComponent
-      },
-      {
-        path: 'clientsprofile/:id',
+        path: 'userprofile/:id',
         component: ClientsProfileComponent
       },
 

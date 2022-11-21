@@ -16,9 +16,7 @@
                     Create Project</a>
                 <div class="view-icons">
                     <a routerLink="/layout/projects/projectpage" class="grid-view btn btn-link active"><i
-                            class="fa fa-th"></i></a>
-                    <a routerLink="/layout/projects/projectlist" class="list-view btn btn-link"><i class="fa fa-bars"></i></a>
-                </div>
+                            class="fa fa-th"></i></a></div>
             </div>
         </div>
     </div>
@@ -70,11 +68,9 @@
                                 (click)="tempId = project._id"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                         </div>
                     </div>
-                    <h4 class="project-title"><a routerLink="/layout/projects/projectview/{{project.id}}">{{project.project_name}}</a>
+                    <h4 class="project-title"><a routerLink="/layout/projects/projectview/{{project._id}}">{{project.project_name}}</a>
                     </h4>
                     <small class="block text-ellipsis m-b-15">
-                        <span class="text-xs">1</span> <span class="text-muted">open tasks, </span>
-                        <span class="text-xs">9</span> <span class="text-muted">tasks completed</span>
                     </small>
                     <p class="text-muted" >{{project.description}}
                     </p>
@@ -83,7 +79,7 @@
                             Deadline:
                         </div>
                         <div class="text-muted">
-                            {{project.endDate}}
+                            {{project.Deadline | date}}
                         </div>
                     </div>
                     <div class="project-members m-b-15">
@@ -176,11 +172,6 @@
                                 </div>
                             </li>
                         </ul>
-                    </div>
-                    <p class="m-b-5">Progress <span class="text-success float-end">40%</span></p>
-                    <div class="progress progress-xs mb-0">
-                        <div class="progress-bar bg-success" role="progressbar" data-bs-toggle="tooltip" title="40%"
-                            style="width: 40%"></div>
                     </div>
                 </div>
             </div>

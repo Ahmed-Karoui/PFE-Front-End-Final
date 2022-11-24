@@ -56,10 +56,10 @@
                                                         <i class="material-icons">check</i>
                                                     </span>
                                                 </span>
-                                                <span class="task-label" contenteditable="true">{{task.name}}</span>
+                                                <span class="task-label">{{task.name}}</span>
                                                 <span class="task-action-btn task-btn-right">
-                                                    <span class="action-circle large" title="Assign">
-                                                        <i class="material-icons">person_add</i>
+                                                    <span class="action-circle large" title="Mark As Complete">
+                                                        <i class="material-icons" data-bs-toggle="modal" data-bs-target="#confirm_task" (click)="tempId = task._id">person_add</i>
                                                     </span>
                                                     <span class="action-circle large delete-btn" title="Delete Task">
                                                         <i class="material-icons">delete</i>
@@ -68,14 +68,6 @@
                                             </div>
                                         </li>
                                     </ul>
-                                </div>
-                                <div class="task-list-footer">
-                                    <div class="new-task-wrapper">
-                                        <textarea id="new-task" placeholder="Enter new task here. . ."></textarea>
-                                        <span class="error-message hidden">You need to enter a task first</span>
-                                        <span class="add-new-task-btn btn" id="add-task">Add Task</span>
-                                        <span class="btn" id="close-task-panel">Close</span>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -94,25 +86,10 @@
                                                     </span>
                                                 </span>
                                   <span class="task-label">{{task.name}}</span>
-                                  <span class="task-action-btn task-btn-right">
-                                                    <span class="action-circle large" title="Assign">
-                                                        <i class="material-icons">person_add</i>
-                                                    </span>
-                                                    <span class="action-circle large delete-btn" title="Delete Task">
-                                                        <i class="material-icons">delete</i>
-                                                    </span>
-                                                </span>
+                                  <span class="task-action-btn task-btn-right"></span>
                                 </div>
                               </li>
                             </ul>
-                          </div>
-                          <div class="task-list-footer">
-                            <div class="new-task-wrapper">
-                              <textarea id="new-task" placeholder="Enter new task here. . ."></textarea>
-                              <span class="error-message hidden">You need to enter a task first</span>
-                              <span class="add-new-task-btn btn" id="add-task">Add Task</span>
-                              <span class="btn" id="close-task-panel">Close</span>
-                            </div>
                           </div>
                         </div>
                       </div>
@@ -436,3 +413,60 @@
     </div>
 </div>
 <!-- /Edit Project Modal -->
+
+
+
+
+<div class="modal custom-modal fade" id="delete_task" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="form-header">
+          <h3>Delete Task</h3>
+          <p>Are you sure want to delete this task?</p>
+        </div>
+        <div class="modal-btn delete-action">
+          <div class="row">
+            <div class="col-6">
+              <a  class="btn btn-primary continue-btn"
+                  (click)="deleteTask(tempId)">Delete</a>
+            </div>
+            <div class=" col-6">
+              <a  data-bs-dismiss="modal"
+                  class="btn btn-primary cancel-btn">Cancel</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal custom-modal fade" id="confirm_task" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="form-header">
+          <h3>Confirm Task Completion</h3>
+          <p>Are you sure want to confirm the completion of this task ?</p>
+        </div>
+        <div class="modal-btn delete-action">
+          <div class="row">
+            <div class="col-6">
+              <a  class="btn btn-primary continue-btn"
+                  (click)="validateTask(tempId)">Confirm</a>
+            </div>
+            <div class=" col-6">
+              <a  data-bs-dismiss="modal"
+                  class="btn btn-primary cancel-btn">Cancel</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

@@ -155,13 +155,6 @@
                   >Trainings</a
                 >
               </li>
-              <li routerLink="/layout/employees/holidays">
-                <a
-                  href="javascript:"
-                  [ngClass]="{ active: urlComplete.subUrl === 'holidays' }"
-                  >Holidays</a
-                >
-              </li>
               <li routerLink="/layout/employees/adminleaves">
                 <a
                   href="javascript:"
@@ -186,24 +179,6 @@
                   href="javascript:"
                   [ngClass]="{ active: urlComplete.subUrl === 'designation' }"
                   >Public Holidays</a
-                >
-              </li>
-              <li routerLink="/layout/scheduling/shift-scheduling">
-                <a
-                  href="javascript:"
-                  [ngClass]="{
-                    active:
-                      urlComplete.subUrl === 'shift-scheduling' ||
-                      urlComplete.subUrl === 'shift-list'
-                  }"
-                  >Shift & Schedule</a
-                >
-              </li>
-              <li routerLink="/layout/employees/overtime">
-                <a
-                  href="javascript:"
-                  [ngClass]="{ active: urlComplete.subUrl === 'overtime' }"
-                  >Overtime</a
                 >
               </li>
             </ul>
@@ -293,50 +268,8 @@
           <li class="menu-title">
             <span>HR</span>
           </li>
-          <li
-            class="submenu"
-            [ngClass]="{ active: urlComplete.mainUrl === 'payroll' }"
-          >
-            <a
-              href="javascript:"
-              [ngClass]="{ subdrop: urlComplete.mainUrl === 'payroll' }"
-              ><i class="la la-money"></i> <span> Payroll </span>
-              <span class="menu-arrow"></span
-            ></a>
-            <ul
-              style="display: none"
-              [ngStyle]="{
-                display: urlComplete.mainUrl === 'payroll' ? 'block' : 'none'
-              }"
-            >
-              <li routerLink="/layout/payroll/employee-salary">
-                <a
-                  href="javascript:"
-                  [ngClass]="{
-                    active: urlComplete.subUrl === 'employee-salary'
-                  }"
-                >
-                  Employee Salary
-                </a>
-              </li>
-              <li routerLink="/layout/payroll/salary-view">
-                <a
-                  href="javascript:"
-                  [ngClass]="{ active: urlComplete.subUrl === 'salary-view' }"
-                >
-                  Payslip
-                </a>
-              </li>
-              <li routerLink="/layout/payroll/payroll-items">
-                <a
-                  href="javascript:"
-                  [ngClass]="{ active: urlComplete.subUrl === 'payroll-items' }"
-                >
-                  Payroll Items
-                </a>
-              </li>
-            </ul>
-          </li>
+
+
           <li routerLink="/layout/apps/calendar">
             <a
               href="javascript:"

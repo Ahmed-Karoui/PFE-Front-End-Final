@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AllModulesService } from 'src/app/all-modules/all-modules.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -203,7 +203,7 @@ export class EmployeePageContentComponent implements OnInit {
     this.rows.splice(0, this.rows.length);
     const temp = this.srch.filter(function (d) {
       val = val.toLowerCase();
-      return d.employeeId.toLowerCase().indexOf(val) !== -1 || !val;
+      return d.name.toLowerCase().indexOf(val) !== -1 || !val;
     });
     this.rows.push(...temp);
   }
@@ -213,7 +213,7 @@ export class EmployeePageContentComponent implements OnInit {
     this.rows.splice(0, this.rows.length);
     const temp = this.srch.filter(function (d) {
       val = val.toLowerCase();
-      return d.firstname.toLowerCase().indexOf(val) !== -1 || !val;
+      return d.category.toLowerCase().indexOf(val) !== -1 || !val;
     });
     this.rows.push(...temp);
   }

@@ -110,8 +110,8 @@ export class TicketsContentComponent implements OnInit, OnDestroy {
       this.rows = this.allTickets;
       this.srch = [...this.rows];
       this.nbticket = this.allTickets.length;
-      this.nbticketsolved = this.allTickets.filter(o => o.status === 'solved').length;
-      this.nbticketopen = this.allTickets.filter(o => o.status === 'active').length;
+      this.nbticketsolved = this.allTickets.filter(o => o.status === 'Solved').length;
+      this.nbticketopen = this.allTickets.filter(o => o.status === 'Active').length;
       this.nbticketinprogress = this.allTickets.filter(o => o.status === 'progress').length;
 
 
@@ -209,7 +209,7 @@ export class TicketsContentComponent implements OnInit, OnDestroy {
     this.rows.splice(0, this.rows.length);
     const temp = this.srch.filter(function (d) {
       val = val.toLowerCase();
-      return d.assignedStaff.toLowerCase().indexOf(val) !== -1 || !val;
+      return d.description.toLowerCase().indexOf(val) !== -1 || !val;
     });
     this.rows.push(...temp);
   }
@@ -228,7 +228,7 @@ export class TicketsContentComponent implements OnInit, OnDestroy {
     this.rows.splice(0, this.rows.length);
     const temp = this.srch.filter(function (d) {
       val = val.toLowerCase();
-      return d.priority.toLowerCase().indexOf(val) !== -1 || !val;
+      return d.urgency.toLowerCase().indexOf(val) !== -1 || !val;
     });
     this.rows.push(...temp);
   }

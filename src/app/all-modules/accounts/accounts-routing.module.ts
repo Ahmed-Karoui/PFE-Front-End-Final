@@ -17,59 +17,59 @@ import { TaxesComponent } from './taxes/taxes.component';
 
 const routes: Routes = [
   {
-    path:"",
+    path:'',
     component:AccountsComponent,
     children:[
       {
-        path:"estimates",
+        path:'estimates',
         component:EstimatesComponent
       },
-      
+
       {
-        path:"estimates-view",
+        path:'estimates-view',
         component:EstimatesViewComponent
       },
       {
-        path:"create-estimates",
+        path:'create-estimates',
         component:CreateEstimatesComponent
       },
       {
-        path:"edit-estimates",
+        path:'edit-estimates',
         component:EditEstimateComponent
       },
       {
-        path:"invoices",
+        path:'invoices',
         component:InvoicesComponent
       },
       {
-        path:"invoice-view",
+        path:'invoice-view/:id',
         component:InvoiceViewComponent
       },
       {
-        path:"create-invoice",
+        path:'create-invoice',
         component:CreateInvoiceComponent
       },
       {
-        path:"edit-invoice",
+        path:'edit-invoice',
         component:EditInvoiceComponent
       },
       {
-        path:"payments",
+        path:'payments',
         component:PaymentsComponent
       },
       {
-        path:"expenses",
+        path:'expenses',
         component:ExpensesComponent
       },
       {
-        path:"provident-fund",
+        path:'provident-fund',
         component:ProvidentFundComponent
       },
       {
-        path:"taxes",
+        path:'taxes',
         component:TaxesComponent
       },
-      
+
     ]
   }
 ];

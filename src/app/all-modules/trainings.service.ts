@@ -24,4 +24,8 @@ export class TrainingsService {
   deleteTraining(id: string): Observable<any> {
     return this.http.delete(`${this.baseURL}/delete-training/${id}`)
   }
+
+  getUsersByTraining(id: string): Observable<any> {
+    return this.http.get(`${this.baseURL}/get-trainings-by-user/${id}`)
+  }
 }

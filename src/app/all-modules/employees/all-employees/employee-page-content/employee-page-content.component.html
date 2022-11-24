@@ -5,20 +5,18 @@
     <div class="page-header">
         <div class="row align-items-center">
             <div class="col">
-                <h3 class="page-title">Employee</h3>
+                <h3 class="page-title">Trainings</h3>
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a routerLink="/layout/dashboard/admin">Dashboard</a></li>
-                    <li class="breadcrumb-item active">Employee</li>
+                    <li class="breadcrumb-item active">Training</li>
                 </ul>
             </div>
             <div class="col-auto float-end ms-auto">
                 <a  class="btn add-btn" data-bs-toggle="modal" data-bs-target="#add_employee"><i
-                        class="fa fa-plus"></i> Add Employee</a>
+                        class="fa fa-plus"></i> Add Training</a>
                 <div class="view-icons">
-                    <a routerLink="/layout/employees/employeepage" class="grid-view btn btn-link active"><i
+                    <a routerLink="/layout/accounts/invoice-view" class="grid-view btn btn-link active"><i
                             class="fa fa-th"></i></a>
-                    <a routerLink="/layout/employees/employeelist" class="list-view btn btn-link"><i
-                            class="fa fa-bars"></i></a>
                 </div>
             </div>
         </div>
@@ -30,13 +28,13 @@
         <div class="col-sm-6 col-md-3">
             <div class="form-group form-focus">
                 <input type="text" class="form-control floating" (input)="searchId($event.target.value)">
-                <label class=" focus-label">Employee ID</label>
+                <label class=" focus-label">Training Name</label>
             </div>
         </div>
         <div class="col-sm-6 col-md-3">
             <div class="form-group form-focus">
                 <input type="text" class="form-control floating" (input)="searchName($event.target.value)">
-                <label class="focus-label">Employee Name</label>
+                <label class="focus-label">Training Category</label>
             </div>
         </div>
         <div class="col-sm-6 col-md-3">
@@ -61,8 +59,8 @@
         <div class="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3" *ngFor="let emp of lstEmployee;let i = index">
             <div class="profile-widget">
                 <div class="profile-img">
-                    <a routerLink="/layout/employees/employeeprofile" class="avatar"><img
-                            src="assets/img/profiles/avatar-{{i+ 1}}.jpg" alt=""></a>
+                    <a routerLink="/layout/accounts/invoice-view" class="avatar"><img
+                            src="https://cdn.worldvectorlogo.com/logos/training.svg" alt=""></a>
                 </div>
                 <div class="dropdown profile-action">
                     <a  class="action-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i
@@ -75,7 +73,7 @@
                     </div>
                 </div>
                 <h4 class="user-name m-t-10 mb-0 text-ellipsis"><a
-                        routerLink="/layout/employees/employeeprofile">{{emp.name}}</a>
+                        routerLink="/layout/accounts/invoice-view/{{emp._id}}">{{emp.name}}</a>
                 </h4>
                 <div class="small text-muted">{{emp.category}}</div>
             </div>

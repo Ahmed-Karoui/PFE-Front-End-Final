@@ -19,6 +19,7 @@ export class ProjectViewComponent implements OnInit {
   public activetasksByProject = [];
   public completedtasksByProject = [];
   public projectId: any;
+  public taskid: any;
   public project: any;
   public projectTitle;
   public projectStart;
@@ -26,6 +27,7 @@ export class ProjectViewComponent implements OnInit {
   public projectDescription;
   public addTaskForm: FormGroup;
   public pipe = new DatePipe('en-US');
+  public tempId: any;
 
   constructor(
     private allModulesService: AllModulesService,
@@ -103,5 +105,14 @@ export class ProjectViewComponent implements OnInit {
         this.completedtasksByProject =  this.tasksByProject.filter(o => o.status === 'Completed')
           console.log(this.tasksByProject)
         });
+  }
+
+  validateTask(id:any) {
+    this.taskServiceService.validateTaks(id).subscribe((data) => {
+      console.log('finished successfully');
+    });
+  }
+
+  deleteTask(tempId: any) {
   }
 }

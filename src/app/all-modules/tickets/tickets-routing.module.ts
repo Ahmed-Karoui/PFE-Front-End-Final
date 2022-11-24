@@ -15,7 +15,7 @@ const routes: Routes = [
         component:TicketsContentComponent
       },
       {
-        path:"ticketsview",
+        path:'ticketsview/:id',
         component:TicketsViewComponent
       }
     ]

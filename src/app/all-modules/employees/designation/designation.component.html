@@ -24,12 +24,15 @@
                         <tr>
                             <th style="width: 50%;">Public Holiday</th>
                             <th>Date </th>
+                          <th> Day of Week </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let item of lstDesignation">
                             <td>{{item.name}}</td>
                             <td>{{item.date}}</td>
+                          <td>{{item.date | date :'fullDate' }}</td>
+
                         </tr>
                     </tbody>
                 </table>

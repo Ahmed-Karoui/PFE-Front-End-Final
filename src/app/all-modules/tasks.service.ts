@@ -28,4 +28,8 @@ export class TasksService {
   loadTasksByProject(id: string): Observable<any> {
     return this.http.get(`${this.baseURL}/get-tasks-by-project/${id}`)
   }
+
+  validateTaks(id: string): Observable<any> {
+    return this.http.post(`${this.baseURL}/task-validate/${id}`, id)
+  }
 }

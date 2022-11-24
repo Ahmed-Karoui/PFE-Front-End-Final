@@ -5,10 +5,10 @@
     <div class="page-header">
         <div class="row align-items-center">
             <div class="col">
-                <h3 class="page-title">Invoice</h3>
+                <h3 class="page-title">Training Details</h3>
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a routerLink="/layout/dashboard/admin">Dashboard</a></li>
-                    <li class="breadcrumb-item active">Invoice</li>
+                    <li class="breadcrumb-item active">Training Details</li>
                 </ul>
             </div>
             <div class="col-auto float-end ms-auto">
@@ -38,7 +38,7 @@
                         </div>
                         <div class="col-sm-6 m-b-20">
                             <div class="invoice-details">
-                                <h3 class="text-uppercase">Invoice #INV-0001</h3>
+                                <h3 class="text-uppercase">{{trainingName}}</h3>
                                 <ul class="list-unstyled">
                                     <li>Date: <span>March 12, 2019</span></li>
                                     <li>Due date: <span>April 25, 2019</span></li>
@@ -81,7 +81,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>ITEM</th>
+                                    <th>Name</th>
                                     <th class="d-none d-sm-table-cell">DESCRIPTION</th>
                                     <th>UNIT COST</th>
                                     <th>QUANTITY</th>
@@ -89,50 +89,14 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <tr *ngFor="let user of usersByTraining;let i = index">
                                     <td>1</td>
-                                    <td>Android Application</td>
+                                    <td>{{user.name}}</td>
                                     <td class="d-none d-sm-table-cell">Lorem ipsum dolor sit amet, consectetur
                                         adipiscing elit</td>
                                     <td>$1000</td>
                                     <td>2</td>
                                     <td class="text-end">$2000</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Ios Application</td>
-                                    <td class="d-none d-sm-table-cell">Lorem ipsum dolor sit amet, consectetur
-                                        adipiscing elit</td>
-                                    <td>$1750</td>
-                                    <td>1</td>
-                                    <td class="text-end">$1750</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Codeigniter Project</td>
-                                    <td class="d-none d-sm-table-cell">Lorem ipsum dolor sit amet, consectetur
-                                        adipiscing elit</td>
-                                    <td>$90</td>
-                                    <td>3</td>
-                                    <td class="text-end">$270</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>Phonegap Project</td>
-                                    <td class="d-none d-sm-table-cell">Lorem ipsum dolor sit amet, consectetur
-                                        adipiscing elit</td>
-                                    <td>$1200</td>
-                                    <td>2</td>
-                                    <td class="text-end">$2400</td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>Website Optimization</td>
-                                    <td class="d-none d-sm-table-cell">Lorem ipsum dolor sit amet, consectetur
-                                        adipiscing elit</td>
-                                    <td>$200</td>
-                                    <td>2</td>
-                                    <td class="text-end">$400</td>
                                 </tr>
                             </tbody>
                         </table>

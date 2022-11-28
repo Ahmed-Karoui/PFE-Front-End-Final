@@ -37,17 +37,10 @@ export class EmployeePageContentComponent implements OnInit {
     this.loadEmployee();
     this.addEmployeeForm = this.formBuilder.group({
       FirstName: ['', [Validators.required]],
-      LastName: ['', [Validators.required]],
-      UserName: ['', [Validators.required]],
-      Password: ['', [Validators.required]],
-      ConfirmPassword: ['', [Validators.required]],
-      DepartmentName: ['', [Validators.required]],
-      Designation: ['', [Validators.required]],
-      Email: ['', [Validators.required]],
-      PhoneNumber: ['', [Validators.required]],
-      JoinDate: ['', [Validators.required]],
-      CompanyName: ['', [Validators.required]],
-      EmployeeID: ['', [Validators.required]],
+      TrainingDescription: ['', [Validators.required]],
+      trainingStatus: ['', [Validators.required]],
+      Deadline: ['', [Validators.required]],
+      trainingCategory: ['', [Validators.required]],
     });
 
     this.editEmployeeForm = this.formBuilder.group({
@@ -96,26 +89,17 @@ export class EmployeePageContentComponent implements OnInit {
       'dd-MM-yyyy'
     );
     const obj = {
-      firstname: this.addEmployeeForm.value.FirstName,
-      lastname: this.addEmployeeForm.value.LastName,
-      username: this.addEmployeeForm.value.UserName,
-      email: this.addEmployeeForm.value.Email,
-      password: this.addEmployeeForm.value.Password,
-      confirmpassword: this.addEmployeeForm.value.ConfirmPassword,
-      employeeId: this.addEmployeeForm.value.EmployeeID,
-      joindate: DateJoin,
-      phone: this.addEmployeeForm.value.PhoneNumber,
-      company: this.addEmployeeForm.value.CompanyName,
-      department: this.addEmployeeForm.value.DepartmentName,
-      designation: this.addEmployeeForm.value.Designation,
-      mobile: '9944996335',
-      role: 'Web developer',
+      name: this.addEmployeeForm.value.FirstName,
+      description: this.addEmployeeForm.value.TrainingDescription,
+      status: this.addEmployeeForm.value.trainingStatus,
+      category: this.addEmployeeForm.value.trainingCategory,
+      training_date: this.addEmployeeForm.value.Deadline,
     };
-    this.srvModuleService.add(obj, this.url).subscribe((data) => {});
+    this.trainingService.addTraining(obj).subscribe((data) => {});
     this.loadEmployee();
     $('#add_employee').modal('hide');
     this.addEmployeeForm.reset();
-    this.toastr.success('Employeee added sucessfully...!', 'Success');
+    this.toastr.success('Employee added successfully...!', 'Success');
   }
 
   editEmployee() {
@@ -232,4 +216,6 @@ export class EmployeePageContentComponent implements OnInit {
   getStatus(data) {
     this.statusValue = data;
   }
+
+
 }

@@ -92,7 +92,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Give Performance Appraisal</h5>
+                <h5 class="modal-title">Start Performance Appraisal Procedure</h5>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -103,53 +103,37 @@
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="col-form-label">Employee</label>
-                                <select class="form-select form-control"
-                                    [class.invalid]="addApparaisalForm.get('EmployeeName').invalid && addApparaisalForm.get('EmployeeName').touched"
-                                    formControlName="EmployeeName">
-                                    <option>Select Employee</option>
-                                    <option>John Doe</option>
-                                    <option>Mike Litorus</option>
-                                </select>
-                                <div
-                                    *ngIf="addApparaisalForm.get('EmployeeName').invalid && addApparaisalForm.get('EmployeeName').touched">
-                                    <small
-                                        *ngIf="addApparaisalForm.get('EmployeeName').invalid && addApparaisalForm.get('EmployeeName').touched"
-                                        class="text-danger"> Employee is required</small>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Select Date <span class="text-danger">*</span></label>
-                                <div class="cal-icon"> <input class="form-control datetimepicker" type="text"
-                                        bsDatepicker type="text"
-                                        [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY',  returnFocusToInput: true }"
-                                        [class.invalid]="addApparaisalForm.get('SelectDate').invalid && addApparaisalForm.get('SelectDate').touched"
-                                        formControlName="SelectDate">
-                                    <div
-                                        *ngIf="addApparaisalForm.get('SelectDate').invalid && addApparaisalForm.get('SelectDate').touched">
-                                        <small
-                                            *ngIf="addApparaisalForm.get('SelectDate').invalid && addApparaisalForm.get('SelectDate').touched"
-                                            class="text-danger"> Date is required</small>
-                                    </div>
-                                </div>
+                              <input class="form-control" type="text" formControlName="employeeName">
                             </div>
                         </div>
+                      <div class="col-sm-12">
+                        <div class="form-group">
+                          <label class="col-form-label">Departement</label>
+                          <select class="form-select form-control"
+                                  formControlName="StatusName">
+                            <option>SaaS</option>
+                            <option>Consulting</option>
+                          </select>
+                        </div>
+                      </div>
+
 
                         <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="col-form-label">Status</label>
-                                <select class="form-select form-control"
-                                    [class.invalid]="addApparaisalForm.get('StatusName').invalid && addApparaisalForm.get('StatusName').touched"
-                                    formControlName="StatusName">
-                                    <option>Active</option>
-                                    <option>InActive</option>
-                                </select>
-                                <div
-                                    *ngIf="addApparaisalForm.get('StatusName').invalid && addApparaisalForm.get('StatusName').touched">
-                                    <small
-                                        *ngIf="addApparaisalForm.get('StatusName').invalid && addApparaisalForm.get('StatusName').touched"
-                                        class="text-danger"> Date is required</small>
-                                </div>
+                          <div class="form-group">
+                            <label>Appraisal Meeting Date <span class="text-danger">*</span></label>
+                            <div class="cal-icon">
+                              <input class="form-control datetimepicker" type="text" bsDatepicker type="text"
+                                     [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY',  returnFocusToInput: true }"
+                                     [class.invalid]="editApparaisalForm.get('SelectDate').invalid && editApparaisalForm.get('SelectDate').touched"
+                                     formControlName="appraisalmeetingDate">
+                              <div
+                                *ngIf="editApparaisalForm.get('SelectDate').invalid && editApparaisalForm.get('SelectDate').touched">
+                                <small
+                                  *ngIf="editApparaisalForm.get('SelectDate').invalid && editApparaisalForm.get('SelectDate').touched"
+                                  class="text-danger"> Date is required</small>
+                              </div>
                             </div>
+                          </div>
                         </div>
                     </div>
 
@@ -168,7 +152,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Give Performance Appraisal</h5>
+                <h5 class="modal-title">Start Appraisal Meeting Process</h5>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -180,18 +164,11 @@
                             <div class="form-group">
                                 <label class="col-form-label">Employee</label>
                                 <select class="form-select form-control"
-                                    [class.invalid]="editApparaisalForm.get('EmployeeName').invalid && editApparaisalForm.get('EmployeeName').touched"
                                     formControlName="EmployeeName">
                                     <option>Select Employee</option>
                                     <option>John Doe</option>
                                     <option>Mike Litorus</option>
                                 </select>
-                                <div
-                                    *ngIf="editApparaisalForm.get('EmployeeName').invalid && editApparaisalForm.get('EmployeeName').touched">
-                                    <small
-                                        *ngIf="editApparaisalForm.get('EmployeeName').invalid && editApparaisalForm.get('EmployeeName').touched"
-                                        class="text-danger"> Employee is required</small>
-                                </div>
                             </div>
                             <div class="form-group">
                                 <label>Select Date <span class="text-danger">*</span></label>

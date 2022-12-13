@@ -51,7 +51,7 @@
                                 class="material-icons">more_vert</i></a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#edit_project"
-                               (click)="tempId = project._id"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                               (click)="editProject(project._id)"><i class="fa fa-pencil m-r-5"></i> Edit</a>
                             <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#delete_project"
                                 (click)="tempId = project._id"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                         </div>
@@ -185,8 +185,9 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label>Client</label>
+                                <label>Category</label>
                                 <select class="form-select form-control" formControlName="EditprojectCategory">
+                                  <option selected disabled>{{projectCategory}}</option>
                                     <option>SaaS</option>
                                     <option>Consulting</option>
                                 </select>
@@ -200,12 +201,20 @@
                             <div class="form-group">
                                 <label>Deadline</label>
                                 <div class="cal-icon">
-                                    <input class="form-control datetimepicker" type="text" bsDatepicker type="text"
+                                    <input class="form-control datetimepicker" type="text" bsDatepicker type="text" value="{{deadline | date:'yyyy-MM-dd' }}"
                                         [bsConfig]="{ dateInputFormat: 'YYYY-MM-dd',  returnFocusToInput: true }"
                                         formControlName="editProjectEndDate">
                                 </div>
                             </div>
                         </div>
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label>Project Status</label>
+                          <input class="form-control" type="text"
+                                 formControlName="editProjectStatus">
+                        </div>
+                      </div>
+
                     </div>
                     <div class="form-group">
                         <label>Description</label>

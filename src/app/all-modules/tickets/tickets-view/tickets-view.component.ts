@@ -8,6 +8,7 @@ import {TasksService} from '../../tasks.service';
 import {ToastrService} from 'ngx-toastr';
 import {TicketsService} from '../../tickets.service';
 
+declare const $: any;
 @Component({
   selector: 'app-tickets-view',
   templateUrl: './tickets-view.component.html',
@@ -26,6 +27,7 @@ export class TicketsViewComponent implements OnInit {
   public estiamteDate ;
   public taskStatus ;
   public taskContent ;
+  public taskpriority;
 
 
 
@@ -43,6 +45,9 @@ export class TicketsViewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    $(document).ready(function () {
+      $('[data-bs-toggle="tooltip"]').tooltip();
+    });
     this.route.params
       .pipe(
         map((_id) => {
@@ -63,7 +68,29 @@ export class TicketsViewComponent implements OnInit {
         this.estiamteDate = this.task[0].estiamte_date;
         this.taskStatus = this.task[0].status;
         this.taskContent = this.task[0].content ;
+        this.taskpriority = this.task[0].priority;
 
       });
   }
-}
+
+  resolveTicket(){
+    const validatedTicket = {
+      description: this.task[0].description,
+      category: this.task[0].category,
+      urgency: this.task[0].urgency,
+      departement: this.task[0].departement,
+      creation_date: this.task[0].creation_date,
+      content: this.task[0].content,
+      status: 'Solved',
+    }
+
+      this.ticketService.validateTicket(validatedTicket, this.task[0]._id).subscribe(response => {
+        console.log(response);
+;
+
+      })
+    //this.getProjects();
+    $('#validate_ticket').modal('hide');
+    this.toastr.success('Ticket Has Been Validated sucessfully...!', 'Success');
+    }
+  }

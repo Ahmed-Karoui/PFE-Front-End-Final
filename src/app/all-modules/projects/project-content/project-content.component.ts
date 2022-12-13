@@ -22,6 +22,9 @@ export class ProjectContentComponent implements OnInit, OnDestroy {
   public editProjectForm: FormGroup;
   public tempId: any;
 
+  public projectCategory;
+ public deadline;
+ public editedProject;
   public rows = [];
   public srch = [];
   public statusValue;
@@ -53,8 +56,10 @@ export class ProjectContentComponent implements OnInit, OnDestroy {
         editProjectName: ['', [Validators.required]],
         editProjectDescription: ['', [Validators.required]],
         // editProjectStartDate: ['', [Validators.required]],
-        editProjectEndDate: ['']
-        // editProjectPriority: ['', [Validators.required]],
+        editProjectEndDate: [''],
+        editProjectStatus: ['', [Validators.required]],
+      editProjectCategory: ['', [Validators.required]]
+      // editProjectPriority: ['', [Validators.required]],
         // editaddTeamMembers: ['', [Validators.required]],
         // editProjectId: ['', [Validators.required]],
         // editId: ['', [Validators.required]],
@@ -107,27 +112,28 @@ export class ProjectContentComponent implements OnInit, OnDestroy {
     this.getProjects();
     this.addProjectForm.reset();
     $('#create_project').modal('hide');
+    this.getProjects();
     this.toastr.success('Project added sucessfully...!', 'Success');
   }
 
   // Edit project
   editProject(id: any) {
     this.tempId = id;
-    const index = this.projects.findIndex((item) => {
-      return item._id === id;
-    });
-    const toSetValues = this.projects[index];
+    const project = this.projects.filter((client) => client._id === id);
+    console.log(project);
+    this.projectCategory = project[0].category;
+    this.deadline = project[0].Deadline;
     this.editProjectForm.setValue({
-      editProjectName: toSetValues.project_name,
-      editProjectDescription: toSetValues.description,
-      editProjectEndDate: toSetValues.deadline,
-      EditprojectCategory: toSetValues.category
-      // editProjectStartDate: toSetValues.startDate,
-      // editProjectPriority: toSetValues.priority,
-      // editaddTeamMembers: toSetValues.teamMember,
-      // editProjectId: toSetValues.projectId,
-      // editId: toSetValues.id,
+      editProjectName: project[0].project_name,
+      editProjectDescription: project[0].description,
+      editProjectEndDate: project[0].Deadline,
+      editProjectStatus: project[0].status,
+      editProjectCategory: project[0].category
     });
+
+    this.editedProject = {
+      editId: project[0]._id,
+    };
   }
 
   // Save Project
@@ -143,15 +149,16 @@ export class ProjectContentComponent implements OnInit, OnDestroy {
     const editedProject = {
       project_name: this.editProjectForm.value.editProjectName,
       description: this.editProjectForm.value.editProjectDescription,
-      deadline: EndDate,
-      categoty: this.editProjectForm.value.EditprojectCategory
+      Deadline: this.editProjectForm.value.projectEndDate,
+      category: this.editProjectForm.value.editProjectCategory,
+      status:this.editProjectForm.value.editProjectStatus,
     };
     this.projectsService.updateProject(editedProject, id).subscribe(response => {
       console.log(response)
     })
-    this.getProjects();
     this.editProjectForm.reset();
     $('#edit_project').modal('hide');
+    this.getProjects();
     this.toastr.success('Project updated sucessfully...!', 'Success');
   }
 

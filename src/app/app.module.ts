@@ -22,8 +22,8 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     ToastrModule.forRoot(
       {
-        timeOut: 1500,
-        positionClass: 'toast-bottom-right',
+        timeOut: 3000,
+        positionClass: 'toast-top-right',
         preventDuplicates: true,
       }
     ),

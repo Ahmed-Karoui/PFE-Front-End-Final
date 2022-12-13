@@ -136,7 +136,7 @@
                     <tbody>
                         <tr *ngFor="let tickets of allTickets;let i = index">
                             <td>{{i + 1}}</td>
-                            <td><a routerLink="/layout/tickets/ticketsview/{{tickets._id}}">{{tickets._id}}</a></td>
+                            <td><a routerLink="/layout/tickets/ticketsview/{{tickets._id}}">{{tickets._id | slice:6:12}}</a></td>
                             <td>{{tickets.description}}</td>
                             <td>
                               {{tickets.category}}
@@ -146,16 +146,17 @@
                             <td>
                                 <div class="dropdown action-label">
                                     <a class="btn btn-white btn-sm btn-rounded" data-bs-toggle="dropdown"
-                                        aria-expanded="false"><i class="fa fa-dot-circle-o text-danger"></i> {{tickets.urgency}} </a>
+                                        aria-expanded="false"><i *ngIf="tickets.urgency == 'P2' || tickets.urgency == 'P1';else content" class="fa fa-dot-circle-o text-danger"></i> {{tickets.urgency}} </a>
+                                </div><ng-template #content> <i class="fa fa-dot-circle-o text-warning"></i></ng-template>
 
-                                </div>
                             </td>
                             <td class="text-center">
                                 <div class="dropdown action-label">
                                     <a class="btn btn-white btn-sm btn-rounded" data-bs-toggle="dropdown"
                                         aria-expanded="false">
-                                        <i class="fa fa-dot-circle-o text-success"></i> {{tickets.status}}
+                                        <i *ngIf="tickets.status == 'Active';else contentStatus" class="fa fa-dot-circle-o text-danger" ></i> {{tickets.status}}
                                     </a>
+                                  <ng-template #contentStatus> <i class="fa fa-dot-circle-o text-success"></i></ng-template>
                                 </div>
                             </td>
                             <td class="text-end">

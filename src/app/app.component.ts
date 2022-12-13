@@ -8,7 +8,7 @@ declare const $: any;
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'smarthr';
+  title = 'Plansware-MIS-Talent-Management';
   url: string;
   constructor(private router: Router){
     this.router.events.subscribe((event: Event) => {

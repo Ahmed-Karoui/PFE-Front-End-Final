@@ -24,4 +24,9 @@ export class TicketsService {
   deleteTicket(id: any): Observable<any> {
     return this.http.delete(`${this.baseURL}/delete-ticket/${id}`)
   }
+
+
+  validateTicket(data: any, id: string): Observable<any> {
+    return this.http.patch(`${this.baseURL}/validate-ticket/${id}`, data)
+  }
 }

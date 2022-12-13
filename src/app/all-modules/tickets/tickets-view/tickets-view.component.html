@@ -30,11 +30,15 @@
                                                                     <span class="h5 card-title ">{{taskDescription}}</span>
                                                                     <div class="float-end ticket-priority"><span> Priority : </span>
                                                                         <div class="btn-group">
-                                                                            <a class="badge badge-primary" data-bs-toggle="dropdown">{{taskStatus}} </a></div>
+                                                                            <a class="badge badge-primary" style="font-size: 14px" data-bs-toggle="dropdown"> {{taskUrgency}} </a></div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <p> {{taskContent}} </p>
+                                                          <br>
+                                                          <br>
+                                                          <div class="btn-group" style="margin-left: 40%">
+                                                            <a class="badge badge-primary" style="font-size: 16px" data-bs-toggle="modal" data-bs-target="#validate_ticket"> Confirm Resolution </a></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -412,3 +416,31 @@
                 </div>
                 <!-- /Task Followers Modal -->
 
+
+
+<!-- Delete Project Modal -->
+<div class="modal custom-modal fade" id="validate_ticket" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="form-header">
+          <h3>Confirm Ticket Resolution</h3>
+          <p>Are you sure want to set this Ticket to Resolved?</p>
+        </div>
+        <div class="modal-btn delete-action">
+          <div class="row">
+            <div class="col-6">
+              <a  class="btn btn-primary continue-btn"
+                  (click)="resolveTicket()">Confirm Resolution</a>
+            </div>
+            <div class="col-6">
+              <a  data-bs-dismiss="modal"
+                  class="btn btn-primary cancel-btn">Cancel</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Delete Project Modal -->

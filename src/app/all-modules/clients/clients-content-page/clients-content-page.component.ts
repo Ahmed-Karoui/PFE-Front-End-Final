@@ -33,6 +33,14 @@ export class ClientsContentPageComponent implements OnInit, OnDestroy {
   public statusValue;
   public dtTrigger: Subject<any> = new Subject();
   public pipe = new DatePipe('en-US');
+  public usersList = [];
+  public hiredate;
+  public birthdate;
+  public Status;
+  public EditID;
+  preview: string;
+
+
 
   constructor(
     private allModulesService: AllModulesService,
@@ -59,18 +67,24 @@ export class ClientsContentPageComponent implements OnInit, OnDestroy {
       userGender: ['', [Validators.required]],
       userManager: ['', [Validators.required]],
       userStatus: ['', [Validators.required]],
+      userAvatar: ['', [Validators.required]],
 
     });
 
     // Edit Clients Form
     this.editClientForm = this.formBuilder.group({
       editClientName: ['', [Validators.required]],
+      editClientLastName: ['', [Validators.required]],
       editClientPhone: ['', [Validators.required]],
       editClientEmail: ['', [Validators.required]],
-      editClientCompany: ['', [Validators.required]],
       editClientRole: ['', [Validators.required]],
-      editClientId: ['', [Validators.required]],
       editId: ['', [Validators.required]],
+      editClientBirthday: ['', [Validators.required]],
+      editClientHiredate: ['', [Validators.required]],
+      editClientGender: ['', [Validators.required]],
+      editClientManager: ['', [Validators.required]],
+      editClientStatus: ['', [Validators.required]],
+
     });
   }
 
@@ -106,16 +120,60 @@ export class ClientsContentPageComponent implements OnInit, OnDestroy {
 
   // Edit client
   public onEditClient(clientId: any) {
-    const client = this.clientsData.filter((client) => client.id === clientId);
+    const client = this.clientsData.filter((client) => client._id === clientId);
+    this.hiredate = client[0].Hire_date;
+    this.birthdate = client[0].Birth_date;
+    this.Status = client[0].status;
+    this.EditID=client[0]._id;
+    console.log(client);
     this.editClientForm.setValue({
       editClientName: client[0].name,
       editClientPhone: client[0].phone,
       editClientEmail: client[0].email,
-      editClientCompany: client[0].company,
       editClientRole: client[0].role,
-      editClientId: client[0].clientId,
-      editId: client[0].id,
-    });
+      editId: client[0]._id,
+      editClientLastName: client[0].last_name,
+      editClientBirthday: client[0].Birth_date,
+      editClientHiredate: client[0].Hire_date,
+      editClientGender: client[0].gender,
+      editClientManager: client[0].manager,
+      editClientStatus: client[0].status,
+  });
+
+    this.editedClient = {
+      editClientName: client[0].name,
+      editClientLastName: client[0].last_name,
+      editClientPhone: client[0].phone,
+      editClientEmail: client[0].email,
+      editClientRole: client[0].role,
+      editId: client[0]._id,
+      editClientBirthday: client[0].Birth_date,
+      editClientHiredate: client[0].Hire_date,
+      editClientGender: client[0].gender,
+      editClientManager: client[0].manager,
+      editClientStatus: client[0].status,
+    };
+  }
+  public updateUser(){
+    let updatedUser = {
+      name: this.editClientForm.value.editClientName,
+      last_name: this.editClientForm.value.editClientLastName,
+      phone: this.editClientForm.value.editClientPhone,
+      email: this.editClientForm.value.editClientEmail,
+      role: this.editClientForm.value.editClientRole,
+      Birth_date: this.editClientForm.value.editClientBirthday,
+      Hire_date: this.editClientForm.value.editClientHiredate,
+      gender: this.editClientForm.value.editClientGender,
+      manager: this.editClientForm.value.editClientManager,
+      status: this.editClientForm.value.editClientStatus,
+
+    };
+    this.userService.updateUser(updatedUser, this.EditID).subscribe((data)=>
+    {
+      this.getClients();
+      $('#edit_client').modal('hide');
+      this.toastr.success('Client is updated', 'Success');
+  });
   }
 
   // Reset form
@@ -125,19 +183,6 @@ export class ClientsContentPageComponent implements OnInit, OnDestroy {
 
   // Save Client
   public onSave() {
-    this.editedClient = {
-      name: this.editClientForm.value.editClientName,
-      role: 'CEO',
-      company: this.editClientForm.value.editClientCompany,
-      clientId: this.editClientForm.value.editClientId,
-      email: this.editClientForm.value.editClientEmail,
-      phone: this.editClientForm.value.editClientPhone,
-      id: this.editClientForm.value.editId,
-    };
-    this.allModulesService.update(this.editedClient, 'clients').subscribe();
-    this.getClients();
-    $('#edit_client').modal('hide');
-    this.toastr.success('Client is updated', 'Success');
   }
 
 
@@ -164,6 +209,7 @@ export class ClientsContentPageComponent implements OnInit, OnDestroy {
       manager: this.addClientForm.value.userManager,
       phone: this.addClientForm.value.userPhone,
       status: this.addClientForm.value.userStatus,
+      avatar:this.addClientForm.value.userAvatar,
     };
     this.userService.addUser(newClient).subscribe((data) => {
     this.getClients();
@@ -246,4 +292,23 @@ export class ClientsContentPageComponent implements OnInit, OnDestroy {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
   }
+
+
+  // Image Preview
+  uploadFile(event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    this.addClientForm.patchValue({
+      avatar: file,
+    });
+    this.addClientForm.get('userAvatar').updateValueAndValidity();
+
+    // File Preview
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.preview = reader.result as string;
+    };
+    reader.readAsDataURL(file);
+  }
+
+
 }

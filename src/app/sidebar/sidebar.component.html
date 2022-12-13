@@ -587,7 +587,7 @@
             >
           </li>
           <li class="menu-title">
-            <span>Pages</span>
+            <span>Employee</span>
           </li>
           <li
             class="submenu"
@@ -631,58 +631,6 @@
                   }"
                 >
                   Employee Profile
-                </a>
-              </li>
-              <li routerLink="/layout/clients/clientsprofile/1">
-                <a
-                  href="javascript:"
-                  [ngClass]="{
-                    active: urlComplete.subUrl === 'clientsprofile'
-                  }"
-                >
-                  Client Profile
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li
-            class="submenu"
-            [ngClass]="{ active: urlComplete.mainUrl === 'login' }"
-          >
-            <a
-              href="javascript:"
-              [ngClass]="{ subdrop: urlComplete.mainUrl === 'login' }"
-              ><i class="la la-key"></i> <span> Authentication </span>
-              <span class="menu-arrow"></span
-            ></a>
-            <ul
-              style="display: none"
-              [ngStyle]="{
-                display: urlComplete.mainUrl === 'login' ? 'block' : 'none'
-              }"
-            >
-              <li routerLink="/login">
-                <a
-                  href="javascript:"
-                  [ngClass]="{ active: urlComplete.subUrl === 'login' }"
-                >
-                  Login
-                </a>
-              </li>
-              <li routerLink="/login/register">
-                <a
-                  href="javascript:"
-                  [ngClass]="{ active: urlComplete.subUrl === 'register' }"
-                >
-                  Register
-                </a>
-              </li>
-              <li routerLink="/login/forgot">
-                <a
-                  href="javascript:"
-                  [ngClass]="{ active: urlComplete.subUrl === 'forgot' }"
-                >
-                  Forgot Password
                 </a>
               </li>
             </ul>

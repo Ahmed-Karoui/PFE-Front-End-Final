@@ -1,30 +1,30 @@
-import { DatePipe } from "@angular/common";
-import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { DataTableDirective } from "angular-datatables";
-import { ToastrService } from "ngx-toastr";
-import { Subject } from "rxjs";
-import { AllModulesService } from "../../all-modules.service";
+import { DatePipe } from '@angular/common';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DataTableDirective } from 'angular-datatables';
+import { ToastrService } from 'ngx-toastr';
+import { Subject } from 'rxjs';
+import { AllModulesService } from '../../all-modules.service';
 
 declare const $: any;
 @Component({
-  selector: "app-performance-appraisal",
-  templateUrl: "./performance-appraisal.component.html",
-  styleUrls: ["./performance-appraisal.component.css"],
+  selector: 'app-performance-appraisal',
+  templateUrl: './performance-appraisal.component.html',
+  styleUrls: ['./performance-appraisal.component.css'],
 })
 export class PerformanceAppraisalComponent implements OnInit, OnDestroy {
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective, { static: false })
   public dtElement: DataTableDirective;
   lstData: any[];
-  url: any = "performanceappraisal";
+  url: any = 'performanceappraisal';
 
   public tempId: any;
   public editId: any;
 
   public addApparaisalForm: FormGroup;
   public editApparaisalForm: FormGroup;
-  public pipe = new DatePipe("en-US");
+  public pipe = new DatePipe('en-US');
   public rows = [];
   public srch = [];
   public statusValue;
@@ -40,21 +40,21 @@ export class PerformanceAppraisalComponent implements OnInit, OnDestroy {
 
     /// validation for apparaisal form
     this.addApparaisalForm = this.formBuilder.group({
-      EmployeeName: ["", [Validators.required]],
-      SelectDate: ["", [Validators.required]],
-      StatusName: ["", [Validators.required]],
+      EmployeeName: ['', [Validators.required]],
+      SelectDate: ['', [Validators.required]],
+      StatusName: ['', [Validators.required]],
     });
 
     this.editApparaisalForm = this.formBuilder.group({
-      EmployeeName: ["", [Validators.required]],
-      SelectDate: ["", [Validators.required]],
-      StatusName: ["", [Validators.required]],
+      EmployeeName: ['', [Validators.required]],
+      SelectDate: ['', [Validators.required]],
+      StatusName: ['', [Validators.required]],
     });
     // for data table configuration
     this.dtOptions = {
       // ... skipped ...
       pageLength: 10,
-      dom: "lrtip",
+      dom: 'lrtip',
     };
   }
 
@@ -75,7 +75,7 @@ export class PerformanceAppraisalComponent implements OnInit, OnDestroy {
   }
 
   private markFormGroupTouched(formGroup: FormGroup) {
-    (<any>Object).values(formGroup.controls).forEach((control) => {
+    (Object as any).values(formGroup.controls).forEach((control) => {
       control.markAsTouched();
       if (control.controls) {
         this.markFormGroupTouched(control);
@@ -90,56 +90,56 @@ export class PerformanceAppraisalComponent implements OnInit, OnDestroy {
       return
     }
     if (this.addApparaisalForm.valid) {
-      let apparaisalDate = this.pipe.transform(
+      const apparaisalDate = this.pipe.transform(
         this.addApparaisalForm.value.SelectDate,
-        "dd-MM-yyyy"
+        'dd-MM-yyyy'
       );
-      let obj = {
+      const obj = {
         employee: this.addApparaisalForm.value.EmployeeName,
         apparaisaldate: apparaisalDate,
-        designation: "Web Designer",
-        department: "Web development",
+        designation: 'Web Designer',
+        department: 'Web development',
         status: this.addApparaisalForm.value.StatusName,
       };
       this.srvModuleService.add(obj, this.url).subscribe((data) => {
-        $("#datatable").DataTable().clear();
+        $('#datatable').DataTable().clear();
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.destroy();
         });
         this.dtTrigger.next();
       });
       this.loadData();
-      $("#add_appraisal").modal("hide");
+      $('#add_appraisal').modal('hide');
       this.addApparaisalForm.reset();
-      this.toastr.success("Apparaisal added sucessfully...!", "Success");
+      this.toastr.success('Apparaisal added sucessfully...!', 'Success');
     }
   }
   // Edit apparaisal Modal Api Call
 
   editApparaisal() {
     if (this.editApparaisalForm.valid) {
-      let apparaisalDate = this.pipe.transform(
+      const apparaisalDate = this.pipe.transform(
         this.editApparaisalForm.value.SelectDate,
-        "dd-MM-yyyy"
+        'dd-MM-yyyy'
       );
-      let obj = {
+      const obj = {
         employee: this.editApparaisalForm.value.EmployeeName,
         apparaisaldate: apparaisalDate,
-        designation: "Web Designer",
-        department: "Web development",
+        designation: 'Web Designer',
+        department: 'Web development',
         status: this.editApparaisalForm.value.StatusName,
         id: this.editId,
       };
       this.srvModuleService.update(obj, this.url).subscribe((data) => {
-        $("#datatable").DataTable().clear();
+        $('#datatable').DataTable().clear();
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.destroy();
         });
         this.dtTrigger.next();
       });
       this.loadData();
-      $("#edit_appraisal").modal("hide");
-      this.toastr.success("Apparaisal updated sucessfully...!", "Success");
+      $('#edit_appraisal').modal('hide');
+      this.toastr.success('Apparaisal updated sucessfully...!', 'Success');
     }
   }
   edit(value) {
@@ -147,7 +147,7 @@ export class PerformanceAppraisalComponent implements OnInit, OnDestroy {
     const index = this.lstData.findIndex((item) => {
       return item.id === value;
     });
-    let toSetValues = this.lstData[index];
+    const toSetValues = this.lstData[index];
     this.editApparaisalForm.setValue({
       EmployeeName: toSetValues.employee,
       SelectDate: toSetValues.apparaisaldate,
@@ -159,18 +159,18 @@ export class PerformanceAppraisalComponent implements OnInit, OnDestroy {
 
   deleteApparaisal() {
     this.srvModuleService.delete(this.tempId, this.url).subscribe((data) => {
-      $("#datatable").DataTable().clear();
+      $('#datatable').DataTable().clear();
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.destroy();
       });
       this.dtTrigger.next();
     });
     this.loadData();
-    $("#delete_appraisal").modal("hide");
-    this.toastr.success("Record deleted sucessfully...!", "Success");
+    $('#delete_appraisal').modal('hide');
+    this.toastr.success('Record deleted sucessfully...!', 'Success');
   }
 
-  //getting the status value
+  // getting the status value
   getStatus(data) {
     this.statusValue = data;
   }

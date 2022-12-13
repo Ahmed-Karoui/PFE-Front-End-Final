@@ -5,10 +5,10 @@
     <div class="page-header">
         <div class="row align-items-center">
             <div class="col">
-                <h3 class="page-title">Clients</h3>
+                <h3 class="page-title">Users</h3>
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a routerLink="/layout/dashboard/admin">Dashboard</a></li>
-                    <li class="breadcrumb-item active">Clients</li>
+                    <li class="breadcrumb-item active">Users</li>
                 </ul>
             </div>
             <div class="col-auto float-end ms-auto">
@@ -79,7 +79,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Add Client</h5>
+                <h5 class="modal-title">Add User</h5>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -147,7 +147,7 @@
                       </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="col-form-label">Role <span class="text-danger">*</span></label>
+                                <label class="col-form-label">Departement <span class="text-danger">*</span></label>
                               <select class="form-select form-control" formControlName="userRole">
                                 <option>SaaS</option>
                                 <option>Consulting</option>
@@ -188,6 +188,13 @@
                           </select>
                         </div>
                       </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="col-form-label">Avatar <span class="text-danger">*</span></label>
+                          <input type="file" formControlName="userAvatar" (change)="uploadFile($event)">
+                        </div>
+                      </div>
+
                     </div>
                     <div class="submit-section">
                         <button class="btn btn-primary submit-btn">Submit</button>
@@ -201,119 +208,114 @@
 
 <!-- Edit Client Modal -->
 <div id="edit_client" class="modal custom-modal fade" role="dialog">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Edit Client</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit User</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="updateUser()" [formGroup]="editClientForm">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-form-label">First Name <span class="text-danger">*</span></label>
+                <input class="form-control" type="text"
+                       [class.invalid]="editClientForm.get('editClientName').invalid && editClientForm.get('editClientName').touched"
+                       formControlName="editClientName">
+                <div
+                  *ngIf="editClientForm.get('editClientName').invalid && editClientForm.get('editClientName').touched">
+                  <small
+                    *ngIf="editClientForm.get('editClientName').invalid && editClientForm.get('editClientName').touched"
+                    class="text-danger"> *Name is required</small>
+                </div>
+              </div>
             </div>
-            <div class="modal-body">
-                <form [formGroup]="editClientForm">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="col-form-label">First Name <span class="text-danger">*</span></label>
-                                <input class="form-control" type="text"
-                                    [class.invalid]="editClientForm.get('editClientName').invalid && editClientForm.get('editClientName').touched"
-                                    formControlName="editClientName">
-                                <div
-                                    *ngIf="editClientForm.get('editClientName').invalid && editClientForm.get('editClientName').touched">
-                                    <small
-                                        *ngIf="editClientForm.get('editClientName').invalid && editClientForm.get('editClientName').touched"
-                                        class="text-danger"> *Name is required</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="col-form-label">Last Name</label>
-                                <input class="form-control" type="text">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="col-form-label">Username <span class="text-danger">*</span></label>
-                                <input class="form-control" value="barrycuda" type="text">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="col-form-label">Email <span class="text-danger">*</span></label>
-                                <input class="form-control" type="text"
-                                    [class.invalid]="editClientForm.get('editClientEmail').invalid && editClientForm.get('editClientEmail').touched"
-                                    formControlName="editClientEmail">
-                                <div
-                                    *ngIf="editClientForm.get('editClientEmail').invalid && editClientForm.get('editClientEmail').touched">
-                                    <small
-                                        *ngIf="editClientForm.get('editClientEmail').invalid && editClientForm.get('editClientEmail').touched"
-                                        class="text-danger"> *Email is required</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="col-form-label">Password</label>
-                                <input class="form-control" value="barrycuda" type="password">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="col-form-label">Confirm Password</label>
-                                <input class="form-control" value="barrycuda" type="password">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="col-form-label">Client ID <span class="text-danger">*</span></label>
-                                <input class="form-control" type="text"
-                                    [class.invalid]="editClientForm.get('editClientId').invalid && editClientForm.get('editClientId').touched"
-                                    formControlName="editClientId">
-                                <div
-                                    *ngIf="editClientForm.get('editClientId').invalid && editClientForm.get('editClientId').touched">
-                                    <small
-                                        *ngIf="editClientForm.get('editClientId').invalid && editClientForm.get('editClientId').touched"
-                                        class="text-danger"> *Id is required</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="col-form-label">Phone <span class="text-danger">*</span> </label>
-                                <input class="form-control" type="text"
-                                    [class.invalid]="editClientForm.get('editClientPhone').invalid && editClientForm.get('editClientPhone').touched"
-                                    formControlName="editClientPhone">
-                                <div
-                                    *ngIf="editClientForm.get('editClientPhone').invalid && editClientForm.get('editClientPhone').touched">
-                                    <small
-                                        *ngIf="editClientForm.get('editClientPhone').invalid && editClientForm.get('editClientPhone').touched"
-                                        class="text-danger"> *Phone is required</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="col-form-label">Company Name <span class="text-danger">*</span></label>
-                                <input class="form-control" type="text"
-                                    [class.invalid]="editClientForm.get('editClientCompany').invalid && editClientForm.get('editClientCompany').touched"
-                                    formControlName="editClientCompany">
-                                <div
-                                    *ngIf="editClientForm.get('editClientCompany').invalid && editClientForm.get('editClientCompany').touched">
-                                    <small
-                                        *ngIf="editClientForm.get('editClientCompany').invalid && editClientForm.get('editClientCompany').touched"
-                                        class="text-danger"> *Company is required</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="submit-section">
-                        <button class="btn btn-primary submit-btn" (click)="onSave()">Save</button>
-                    </div>
-                </form>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-form-label">Last Name</label>
+                <input class="form-control" type="text" formControlName="editClientLastName">
+              </div>
             </div>
-        </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="col-form-label">Email <span class="text-danger">*</span></label>
+                <input class="form-control" type="text"
+                       [class.invalid]="editClientForm.get('editClientEmail').invalid && editClientForm.get('editClientEmail').touched"
+                       formControlName="editClientEmail">
+                <div
+                  *ngIf="editClientForm.get('editClientEmail').invalid && editClientForm.get('editClientEmail').touched">
+                  <small
+                    *ngIf="editClientForm.get('editClientEmail').invalid && editClientForm.get('editClientEmail').touched"
+                    class="text-danger"> *Email is required</small>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="col-form-label">Birthday</label>
+                <input class="form-control" type="date" formControlName="editClientBirthday" value="{{ birthdate | date:'yyyy-MM-dd' }}">
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="col-form-label">Date of hire</label>
+                <input class="form-control" type="date" formControlName="editClientHiredate" value="{{ hiredate | date:'yyyy-MM-dd' }}">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-form-label">Departement <span class="text-danger">*</span></label>
+                <select class="form-select form-control" formControlName="editClientRole">
+                  <option>SaaS</option>
+                  <option>Consulting</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-form-label">Gender <span class="text-danger">*</span></label>
+                <select class="form-select form-control" formControlName="editClientGender">
+                  <option>Male</option>
+                  <option>Female</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="col-form-label">Phone Number</label>
+                <input class="form-control" type="phone"
+                       formControlName="editClientPhone">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-form-label">Manager <span class="text-danger">*</span></label>
+                <select class="form-select form-control" formControlName="editClientManager">
+                  <option>Ahmed Karoui</option>
+                  <option>Olwhen Sehli</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-form-label">Status <span class="text-danger">*</span></label>
+                <select class="form-select form-control" formControlName="editClientStatus">
+                  <option>Hired</option>
+                  <option>Candidate</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="submit-section">
+            <button class="btn btn-primary submit-btn">Submit</button>
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
 </div>
 <!-- /Edit Client Modal -->
 

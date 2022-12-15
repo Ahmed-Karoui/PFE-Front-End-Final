@@ -25,6 +25,7 @@ import {
 } from 'angular-calendar';
 import {LeavesService} from '../../leaves.service';
 import {ToastrService} from 'ngx-toastr';
+import {TokenStorageService} from '../../../login/token-storage.service';
 
 declare const $: any;
 
@@ -87,7 +88,7 @@ const colors: any = {
 })
 export class CalendarComponent implements OnInit {
   public allLeaves: any = [];
-  constructor(private modal: NgbModal,private leaveservice: LeavesService,    private toastr: ToastrService,
+  constructor(private modal: NgbModal,private leaveservice: LeavesService,    private toastr: ToastrService,private tokenStorage: TokenStorageService
   ) {}
   bsInlineRangeValue: Date[];
   eventName: string;
@@ -96,6 +97,7 @@ export class CalendarComponent implements OnInit {
   editCategory: string;
   editAction;
   editCalendarEvent;
+  currentuser:any;
 
 
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
@@ -253,9 +255,10 @@ export class CalendarComponent implements OnInit {
       title: this.eventName,
       start_date: startOfDay(this.bsInlineRangeValue[0]),
       end_date: endOfDay(this.bsInlineRangeValue[1]),
-      status:'Waiting For Approval'
+      status:'Waiting For Approval',
+      owner:this.currentuser.id
     }
-    console.log(this.eventName)
+    // console.log(this.currentuser)
     this.leaveservice.addLeave(newLeave).subscribe((data) => {
     $('#add_event').modal('hide');
       this.toastr.success('Client is added', 'Success');
@@ -306,5 +309,7 @@ export class CalendarComponent implements OnInit {
 
   ngOnInit() {
     this.getLeaves();
+    this.currentuser = this.tokenStorage.getUser();
+
   }
 }

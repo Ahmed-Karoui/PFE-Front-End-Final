@@ -27,9 +27,9 @@
                 <div class="card-body">
                     <div class="project-title">
                         <h5 class="card-title">{{projectTitle}}</h5>
-                        <small class="block text-ellipsis m-b-15"><span class="text-xs">2</span> <span
-                                class="text-muted">open tasks, </span><span class="text-xs">5</span> <span
-                                class="text-muted">tasks completed</span></small>
+                        <small class="block text-ellipsis m-b-15"><span class="text-xs">{{activetasksByProject.length}}</span> <span
+                                class="text-muted"> open tasks, </span><span class="text-xs">{{completedtasksByProject.length}}</span> <span
+                                class="text-muted"> tasks completed</span></small>
                     </div>
                     <p>{{projectDescription}}</p>
 
@@ -158,13 +158,90 @@
                             </tr>
                         </tbody>
                     </table>
-                    <p class="m-b-5">Progress <span class="text-success float-end">40%</span></p>
+                    <p class="m-b-5">Progress <span class="text-success float-end">{{(completedtasksByProject.length/(completedtasksByProject.length+activetasksByProject.length))*100}}%</span></p>
                     <div class="progress progress-xs mb-0">
                         <div class="progress-bar bg-success" role="progressbar" data-bs-toggle="tooltip" title="40%"
-                            style="width: 40%"></div>
+                            style="width: {{(completedtasksByProject.length/(completedtasksByProject.length+activetasksByProject.length))*100}}%;"></div>
                     </div>
                 </div>
             </div>
+          <div class="card project-user">
+            <div class="card-body">
+              <h6 class="card-title m-b-20">Assigned Leader <button type="button"
+                                                                    class="float-end btn btn-primary btn-sm" data-bs-toggle="modal"
+                                                                    data-bs-target="#assign_leader"><i class="fa fa-plus"></i> Add</button></h6>
+              <ul class="list-box">
+                <li>
+                  <a routerLink="/layout/employees/employeeprofile">
+                    <div class="list-item">
+                      <div class="list-left">
+                                        <span class="avatar"><img alt=""
+                                                                  src="assets/img/profiles/avatar-11.jpg"></span>
+                      </div>
+                      <div class="list-body">
+                        <span class="message-author">Wilmer Deluna</span>
+                        <div class="clearfix"></div>
+                        <span class="message-content">Team Leader</span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a routerLink="/layout/employees/employeeprofile">
+                    <div class="list-item">
+                      <div class="list-left">
+                        <span class="avatar"><img alt="" src="assets/img/profiles/avatar-1.jpg"></span>
+                      </div>
+                      <div class="list-body">
+                        <span class="message-author">Lesley Grauer</span>
+                        <div class="clearfix"></div>
+                        <span class="message-content">Team Leader</span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="card project-user">
+            <div class="card-body">
+              <h6 class="card-title m-b-20">
+                Assigned users
+                <button type="button" class="float-end btn btn-primary btn-sm" data-bs-toggle="modal"
+                        data-bs-target="#assign_user"><i class="fa fa-plus"></i> Add</button>
+              </h6>
+              <ul class="list-box">
+                <li>
+                  <a routerLink="/layout/employees/employeeprofile">
+                    <div class="list-item">
+                      <div class="list-left">
+                        <span class="avatar"><img alt="" src="assets/img/profiles/avatar-2.jpg"></span>
+                      </div>
+                      <div class="list-body">
+                        <span class="message-author">John Doe</span>
+                        <div class="clearfix"></div>
+                        <span class="message-content">Web Designer</span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a routerLink="/layout/employees/employeeprofile">
+                    <div class="list-item">
+                      <div class="list-left">
+                        <span class="avatar"><img alt="" src="assets/img/profiles/avatar-9.jpg"></span>
+                      </div>
+                      <div class="list-body">
+                        <span class="message-author">Richard Miles</span>
+                        <div class="clearfix"></div>
+                        <span class="message-content">Web Developer</span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
     </div>
 </div>

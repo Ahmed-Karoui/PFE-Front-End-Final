@@ -21,6 +21,9 @@ export class InvoiceViewComponent implements OnInit {
   public trainingDescription;
   public trainingCategory;
   public traininDate;
+  public trainingType;
+  public trainingResponsible;
+  public trainingLink;
   public users = [];
   public usersByTraining = [];
 
@@ -54,6 +57,10 @@ export class InvoiceViewComponent implements OnInit {
         this.trainingCategory = this.training[0].category;
         this.traininDate = this.training[0].training_date;
         this.users = this.training[0].users;
+        this.trainingType = this.training[0].training_type;
+        this.trainingResponsible = this.training[0].training_responsible;
+        this.trainingLink = this.training[0].training_link;
+
         console.log(this.users);
         this.getTrainingByUser();
 

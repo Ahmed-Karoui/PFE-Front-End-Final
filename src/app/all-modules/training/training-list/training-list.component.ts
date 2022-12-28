@@ -2,8 +2,6 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AllModulesService } from '../../all-modules.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { DataTableDirective } from 'angular-datatables';
-import { Subject } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import {TrainingsService} from '../../trainings.service';
 import {UsersService} from '../../users.service';
@@ -22,6 +20,7 @@ export class TrainingListComponent implements OnInit {
   public addEmployeeForm: FormGroup;
   public editEmployeeForm: FormGroup;
   public usersList ;
+  public selected;
 
   public pipe = new DatePipe('en-US');
   public rows = [];
@@ -182,11 +181,11 @@ export class TrainingListComponent implements OnInit {
   }
 
   // delete api call
-  deleteEmployee() {
-    this.srvModuleService.delete(this.tempId, this.url).subscribe((data) => {
-      this.loadEmployee();
+  deleteEmployee(id) {
+    this.trainingService.deleteTraining(id).subscribe((data) => {
       $('#delete_employee').modal('hide');
-      this.toastr.success('Employee deleted sucessfully..!', 'Success');
+      this.loadEmployee();
+      this.toastr.success('Training Has been deleted sucessfully..!', 'Success');
     });
   }
 

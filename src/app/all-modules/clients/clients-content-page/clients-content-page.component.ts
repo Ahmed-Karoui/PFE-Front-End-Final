@@ -171,7 +171,7 @@ export class ClientsContentPageComponent implements OnInit, OnDestroy {
       Birth_date: this.editClientForm.value.editClientBirthday,
       Hire_date: this.editClientForm.value.editClientHiredate,
       gender: this.editClientForm.value.editClientGender,
-      manager: this.editClientForm.value.editClientManager.name,
+      manager: this.editClientForm.value.editClientManager,
       status: this.editClientForm.value.editClientStatus,
 
     };

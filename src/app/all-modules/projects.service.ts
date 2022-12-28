@@ -24,4 +24,7 @@ export class ProjectsService {
   deleteData(id: string): Observable<any> {
     return this.http.delete(`${this.baseURL}/delete-project/${id}`)
   }
-}
+
+  addUserToProject(members: any, id: string): Observable<any> {
+    return this.http.patch(`${this.baseURL}/add-user-to-project/${id}`, members)
+  }}

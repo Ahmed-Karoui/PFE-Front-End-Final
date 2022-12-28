@@ -24,4 +24,17 @@ export class LeavesService {
   deleteLeave(id: string): Observable<any> {
     return this.http.delete(`${this.baseURL}/delete-leave/${id}`)
   }
+
+  getAllUnvalidatedLeaves(): Observable<any> {
+    return this.http.get(`${this.baseURL}/get-unvalidated-Leaves`)
+  }
+
+  validateLeave(id: any): Observable<any> {
+    return this.http.post(`${this.baseURL}/validate-leave/${id}`, id)
+  }
+
+  rejectLeave(id: any): Observable<any> {
+    return this.http.post(`${this.baseURL}/reject-leave/${id}`,id)
+  }
+
 }

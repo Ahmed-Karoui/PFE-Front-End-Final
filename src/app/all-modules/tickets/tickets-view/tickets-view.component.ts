@@ -86,8 +86,6 @@ export class TicketsViewComponent implements OnInit {
 
       this.ticketService.validateTicket(validatedTicket, this.task[0]._id).subscribe(response => {
         console.log(response);
-;
-
       })
     //this.getProjects();
     $('#validate_ticket').modal('hide');

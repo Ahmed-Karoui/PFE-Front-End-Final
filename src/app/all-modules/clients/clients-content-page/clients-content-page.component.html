@@ -173,9 +173,10 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="col-form-label">Manager <span class="text-danger">*</span></label>
-                          <select class="form-select form-control" formControlName="userManager">
-                            <option>Ahmed Karoui</option>
-                            <option>Olwhen Sehli</option>
+                          <select class="form-select form-control" formControlName="userManager"  [(ngModel)]="selectedManager">
+                            <option *ngFor="let manager of managersList" [ngValue]="manager">
+                              {{manager.name}}
+                            </option>
                           </select>
                         </div>
                       </div>
@@ -293,9 +294,11 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label class="col-form-label">Manager <span class="text-danger">*</span></label>
-                <select class="form-select form-control" formControlName="editClientManager">
-                  <option>Ahmed Karoui</option>
-                  <option>Olwhen Sehli</option>
+                <select class="form-select form-control" formControlName="editClientManager" [(ngModel)]="selectedManager">
+                  <option selected disabled>{{EmpManager}}</option>
+                  <option *ngFor="let manager of managersList" [ngValue]="manager">
+                    {{manager.name}}
+                  </option>
                 </select>
               </div>
             </div>

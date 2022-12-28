@@ -101,7 +101,7 @@
 
           <div class="card project-user">
             <div class="card-body">
-              <h4 class="card-title m-b-20"><button type="button" class="p-float-label btn btn-primary btn-sm" data-bs-toggle="modal"  data-bs-target="#assign_leader"><i class="fa fa-plus"></i> Add a Task</button></h4>
+              <h4 class="card-title m-b-20"><button type="button" class="p-float-label btn btn-primary btn-sm" data-bs-toggle="modal"  data-bs-target="#add_task"><i class="fa fa-plus"></i> Add a Task</button></h4>
               <ul class="list-box">
               </ul>
             </div>
@@ -167,21 +167,22 @@
             </div>
           <div class="card project-user">
             <div class="card-body">
-              <h6 class="card-title m-b-20">Assigned Leader <button type="button"
-                                                                    class="float-end btn btn-primary btn-sm" data-bs-toggle="modal"
-                                                                    data-bs-target="#assign_leader"><i class="fa fa-plus"></i> Add</button></h6>
+              <h6 class="card-title m-b-20">
+                Assign a project Leader
+                <button type="button" class="float-end btn btn-primary btn-sm" data-bs-toggle="modal"
+                        data-bs-target="#assignee"><i class="fa fa-plus"></i> Change</button>
+              </h6>
               <ul class="list-box">
                 <li>
                   <a routerLink="/layout/employees/employeeprofile">
                     <div class="list-item">
                       <div class="list-left">
-                                        <span class="avatar"><img alt=""
-                                                                  src="assets/img/profiles/avatar-11.jpg"></span>
+                        <span class="avatar"><img alt="" src="assets/img/profiles/avatar-2.jpg"></span>
                       </div>
                       <div class="list-body">
-                        <span class="message-author">Wilmer Deluna</span>
+                        <span class="message-author">John Doe</span>
                         <div class="clearfix"></div>
-                        <span class="message-content">Team Leader</span>
+                        <span class="message-content">Web Designer</span>
                       </div>
                     </div>
                   </a>
@@ -190,12 +191,12 @@
                   <a routerLink="/layout/employees/employeeprofile">
                     <div class="list-item">
                       <div class="list-left">
-                        <span class="avatar"><img alt="" src="assets/img/profiles/avatar-1.jpg"></span>
+                        <span class="avatar"><img alt="" src="assets/img/profiles/avatar-9.jpg"></span>
                       </div>
                       <div class="list-body">
-                        <span class="message-author">Lesley Grauer</span>
+                        <span class="message-author">Richard Miles</span>
                         <div class="clearfix"></div>
-                        <span class="message-content">Team Leader</span>
+                        <span class="message-content">Web Developer</span>
                       </div>
                     </div>
                   </a>
@@ -248,7 +249,7 @@
 <!-- /Page Content -->
 
 <!-- Add Task Modal -->
-<div id="assign_leader" class="modal custom-modal fade" role="dialog">
+<div id="add_task" class="modal custom-modal fade" role="dialog">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -307,37 +308,13 @@
                 </div>
                 <div>
                     <ul class="chat-user-list">
-                        <li>
+                        <li *ngFor="let user of usersList" (click)="addUsertoProject(user._id)">
                             <a>
                                 <div class="media d-flex">
                                     <span class="avatar flex-shrink-0"><img alt="" src="assets/img/profiles/avatar-9.jpg"></span>
                                     <div class="media-body align-self-center text-nowrap flex-grow-1">
-                                        <div class="user-name">Richard Miles</div>
-                                        <span class="designation">Web Developer</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a>
-                                <div class="media d-flex">
-                                    <span class="avatar flex-shrink-0"><img alt="" src="assets/img/profiles/avatar-10.jpg"></span>
-                                    <div class="media-body align-self-center text-nowrap flex-grow-1">
-                                        <div class="user-name">John Smith</div>
-                                        <span class="designation">Android Developer</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a>
-                                <div class="media d-flex">
-                                    <span class="avatar flex-shrink-0">
-                                        <img alt="" src="assets/img/profiles/avatar-16.jpg">
-                                    </span>
-                                    <div class="media-body align-self-center text-nowrap flex-grow-1">
-                                        <div class="user-name">Jeffery Lalor</div>
-                                        <span class="designation">Team Leader</span>
+                                        <div class="user-name">{{user.name}}</div>
+                                        <span class="designation">{{user.role}}</span>
                                     </div>
                                 </div>
                             </a>
@@ -513,6 +490,127 @@
                   class="btn btn-primary cancel-btn">Cancel</a>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div id="assignee" class="modal custom-modal fade" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add followers to this task</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="input-group m-b-30">
+          <input placeholder="Search to add" class="form-control search-input" type="text">
+          <button class="btn btn-primary">Search</button>
+        </div>
+        <div>
+          <ul class="chat-user-list">
+            <li>
+              <a>
+                <div class="media d-flex">
+                  <span class="avatar flex-shrink-0"><img alt="" src="assets/img/profiles/avatar-16.jpg"></span>
+                  <div class="media-body media-middle text-nowrap flex-grow-1">
+                    <div class="user-name">Jeffery Lalor</div>
+                    <span class="designation">Team Leader</span>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a>
+                <div class="media d-flex">
+                  <span class="avatar flex-shrink-0"><img alt="" src="assets/img/profiles/avatar-8.jpg"></span>
+                  <div class="media-body media-middle text-nowrap flex-grow-1">
+                    <div class="user-name">Catherine Manseau</div>
+                    <span class="designation">Android Developer</span>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a>
+                <div class="media d-flex">
+                  <span class="avatar flex-shrink-0"><img alt="" src="assets/img/profiles/avatar-26.jpg"></span>
+                  <div class="media-body media-middle text-nowrap flex-grow-1">
+                    <div class="user-name">Wilmer Deluna</div>
+                    <span class="designation">Team Leader</span>
+                  </div>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="submit-section">
+          <button class="btn btn-primary submit-btn">Add to Follow</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Assignee Modal -->
+
+<!-- Task Followers Modal -->
+<div id="task_followers" class="modal custom-modal fade" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add followers to this task</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="input-group m-b-30">
+          <input placeholder="Search to add" class="form-control search-input" type="text">
+          <button class="btn btn-primary">Search</button>
+        </div>
+        <div>
+          <ul class="chat-user-list">
+            <li>
+              <a>
+                <div class="media d-flex">
+                  <span class="avatar flex-shrink-0"><img alt="" src="assets/img/profiles/avatar-16.jpg"></span>
+                  <div class="media-body media-middle text-nowrap flex-grow-1">
+                    <div class="user-name">Jeffery Lalor</div>
+                    <span class="designation">Team Leader</span>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a>
+                <div class="media d-flex">
+                  <span class="avatar flex-shrink-0"><img alt="" src="assets/img/profiles/avatar-8.jpg"></span>
+                  <div class="media-body media-middle text-nowrap flex-grow-1">
+                    <div class="user-name">Catherine Manseau</div>
+                    <span class="designation">Android Developer</span>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a>
+                <div class="media d-flex">
+                  <span class="avatar flex-shrink-0"><img alt="" src="assets/img/profiles/avatar-26.jpg"></span>
+                  <div class="media-body media-middle text-nowrap flex-grow-1">
+                    <div class="user-name">Wilmer Deluna</div>
+                    <span class="designation">Team Leader</span>
+                  </div>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="submit-section">
+          <button class="btn btn-primary submit-btn">Add to Follow</button>
         </div>
       </div>
     </div>

@@ -24,6 +24,9 @@ export class ClientsContentPageComponent implements OnInit, OnDestroy {
   public searchRole: any;
   public roleList = [];
   public filtereddata = [];
+  public managersList = [];
+  public selectedManager;
+
 
   @ViewChild(DataTableDirective, { static: false })
   public dtElement: DataTableDirective;
@@ -38,6 +41,7 @@ export class ClientsContentPageComponent implements OnInit, OnDestroy {
   public birthdate;
   public Status;
   public EditID;
+  public EmpManager;
   preview: string;
 
 
@@ -51,6 +55,7 @@ export class ClientsContentPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getClients();
+    this.getManager();
 
     // Add clients form
     this.addClientForm = this.formBuilder.group({
@@ -125,6 +130,8 @@ export class ClientsContentPageComponent implements OnInit, OnDestroy {
     this.birthdate = client[0].Birth_date;
     this.Status = client[0].status;
     this.EditID=client[0]._id;
+    this.EmpManager=client[0].manager;
+
     console.log(client);
     this.editClientForm.setValue({
       editClientName: client[0].name,
@@ -164,7 +171,7 @@ export class ClientsContentPageComponent implements OnInit, OnDestroy {
       Birth_date: this.editClientForm.value.editClientBirthday,
       Hire_date: this.editClientForm.value.editClientHiredate,
       gender: this.editClientForm.value.editClientGender,
-      manager: this.editClientForm.value.editClientManager,
+      manager: this.editClientForm.value.editClientManager.name,
       status: this.editClientForm.value.editClientStatus,
 
     };
@@ -206,15 +213,15 @@ export class ClientsContentPageComponent implements OnInit, OnDestroy {
       Hire_date :this.addClientForm.value.userHiredate,
       role: this.addClientForm.value.userRole,
       gender: this.addClientForm.value.userGender,
-      manager: this.addClientForm.value.userManager,
+      manager: this.addClientForm.value.userManager.name,
       phone: this.addClientForm.value.userPhone,
       status: this.addClientForm.value.userStatus,
-      avatar:this.addClientForm.value.userAvatar,
+    //  avatar:this.addClientForm.value.userAvatar,
     };
     this.userService.addUser(newClient).subscribe((data) => {
     this.getClients();
     $('#add_client').modal('hide');
-    this.toastr.success('Client is added', 'Success');
+    this.toastr.success('User has been added successfully ', 'Success');
     });
   }
 
@@ -308,6 +315,22 @@ export class ClientsContentPageComponent implements OnInit, OnDestroy {
       this.preview = reader.result as string;
     };
     reader.readAsDataURL(file);
+  }
+
+
+  public getManager() {
+
+    this.userService.getAllManagers().subscribe((data) => {
+      this.managersList = data;
+      if (this.roleList.length === 0) {
+        this.clientsData.map((client) =>
+          this.roleList.push(client.role)
+        );
+        this.dtTrigger.next();
+        this.rows = this.clientsData;
+        this.srch = [...this.rows];
+      }
+    });
   }
 
 

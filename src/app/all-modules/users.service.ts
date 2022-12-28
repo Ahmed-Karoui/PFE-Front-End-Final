@@ -25,4 +25,9 @@ export class UsersService {
   deleteUser(id: string): Observable<any> {
     return this.http.delete(`${this.baseURL}/delete-user/${id}`)
   }
+
+
+  getAllManagers(): Observable<any> {
+    return this.http.get(`${this.baseURL}/get-managers`)
+  }
 }

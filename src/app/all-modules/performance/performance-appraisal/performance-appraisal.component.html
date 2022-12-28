@@ -101,16 +101,18 @@
                 <form (ngSubmit)="addApparaisal()" [formGroup]="addApparaisalForm">
                     <div class="row">
                         <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="col-form-label">Employee</label>
-                              <input class="form-control" type="text" formControlName="employeeName">
-                            </div>
+                          <label class="col-form-label">Employee</label>
+                          <select class="form-select form-control" formControlName="EmployeeName"  [(ngModel)]="selectedEmployee">
+                            <option *ngFor="let user of usersList" [ngValue]="user">
+                              {{user.name}}
+                            </option>
+                          </select>
                         </div>
                       <div class="col-sm-12">
                         <div class="form-group">
                           <label class="col-form-label">Departement</label>
                           <select class="form-select form-control"
-                                  formControlName="StatusName">
+                                  formControlName="departementEmployee">
                             <option>SaaS</option>
                             <option>Consulting</option>
                           </select>

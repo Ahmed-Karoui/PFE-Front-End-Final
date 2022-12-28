@@ -14,6 +14,7 @@ import { DepartmentsComponent } from './departments/departments.component';
 import { DesignationComponent } from './designation/designation.component';
 import { TimesheetComponent } from './timesheet/timesheet.component';
 import { OvertimeComponent } from './overtime/overtime.component';
+import {TrainingListComponent} from '../training/training-list/training-list.component';
 const routes: Routes = [
   {
     path: '',
@@ -21,7 +22,7 @@ const routes: Routes = [
     children: [
       {
         path: 'employeepage',
-        component: EmployeePageContentComponent
+        component:TrainingListComponent
       },
       {
         path: 'employeelist',

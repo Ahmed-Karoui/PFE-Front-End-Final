@@ -5,6 +5,8 @@ import { DataTableDirective } from 'angular-datatables';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { AllModulesService } from '../../all-modules.service';
+import {UsersService} from '../../users.service';
+import {AppraisalsService} from '../../appraisals.service';
 
 declare const $: any;
 @Component({
@@ -21,6 +23,8 @@ export class PerformanceAppraisalComponent implements OnInit, OnDestroy {
 
   public tempId: any;
   public editId: any;
+  public selectedEmployee;
+  public usersList;
 
   public addApparaisalForm: FormGroup;
   public editApparaisalForm: FormGroup;
@@ -32,17 +36,22 @@ export class PerformanceAppraisalComponent implements OnInit, OnDestroy {
   constructor(
     private formBuilder: FormBuilder,
     private srvModuleService: AllModulesService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private userService:UsersService,
+    private appraisalService:AppraisalsService
   ) { }
 
   ngOnInit() {
     this.loadData();
+    this.getUsers();
 
     /// validation for apparaisal form
     this.addApparaisalForm = this.formBuilder.group({
       EmployeeName: ['', [Validators.required]],
       SelectDate: ['', [Validators.required]],
       StatusName: ['', [Validators.required]],
+      appraisalmeetingDate: ['', [Validators.required]],
+      departementEmployee:['', [Validators.required]],
     });
 
     this.editApparaisalForm = this.formBuilder.group({
@@ -85,23 +94,13 @@ export class PerformanceAppraisalComponent implements OnInit, OnDestroy {
 
   // Add  apparaisal type  Modal Api Call
   addApparaisal() {
-    if(this.addApparaisalForm.invalid){
-      this.markFormGroupTouched(this.addApparaisalForm)
-      return
-    }
-    if (this.addApparaisalForm.valid) {
-      const apparaisalDate = this.pipe.transform(
-        this.addApparaisalForm.value.SelectDate,
-        'dd-MM-yyyy'
-      );
       const obj = {
-        employee: this.addApparaisalForm.value.EmployeeName,
-        apparaisaldate: apparaisalDate,
-        designation: 'Web Designer',
-        department: 'Web development',
-        status: this.addApparaisalForm.value.StatusName,
+        user: this.addApparaisalForm.value.EmployeeName.name,
+        user_id:this.addApparaisalForm.value.EmployeeName._id,
+        previous_date: this.addApparaisalForm.value.appraisalmeetingDate,
+        department:this.addApparaisalForm.value.departementEmployee,
       };
-      this.srvModuleService.add(obj, this.url).subscribe((data) => {
+      this.appraisalService.addAppraisal(obj).subscribe((data) => {
         $('#datatable').DataTable().clear();
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.destroy();
@@ -112,7 +111,6 @@ export class PerformanceAppraisalComponent implements OnInit, OnDestroy {
       $('#add_appraisal').modal('hide');
       this.addApparaisalForm.reset();
       this.toastr.success('Apparaisal added sucessfully...!', 'Success');
-    }
   }
   // Edit apparaisal Modal Api Call
 
@@ -177,5 +175,12 @@ export class PerformanceAppraisalComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
+  }
+
+  public getUsers() {
+
+    this.userService.getAllUsers().subscribe((data) => {
+      this.usersList = data;
+    });
   }
 }

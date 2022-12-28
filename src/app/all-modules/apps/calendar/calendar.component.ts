@@ -185,11 +185,18 @@ export class CalendarComponent implements OnInit {
   getLeaves() {
     this.leaveservice.getAllLeaves().subscribe((data) => {
       data.forEach(element => {
+        let validatedelement ;
+        if (element.status === 'Waiting For Approval'){
+          validatedelement = colors.red
+        }
+        else {
+          validatedelement = colors.green
+        }
         var elem = {
           start: subDays(startOfDay(new Date(element.start_date).toUTCString()), 1),
           end: addDays(new Date(element.end_date).toUTCString(), 1),
           title: element.title,
-          color: colors.green,
+          color: validatedelement,
         }
         console.log(elem)
         this.events.push(elem)

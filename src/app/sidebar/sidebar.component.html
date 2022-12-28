@@ -116,8 +116,6 @@
               [ngStyle]="{
                 display:
                   (urlComplete.mainUrl === 'employees' &&
-                    urlComplete.subUrl === 'employeepage') ||
-                  (urlComplete.mainUrl === 'employees' &&
                     urlComplete.subUrl === 'holidays') ||
                   (urlComplete.mainUrl === 'employees' &&
                     urlComplete.subUrl === 'adminleaves') ||
@@ -145,16 +143,6 @@
                     : 'none'
               }"
             >
-              <li routerLink="/layout/employees/employeepage">
-                <a
-                  href="javascript:"
-                  [ngClass]="{
-                    active:
-                      urlComplete.subUrl === 'training'
-                  }"
-                  >Trainings</a
-                >
-              </li>
               <li routerLink="/layout/employees/adminleaves">
                 <a
                   href="javascript:"
@@ -328,24 +316,24 @@
           </li>
           <li
             class="submenu"
-            [ngClass]="{ active: urlComplete.mainUrl === 'training' }"
+            [ngClass]="{ active: urlComplete.mainUrl === 'employees' }"
           >
             <a
               href="javascript:"
-              [ngClass]="{ subdrop: urlComplete.mainUrl === 'training' }"
+              [ngClass]="{ subdrop: urlComplete.mainUrl === 'employees' }"
               ><i class="la la-edit"></i> <span> Training </span>
               <span class="menu-arrow"></span
             ></a>
             <ul
               style="display: none"
               [ngStyle]="{
-                display: urlComplete.mainUrl === 'training' ? 'block' : 'none'
+                display: urlComplete.mainUrl === 'employees' ? 'block' : 'none'
               }"
             >
-              <li routerLink="/layout/training/traininglist">
+              <li routerLink="/layout/employees/employeepage">
                 <a
                   href="javascript:"
-                  [ngClass]="{ active: urlComplete.subUrl === 'traininglist' }"
+                  [ngClass]="{ active: urlComplete.subUrl === 'employeepage' }"
                 >
                   Training List
                 </a>

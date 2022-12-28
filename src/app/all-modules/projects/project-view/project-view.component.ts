@@ -7,6 +7,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DatePipe} from '@angular/common';
 import {TasksService} from '../../tasks.service';
 import {ToastrService} from 'ngx-toastr';
+import {UserService} from '../../../login/user.service';
+import {UsersService} from '../../users.service';
 
 @Component({
   selector: 'app-project-view',
@@ -28,6 +30,11 @@ export class ProjectViewComponent implements OnInit {
   public addTaskForm: FormGroup;
   public pipe = new DatePipe('en-US');
   public tempId: any;
+  public usersList = [];
+  statusClass = 'not-selected-user';
+  public activeMessage;
+  public selectedUser ;
+
 
   constructor(
     private allModulesService: AllModulesService,
@@ -35,11 +42,13 @@ export class ProjectViewComponent implements OnInit {
     private projectsService: ProjectsService,
     private taskServiceService: TasksService,
     private formBuilder: FormBuilder,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private userService:UsersService
 
   ) {}
 
   ngOnInit() {
+    this.getUsers();
     this.addTaskForm = this.formBuilder.group({
       taskName: ['', [Validators.required]],
       taskDeadline: ['', [Validators.required]]
@@ -79,7 +88,6 @@ export class ProjectViewComponent implements OnInit {
       project:this.projectId,
     };
     this.taskServiceService.addTask(newTask).subscribe(response => {
-      console.log(response)
     })
     this.addTaskForm.reset();
     this.toastr.success('Task added sucessfully...!', 'Success');
@@ -89,30 +97,49 @@ export class ProjectViewComponent implements OnInit {
   getTasksByProject() {
     this.taskServiceService.loadTasksByProject(this.projectId).subscribe((data) => {
       this.tasksByProject = data;
-      console.log(this.tasksByProject)
     });
   }
     getActiveTasksByProject() {
       this.taskServiceService.loadTasksByProject(this.projectId).subscribe((data) => {
         this.tasksByProject = data;
        this.activetasksByProject =  this.tasksByProject.filter(o => o.status === 'Active')
-        console.log(this.tasksByProject)
       });
     }
       getCompletedTasksByProject() {
         this.taskServiceService.loadTasksByProject(this.projectId).subscribe((data) => {
           this.tasksByProject = data;
         this.completedtasksByProject =  this.tasksByProject.filter(o => o.status === 'Completed')
-          console.log(this.tasksByProject)
         });
   }
 
   validateTask(id:any) {
     this.taskServiceService.validateTaks(id).subscribe((data) => {
-      console.log('finished successfully');
     });
   }
 
   deleteTask(tempId: any) {
+  }
+
+
+  public getUsers() {
+
+    this.userService.getAllUsers().subscribe((data) => {
+      this.usersList = data;
+    });
+  }
+
+  setActiveClass(){
+    this.statusClass = 'selected-user';
+  }
+
+  addUsertoProject(user){
+    //this.selectedUser = user;
+    let selectedUser = {
+      members: user
+    }
+    console.log(this.selectedUser)
+    this.projectsService.addUserToProject(selectedUser, this.projectId).subscribe(response => {
+      console.log(response)
+    })
   }
 }

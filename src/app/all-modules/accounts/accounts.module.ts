@@ -17,7 +17,7 @@ import { ExpensesComponent } from './expenses/expenses.component';
 import { ProvidentFundComponent } from './provident-fund/provident-fund.component';
 import { TaxesComponent } from './taxes/taxes.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BsDatepickerModule } from 'ngx-bootstrap';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { SharingModule } from 'src/app/sharing/sharing.module';
 
 @NgModule({

@@ -19,23 +19,25 @@ import { TimesheetComponent } from './timesheet/timesheet.component';
 import { OvertimeComponent } from './overtime/overtime.component';
 import { DataTablesModule } from 'angular-datatables';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BsDatepickerModule } from 'ngx-bootstrap';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { SharingModule } from 'src/app/sharing/sharing.module';
 import { PickListModule } from 'primeng/picklist';
 import {TrainingListComponent} from '../training/training-list/training-list.component';
 import {TrainingModule} from '../training/training.module';
+import {NgSelect2Module} from 'ng-select2';
+import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 @NgModule({
   declarations: [EmployeesComponent, AllEmployeesComponent, EmployeePageContentComponent, EmployeeListComponent, EmployeeProfileComponent, HolidaysComponent, LeavesAdminComponent, LeavesEmployeeComponent, LeaveSettingsComponent, AttendanceAdminComponent, AttendanceEmployeeComponent, DepartmentsComponent, DesignationComponent, TimesheetComponent, OvertimeComponent,TrainingListComponent],
-  imports: [
-    CommonModule,
-    FormsModule,
-    SharingModule,
-    ReactiveFormsModule,
-    PickListModule,
-    EmployeesRoutingModule, PickListModule,
-    BsDatepickerModule.forRoot(),
-    DataTablesModule,
-  ]
+    imports: [
+        CommonModule,
+        FormsModule,
+        SharingModule,
+        ReactiveFormsModule,
+        PickListModule,
+        EmployeesRoutingModule, PickListModule,
+        BsDatepickerModule.forRoot(),
+        DataTablesModule, NgSelect2Module, NgMultiSelectDropDownModule,
+    ]
 })
 
 export class EmployeesModule { }

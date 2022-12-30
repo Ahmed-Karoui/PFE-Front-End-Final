@@ -4,7 +4,7 @@ import { DataTablesModule } from "angular-datatables";
 import { PaymentreportsRoutingModule } from './paymentreports-routing.module';
 import { PaymentreportsComponent } from './paymentreports.component';
 import { PaymentreportsListComponent } from './paymentreports-list/paymentreports-list.component';
-import { BsDatepickerModule } from 'ngx-bootstrap';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { SharingModule } from 'src/app/sharing/sharing.module';
 import { PickListModule } from 'primeng/picklist';
 

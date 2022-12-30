@@ -5,7 +5,7 @@ import { BudgetexpensesRoutingModule } from './budgetexpenses-routing.module';
 import { BudgetexpensesComponent } from './budgetexpenses.component';
 import { BudgetexpensesListComponent } from './budgetexpenses-list/budgetexpenses-list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BsDatepickerModule } from 'ngx-bootstrap';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { SharingModule } from 'src/app/sharing/sharing.module';
 import { PickListModule } from 'primeng/picklist';
 

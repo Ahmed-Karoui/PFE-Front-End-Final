@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import {TrainingsService} from '../../trainings.service';
 import {UsersService} from '../../users.service';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
 declare const $: any;
 @Component({
@@ -21,6 +22,16 @@ export class TrainingListComponent implements OnInit {
   public editEmployeeForm: FormGroup;
   public usersList ;
   public selected;
+  disabled = false;
+  ShowFilter = true;
+  limitSelection = false;
+  cities = [];
+  selectedItems = [];
+  dropdownSettings: any = {};
+  public trainedUsers = [];
+  public trainersList = [];
+  public ;
+
 
   public pipe = new DatePipe('en-US');
   public rows = [];
@@ -35,6 +46,18 @@ export class TrainingListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: '_id',
+      textField: 'name',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: this.ShowFilter,
+
+    };
+    this.getResponsibles();
+    this.getUsers();
     this.loadEmployee();
     this.addEmployeeForm = this.formBuilder.group({
       trainingName: ['', [Validators.required]],
@@ -45,6 +68,7 @@ export class TrainingListComponent implements OnInit {
       trainingLink: ['', [Validators.required]],
       trainingResponsible: ['', [Validators.required]],
       trainingType: ['', [Validators.required]],
+      city: [this.selectedItems]
     });
 
     this.editEmployeeForm = this.formBuilder.group({
@@ -99,8 +123,9 @@ export class TrainingListComponent implements OnInit {
       category: this.addEmployeeForm.value.trainingCategory,
       training_date: this.addEmployeeForm.value.Deadline,
       training_link:this.addEmployeeForm.value.trainingLink,
-      training_responsible:this.addEmployeeForm.value.trainingResponsible,
-      training_type:this.addEmployeeForm.value.trainingType
+      training_responsible:this.addEmployeeForm.value.trainingResponsible.name,
+      training_type:this.addEmployeeForm.value.trainingType,
+      users:this.trainedUsers
     };
     this.trainingService.addTraining(obj).subscribe((data) => {});
     this.loadEmployee();
@@ -230,6 +255,35 @@ export class TrainingListComponent implements OnInit {
       this.usersList = data;
     });
   }
+
+  onItemSelect(item: any) {
+    console.log('onItemSelect', item);
+    this.trainedUsers.push(item._id)
+  }
+  onSelectAll(items: any) {
+    console.log('onSelectAll', items);
+  }
+  toogleShowFilter() {
+    this.ShowFilter = !this.ShowFilter;
+    this.dropdownSettings = Object.assign({}, this.dropdownSettings, { allowSearchFilter: this.ShowFilter });
+  }
+
+  handleLimitSelection() {
+    if (this.limitSelection) {
+      this.dropdownSettings = Object.assign({}, this.dropdownSettings, { limitSelection: 2 });
+    } else {
+      this.dropdownSettings = Object.assign({}, this.dropdownSettings, { limitSelection: null });
+    }
+  }
+
+
+  public getResponsibles() {
+
+    this.userService.getAllUsers().subscribe((data) => {
+      this.trainersList = data;
+    });
+  }
+
 
 
 }

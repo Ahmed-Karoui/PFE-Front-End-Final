@@ -7,7 +7,7 @@ import { EmployeeSalaryComponent } from './employee-salary/employee-salary.compo
 import { SalaryViewComponent } from './salary-view/salary-view.component';
 import { DataTablesModule } from 'angular-datatables';
 import { PayrollItemsComponent } from './payroll-items/payroll-items.component';
-import { BsDatepickerModule } from 'ngx-bootstrap';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { SharingModule } from 'src/app/sharing/sharing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 

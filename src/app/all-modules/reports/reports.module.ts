@@ -8,7 +8,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { InvoiceReportComponent } from './invoice-report/invoice-report.component';
 import { SharingModule } from 'src/app/sharing/sharing.module';
 import { EditInvoiceReportComponent } from './edit-invoice-report/edit-invoice-report.component';
-import { BsDatepickerModule } from 'ngx-bootstrap';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({

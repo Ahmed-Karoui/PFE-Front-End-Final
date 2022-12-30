@@ -10,7 +10,9 @@ import { ProjectViewComponent } from './project-view/project-view.component';
 import { TaskBoardComponent } from './task-board/task-board.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BsDatepickerModule, TooltipModule } from 'ngx-bootstrap';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+
 import { SharingModule } from 'src/app/sharing/sharing.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 

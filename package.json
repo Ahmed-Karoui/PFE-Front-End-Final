@@ -1,5 +1,5 @@
 {
-  "name": "talent-management",
+  "name": "talentmanagement",
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",
@@ -13,7 +13,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^13.1.1",
+    "@angular/animations": "13.1.1",
     "@angular/cdk": "^12.2.10",
     "@angular/common": "^13.1.1",
     "@angular/compiler": "~13.1.1",
@@ -45,6 +45,7 @@
     "line-awesome": "^1.0.2",
     "morris.js": "github:morrisjs/morris.js",
     "ng-drag-drop": "^5.0.0",
+    "ng-multiselect-dropdown": "^0.3.9",
     "ng-select2": "^1.2.2",
     "ng2-search-filter": "^0.5.1",
     "ngx-bootstrap": "^5.2.0",
@@ -63,7 +64,7 @@
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~13.1.2",
+    "@angular-devkit/build-angular": "^13.3.10",
     "@angular/cli": "~13.1.2",
     "@angular/compiler-cli": "~13.1.1",
     "@angular/language-service": "~13.1.1",
@@ -72,7 +73,7 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/jquery": "^3.5.1",
     "@types/node": "~8.9.4",
-    "codelyzer": "^6.0.0",
+    "codelyzer": "^0.0.28",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~6.3.4",
@@ -81,9 +82,9 @@
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
     "protractor": "~7.0.0",
-    "ts-node": "~7.0.0",
+    "ts-node": "10.8.1",
     "tslint": "~6.1.3",
-    "typescript": "^4.5.4"
+    "typescript": "4.6.4"
   },
   "resolutions": {
     "glob-parent": "5.1.2",

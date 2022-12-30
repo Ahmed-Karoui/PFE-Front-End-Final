@@ -95,17 +95,13 @@ export class PerformanceAppraisalComponent implements OnInit, OnDestroy {
   // Add  apparaisal type  Modal Api Call
   addApparaisal() {
       const obj = {
-        user: this.addApparaisalForm.value.EmployeeName.name,
+        user_name: this.addApparaisalForm.value.EmployeeName.name,
         user_id:this.addApparaisalForm.value.EmployeeName._id,
         previous_date: this.addApparaisalForm.value.appraisalmeetingDate,
         department:this.addApparaisalForm.value.departementEmployee,
       };
       this.appraisalService.addAppraisal(obj).subscribe((data) => {
         $('#datatable').DataTable().clear();
-        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-          dtInstance.destroy();
-        });
-        this.dtTrigger.next();
       });
       this.loadData();
       $('#add_appraisal').modal('hide');

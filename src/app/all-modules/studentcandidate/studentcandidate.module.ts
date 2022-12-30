@@ -6,7 +6,7 @@ import { StudentcandidateComponent } from './studentcandidate.component';
 import { StudentcandidateListComponent } from './studentcandidate-list/studentcandidate-list.component';
 import { DataTablesModule } from 'angular-datatables';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BsDatepickerModule } from 'ngx-bootstrap';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { SharingModule } from 'src/app/sharing/sharing.module';
 import { PickListModule } from 'primeng/picklist';
 

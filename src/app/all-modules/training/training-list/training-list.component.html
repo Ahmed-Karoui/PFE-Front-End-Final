@@ -97,18 +97,18 @@
       <div class="modal-body">
         <form (ngSubmit)="addEmployee()" [formGroup]="addEmployeeForm">
           <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-12">
               <div class="form-group">
                 <label class="col-form-label">Name <span class="text-danger">*</span></label>
                 <input class="form-control" type="text"
                        formControlName="trainingName">
               </div>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-12">
               <div class="form-group">
                 <label class="col-form-label">Description</label>
-                <input class="form-control" type="text"
-                       formControlName="trainingDescription">
+                <textarea rows="4" class="form-control summernote" placeholder="Enter your description here"
+                          formControlName="trainingDescription"></textarea>
               </div>
             </div>
             <div class="col-sm-6">
@@ -132,15 +132,20 @@
             <div class="col-sm-6">
               <div class="form-group">
                 <label class="col-form-label">Training Responsible</label>
-                <input class="form-control" type="text"
-                       formControlName="trainingResponsible">
+                <select class="form-select form-control" formControlName="trainingResponsible"  [(ngModel)]="selectedManager">
+                  <option *ngFor="let user of trainersList" [ngValue]="user">
+                    {{user.name}}
+                  </option>
+                </select>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group">
                 <label class="col-form-label">Training Type</label>
-                <input class="form-control" type="text"
-                       formControlName="trainingType">
+                <select class="form-select form-control" formControlName="trainingType">
+                  <option>Simple</option>
+                  <option>Multiple</option>
+                </select>
               </div>
             </div>
             <div class="col-sm-12">
@@ -163,15 +168,17 @@
             </div>
             <div class="col-sm-12">
               <div class="form-group">
-                <label class="col-form-label">Training Deadline <span class="text-danger">*</span></label>
-                <ng-select
-                  [items]="usersList"
-                  bindLabel="name"
-                  placeholder="Select Category"
-                  appendTo="body"
-                  [multiple]="true"
-                  [(ngModel)]="selected">
-                </ng-select>
+                <label class="col-form-label">Users to be included in the training <span class="text-danger">*</span></label>
+                <ng-multiselect-dropdown
+                  name="city"
+                  [placeholder]="'Select Users'"
+                  [data]="usersList"
+                  formControlName="city"
+                  [disabled]="disabled"
+                  [settings]="dropdownSettings"
+                  (onSelect)="onItemSelect($event)">
+                </ng-multiselect-dropdown>
+
               </div>
             </div>
 

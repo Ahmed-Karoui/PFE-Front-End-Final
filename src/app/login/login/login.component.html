@@ -1,0 +1,49 @@
+<div class="account-content">
+  <div class="container">
+    <!-- Account Logo -->
+    <div class="account-logo">
+      <a href="javascript:"
+        ><img src="assets/img/Logo/200x200.png" alt="Dreamguy's Technologies"
+      /></a>
+    </div>
+    <!-- /Account Logo -->
+
+    <div class="account-box">
+      <div class="account-wrapper">
+        <h3 class="account-title">Login</h3>
+        <p class="account-subtitle">Bring Innovation to Market</p>
+
+        <!-- Account Form -->
+        <form [formGroup]="loginform">
+          <div class="form-group">
+            <label>Email Address</label>
+            <input class="form-control" type="text" formControlName="username" id="username"/>
+          </div>
+          <div class="form-group">
+            <div class="row">
+              <div class="col">
+                <label>Password</label>
+              </div>
+              <div class="col-auto">
+                <a class="text-muted" routerLink="/login/forgot">
+                  Forgot password?
+                </a>
+              </div>
+            </div>
+              <div class="position-relative">
+                <input class="form-control" [type]="Toggledata ? 'password' : 'text'" formControlName="password" id="password"/>
+                <span [ngClass]="Toggledata == true ? 'fa toggle-password fa-eye' : 'fa toggle-password fa-eye-slash'" (click)="iconLogle()"></span>
+            </div>
+          </div>
+          <div class="form-group text-center">
+            <button class="btn btn-primary account-btn" type="submit" (click)="login()">Login</button>
+          </div>
+          <div class="account-footer">
+            <p>Copyright @Planisware 2023</p>
+          </div>
+        </form>
+        <!-- /Account Form -->
+      </div>
+    </div>
+  </div>
+</div>

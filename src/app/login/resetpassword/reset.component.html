@@ -1,0 +1,50 @@
+<div class="account-content">
+  <div class="container">
+    <!-- Account Logo -->
+    <div class="account-logo">
+      <a routerLink="/layout/dashboard/admin"
+        ><img src="assets/img/Logo/200x200.png" alt="Dreamguy's Technologies"
+      /></a>
+    </div>
+    <!-- /Account Logo -->
+
+    <div class="account-box">
+      <div class="account-wrapper">
+        <h3 class="account-title">Forgot Password?</h3>
+        <p class="account-subtitle">
+          Enter your email to get a password reset link
+        </p>
+
+        <!-- Account Form -->
+        <form [formGroup]="form" (ngSubmit)="updatePassword()">
+          <div class="form-group">
+            <label>New Password</label>
+            <input class="form-control" type="password" formControlName="password" id="password"/>
+            <div *ngIf="submitted && form.get('password').errors" class="alert alert-danger">
+              <div *ngIf="form.get('password').errors.form">Password is required</div>
+            </div>
+            </div>
+          <div class="form-group">
+            <label>Confirm New Password</label>
+            <input class="form-control" type="password" formControlName="confirmpassowrd" id="confirmpassowrd"/>
+            <div *ngIf="submitted && form.get('confirmpassowrd').errors" class="alert alert-danger">
+              <div *ngIf="form.get('confirmpassowrd').errors.required">Confirm Password is required</div>
+
+              <div *ngIf="form.get('confirmpassowrd').errors.form">Passsword and
+                Confirm Password didn't match. </div>
+            </div>
+          </div>
+          <div class="form-group text-center">
+            <button class="btn btn-primary account-btn" [disabled]="form.invalid" type="submit">Reset Password</button>
+          </div>
+          <div class="account-footer">
+            <p>
+              Remember your password? <a routerLink="/login">Login</a>
+            </p>
+          </div>
+        </form>
+        <!-- /Account Form -->
+      </div>
+    </div>
+  </div>
+</div>

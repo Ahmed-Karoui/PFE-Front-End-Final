@@ -1,0 +1,335 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h3 class="page-title">Users</h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/layout/dashboard/admin">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Users</li>
+                </ul>
+            </div>
+            <div class="col-auto float-end ms-auto">
+                <a  class="btn add-btn" data-bs-toggle="modal" data-bs-target="#add_client" (click)="resetForm()"><i
+                        class="fa fa-plus"></i>
+                    Add User</a>
+                <div class="view-icons">
+                    <a routerLink="/layout/clients/clientspage" class="grid-view btn btn-link active"><i
+                            class="fa fa-th"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Header -->
+
+    <!-- Search Filter -->
+    <div class="row filter-row">
+        <div class="col-sm-6 col-md-4">
+            <div class="form-group form-focus">
+                <input type="text" class="form-control floating" (input)="searchByEmail($event.target.value)">
+                <label class="focus-label">Employee Email</label>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+            <div class="form-group form-focus">
+                <input type="text" class="form-control floating" (input)="searchByName($event.target.value)">
+                <label class="focus-label">Employee Name</label>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+            <button class="btn btn-success w-100" (click)="onSearch()"> Search </button>
+        </div>
+    </div>
+    <!-- Search Filter -->
+
+    <div class="row staff-grid-row">
+        <div *ngFor="let data of clientsData; let i = index " class="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3">
+            <div class="profile-widget">
+                <div class="profile-img">
+                    <a routerLink="/layout/clients/userprofile/{{data._id}}" class="avatar"><img alt=""
+                            src="assets/img/Image%20Users/{{data.sampleFile}}"></a>
+                </div>
+                <div class="dropdown profile-action">
+                    <a  class="action-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i
+                            class="material-icons">more_vert</i></a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#edit_client"
+                            (click)="onEditClient(data._id)"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                        <a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#delete_client"
+                            (click)="tempId = data._id"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                    </div>
+                </div>
+                <h4 class="user-name m-t-10 mb-0 text-ellipsis"><a
+                        routerLink="/layout/clients/userprofile/{{data._id}}">{{data.name}} {{data.last_name}}</a>
+                </h4>
+                <h5 class="user-name m-t-10 mb-0 text-ellipsis"><a
+                        routerLink="/layout/clients/userprofile/{{data._id}}">{{data.role}}</a></h5>
+                <div class="small text-muted">{{data.email}}</div>
+                <a routerLink="/layout/clients/userprofile/{{data._id}}" class="btn btn-white btn-sm m-t-10 ms-1">View Profile</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Page Content -->
+
+<!-- Add Client Modal -->
+<div id="add_client" class="modal custom-modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add User</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form (ngSubmit)="onAddClient()" [formGroup]="addClientForm">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-form-label">First Name <span class="text-danger">*</span></label>
+                                <input class="form-control" type="text"
+                                    [class.invalid]="addClientForm.get('clientName').invalid && addClientForm.get('clientName').touched"
+                                    formControlName="clientName" id="clientName" name="LastName">
+                                <div
+                                    *ngIf="addClientForm.get('clientName').invalid && addClientForm.get('clientName').touched">
+                                    <small
+                                        *ngIf="addClientForm.get('clientName').invalid && addClientForm.get('clientName').touched"
+                                        class="text-danger"> *Name is required</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Last Name</label>
+                                <input class="form-control" type="text" formControlName="LastName" name="last_name">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="col-form-label">Email <span class="text-danger">*</span></label>
+                                <input class="form-control" type="text"
+                                    [class.invalid]="addClientForm.get('clientEmail').invalid && addClientForm.get('clientEmail').touched"
+                                    formControlName="clientEmail">
+                                <div
+                                    *ngIf="addClientForm.get('clientEmail').invalid && addClientForm.get('clientEmail').touched">
+                                    <small
+                                        *ngIf="addClientForm.get('clientEmail').invalid && addClientForm.get('clientEmail').touched"
+                                        class="text-danger"> *Email is required</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Password</label>
+                                <input class="form-control" type="password" formControlName="UserPassowrd">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Confirm Password</label>
+                                <input class="form-control" type="password">
+                            </div>
+                        </div>
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="col-form-label">Birthday</label>
+                          <input class="form-control" type="date" formControlName="userBirthday">
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="col-form-label">Date of hire</label>
+                          <input class="form-control" type="date" formControlName="userHiredate">
+                        </div>
+                      </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Departement <span class="text-danger">*</span></label>
+                              <select class="form-select form-control" formControlName="userRole">
+                                <option>Service Manager</option>
+                                <option>Consultant</option>
+                                <option>IT</option>
+                                <option>Human Ressources</option>
+                                <option>Head of operations</option>
+                              </select>
+                            </div>
+                        </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="col-form-label">Gender <span class="text-danger">*</span></label>
+                          <select class="form-select form-control" formControlName="userGender">
+                            <option>Male</option>
+                            <option>Female</option>
+                          </select>
+                        </div>
+                      </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="col-form-label">Phone Number</label>
+                                <input class="form-control" type="phone"
+                                    formControlName="userPhone">
+                            </div>
+                        </div>
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="col-form-label">Manager <span class="text-danger">*</span></label>
+                          <select class="form-select form-control" formControlName="userManager"  [(ngModel)]="selectedManager">
+                            <option *ngFor="let manager of managersList" [ngValue]="manager">
+                              {{manager.name}}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="col-form-label">Avatar <span class="text-danger">*</span></label>
+                          <input type="file" formControlName="sampleFile" id="sampleFile" name="sampleFile" (change)="this.onFilechange($event)" />
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="submit-section">
+                        <button class="btn btn-primary submit-btn">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Add Client Modal -->
+
+<!-- Edit Client Modal -->
+<div id="edit_client" class="modal custom-modal fade" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit User</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="updateUser()" [formGroup]="editClientForm">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-form-label">First Name <span class="text-danger">*</span></label>
+                <input class="form-control" type="text"
+                       [class.invalid]="editClientForm.get('editClientName').invalid && editClientForm.get('editClientName').touched"
+                       formControlName="editClientName">
+                <div
+                  *ngIf="editClientForm.get('editClientName').invalid && editClientForm.get('editClientName').touched">
+                  <small
+                    *ngIf="editClientForm.get('editClientName').invalid && editClientForm.get('editClientName').touched"
+                    class="text-danger"> *Name is required</small>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-form-label">Last Name</label>
+                <input class="form-control" type="text" formControlName="editClientLastName">
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="col-form-label">Email <span class="text-danger">*</span></label>
+                <input class="form-control" type="text"
+                       [class.invalid]="editClientForm.get('editClientEmail').invalid && editClientForm.get('editClientEmail').touched"
+                       formControlName="editClientEmail">
+                <div
+                  *ngIf="editClientForm.get('editClientEmail').invalid && editClientForm.get('editClientEmail').touched">
+                  <small
+                    *ngIf="editClientForm.get('editClientEmail').invalid && editClientForm.get('editClientEmail').touched"
+                    class="text-danger"> *Email is required</small>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="col-form-label">Birthday</label>
+                <input class="form-control" type="date" formControlName="editClientBirthday" value="{{ birthdate | date:'yyyy-MM-dd' }}">
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="col-form-label">Date of hire</label>
+                <input class="form-control" type="date" formControlName="editClientHiredate" value="{{ hiredate | date:'yyyy-MM-dd' }}">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-form-label">Departement <span class="text-danger">*</span></label>
+                <select class="form-select form-control" formControlName="editClientRole">
+                  <option>SaaS</option>
+                  <option>Consulting</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-form-label">Gender <span class="text-danger">*</span></label>
+                <select class="form-select form-control" formControlName="editClientGender">
+                  <option>Male</option>
+                  <option>Female</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="col-form-label">Phone Number</label>
+                <input class="form-control" type="phone"
+                       formControlName="editClientPhone">
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="col-form-label">Manager <span class="text-danger">*</span></label>
+                <select class="form-select form-control" formControlName="editClientManager" [(ngModel)]="selectedManager">
+                  <option selected disabled>{{EmpManager}}</option>
+                  <option *ngFor="let manager of managersList" [ngValue]="manager">
+                    {{manager.name}}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="submit-section">
+            <button class="btn btn-primary submit-btn">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Edit Client Modal -->
+
+<!-- Delete Client Modal -->
+<div class="modal custom-modal fade" id="delete_client" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="form-header">
+                    <h3>Delete Client</h3>
+                    <p>Are you sure want to delete?</p>
+                </div>
+                <div class="modal-btn delete-action">
+                    <div class="row">
+                        <div class="col-6">
+                            <a  class="btn btn-primary continue-btn"
+                                (click)="onDelete(tempId)">Delete</a>
+                        </div>
+                        <div class="col-6">
+                            <a  data-bs-dismiss="modal"
+                                class="btn btn-primary cancel-btn">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Delete Client Modal -->

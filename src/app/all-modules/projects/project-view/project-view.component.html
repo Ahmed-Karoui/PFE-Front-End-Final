@@ -1,0 +1,442 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h3 class="page-title">{{projectTitle}}</h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/layout/dashboard/admin">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Project</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Header -->
+
+    <div class="row">
+        <div class="col-lg-8 col-xl-9">
+            <div class="card">
+                <div class="card-body">
+                    <div class="project-title">
+                        <h5 class="card-title">{{projectTitle}}</h5>
+                        <small class="block text-ellipsis m-b-15"><span class="text-xs">{{activetasksByProject.length}}</span> <span
+                                class="text-muted"> open tasks, </span><span class="text-xs">{{completedtasksByProject.length}}</span> <span
+                                class="text-muted"> tasks completed</span></small>
+                    </div>
+                    <p>{{projectDescription}}</p>
+
+                </div>
+            </div>
+            <div class="project-task">
+                <ul class="nav nav-tabs nav-tabs-top nav-justified mb-0">
+                    <li class="nav-item"><a class="nav-link active" href="#all_tasks" data-bs-toggle="tab"
+                            aria-expanded="true">All Tasks</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#completed_tasks" data-bs-toggle="tab"
+                            aria-expanded="false">Completed Tasks</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane show active" id="all_tasks">
+                        <div class="task-wrapper">
+                            <div class="task-list-container">
+                                <div class="task-list-body" >
+                                    <ul id="task-list">
+                                        <li class="task" *ngFor="let task of activetasksByProject">
+                                            <div class="task-container" (click)="getUserfromTask(task._id)" data-bs-toggle="modal" data-bs-target="#confirm_task">
+                                                <span class="task-action-btn task-check">
+                                                    <span class="action-circle large complete-btn" data-bs-toggle="modal" data-bs-target="#confirm_task" (click)="tempId = task._id"
+                                                        title="Mark Complete">
+                                                        <i class="material-icons">check</i>
+                                                    </span>
+                                                </span>
+                                                <span class="task-label" *ngIf="(task.due_date | date:'dd/MM/yyyy') < (dateNow | date:'dd/MM/yyyy')" style="background-color: indianred" >{{task.name}}  &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; due date &nbsp;&nbsp;: &nbsp;&nbsp;{{task.due_date | date}}</span>
+                                              <span class="task-label" *ngIf="(task.due_date | date:'dd/MM/yyyy') > (dateNow | date:'dd/MM/yyyy')">{{task.name}}  &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; due date &nbsp;&nbsp;: &nbsp;&nbsp;{{task.due_date | date}}</span>
+                                              <span class="task-action-btn task-btn-right">
+                                                    <span class="action-circle large delete-btn" title="Delete Task">
+                                                        <i class="material-icons" data-bs-toggle="modal" data-bs-target="#delete_task" (click)="tempId = task._id">delete</i>
+                                                    </span>
+                                                </span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="completed_tasks">
+                      <div class="task-wrapper">
+                        <div class="task-list-container">
+                          <div class="task-list-body">
+                            <ul id="task-list">
+                              <li class="completed task">
+                                <div class="task-container" *ngFor="let task of completedtasksByProject">
+                                                <span class="task-action-btn task-check">
+                                                    <span class="action-circle large complete-btn"
+                                                          title="Mark Complete">
+                                                        <i class="material-icons">check</i>
+                                                    </span>
+                                                </span>
+                                  <span class="task-label">{{task.name}}</span>
+                                  <span class="task-action-btn task-btn-right"></span>
+                                </div>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-xl-3">
+
+          <div class="card project-user">
+            <div class="card-body">
+              <h4 class="card-title m-b-20"><button type="button" class="p-float-label btn btn-primary btn-sm" data-bs-toggle="modal"  data-bs-target="#add_task"><i class="fa fa-plus"></i> Add a Task</button></h4>
+              <ul class="list-box">
+              </ul>
+            </div>
+          </div>
+
+
+          <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title m-b-15">Project details</h6>
+                    <table class="table table-striped table-border">
+                        <tbody>
+                            <tr>
+                                <td>Name:</td>
+                                <td class="text-end">{{projectTitle}}</td>
+                            </tr>
+                            <tr>
+                                <td>Creation Date:</td>
+                                <td class="text-end">{{projectStart | date}}</td>
+                            </tr>
+                            <tr>
+                                <td>Deadline:</td>
+                                <td class="text-end">{{projectEnd | date}}</td>
+                            </tr>
+                            <tr>
+                                <td>Status:</td>
+                                <td class="text-end">{{statusProject}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="m-b-5">Progress <span class="text-success float-end">{{(completedtasksByProject.length/(completedtasksByProject.length+activetasksByProject.length))*100}}%</span></p>
+                    <div class="progress progress-xs mb-0">
+                        <div class="progress-bar bg-success" role="progressbar" data-bs-toggle="tooltip" title="40%"
+                            style="width: {{(completedtasksByProject.length/(completedtasksByProject.length+activetasksByProject.length))*100}}%;"></div>
+                    </div>
+                </div>
+            </div>
+          <div class="card project-user">
+            <div class="card-body">
+              <h6 class="card-title m-b-20">
+                Project Leader
+                <button type="button" class="float-end btn btn-primary btn-sm" data-bs-toggle="modal"
+                        data-bs-target="#assignee"><i class="fa fa-plus"></i> Change</button>
+              </h6>
+              <ul class="list-box">
+                <li>
+                  <a>
+                    <div class="list-item">
+                      <div class="list-left">
+                        <span class="avatar"><img alt="" src="assets/img/profiles/avatar-2.jpg"></span>
+                      </div>
+                      <div class="list-body">
+                        <span class="message-author">{{foundManager?.name}} {{foundManager?.last_name}}</span>
+                        <div class="clearfix"></div>
+                        <span class="message-content">{{foundManager?.role}}</span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="card project-user">
+            <div class="card-body">
+              <h6 class="card-title m-b-20">
+                Assigned users
+                <button type="button" class="float-end btn btn-primary btn-sm" data-bs-toggle="modal"
+                        data-bs-target="#assign_user"><i class="fa fa-plus"></i> Add</button>
+              </h6>
+              <ul class="list-box" *ngFor="let user of foundUsers">
+                <li>
+                  <a routerLink="/layout/employees/employeeprofile">
+                    <div class="list-item">
+                      <div class="list-left">
+                        <span class="avatar"><img alt="" src="assets/img/profiles/avatar-2.jpg"></span>
+                      </div>
+                      <div class="list-body">
+                        <span class="message-author">{{user.name}} {{user.last_name}}</span>
+                        <div class="clearfix"></div>
+                        <span class="message-content">{{user.role}}</span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+<!-- /Page Content -->
+
+<!-- Add Task Modal -->
+<div id="add_task" class="modal custom-modal fade" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Create a New Task</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="addTaskForm">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label>Task Description</label>
+                <input class="form-control" type="text" formControlName="taskName">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label>Due Date</label>
+                <div class="cal-icon">
+                  <input class="form-control datetimepicker" type="text" bsDatepicker type="text"
+                         [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY',  returnFocusToInput: true }"
+                         formControlName="taskDeadline">
+                </div>
+                <br>
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <label>Affected User</label>
+                <ng-multiselect-dropdown
+                  name="city"
+                  [placeholder]="'Affect User to Task'"
+                  [data]="usersList"
+                  formControlName="selectUser"
+                  [disabled]="disabled"
+                  [settings]="dropdownSettingsManager"
+                  (onSelect)="onItemSelectTask($event)">
+                </ng-multiselect-dropdown>
+              </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="submit-section">
+            <button class="btn btn-primary submit-btn" (click)="addTask()">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Add Task Modal -->
+
+<!-- Assign User Modal -->
+<div id="assign_user" class="modal custom-modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Assign the user to this project</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group m-b-30">
+                    <input placeholder="Search a user to assign" class="form-control search-input" type="text">
+                    <button class="btn btn-primary">Search</button>
+                </div>
+                <div>
+                  <ng-multiselect-dropdown
+                    name="city"
+                    [placeholder]="'Select Users'"
+                    [data]="usersList"
+                    formControlName="city"
+                    [disabled]="disabled"
+                    [settings]="dropdownSettings"
+                    (onSelect)="onItemSelect($event)">
+                  </ng-multiselect-dropdown>
+                </div>
+                <div class="submit-section">
+                    <button class="btn btn-primary submit-btn" (click)="addUserstoProject()">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Assign User Modal -->
+
+
+
+
+<!-- Delete Ticket Modal -->
+<div class="modal custom-modal fade" id="delete_task" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="form-header">
+          <h3>Delete Ticket</h3>
+          <p>Are you sure want to delete?</p>
+        </div>
+        <div class="modal-btn delete-action">
+          <div class="row">
+            <div class="col-6">
+              <a  class="btn btn-primary continue-btn"
+                  (click)="deletelfaza(tempId)">Delete</a>
+            </div>
+            <div class=" col-6">
+              <a  data-bs-dismiss="modal"
+                  class="btn btn-primary cancel-btn">Cancel</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Delete Ticket Modal -->
+<div id="assignee" class="modal custom-modal fade" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Change Project Manager</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ng-multiselect-dropdown
+          name="city"
+          [placeholder]="'Select Project Manager'"
+          [data]="usersList"
+          formControlName="city"
+          [disabled]="disabled"
+          [settings]="dropdownSettingsManager"
+          (onSelect)="onItemSelectManager($event)">
+        </ng-multiselect-dropdown>
+        <div class="submit-section">
+          <button class="btn btn-primary submit-btn" (click)="addManagertoProject()">Affect Manager</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Assignee Modal -->
+
+<!-- Task Followers Modal -->
+<div id="task_followers" class="modal custom-modal fade" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add followers to this task</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="input-group m-b-30">
+          <input placeholder="Search to add" class="form-control search-input" type="text">
+          <button class="btn btn-primary">Search</button>
+        </div>
+        <div>
+          <ul class="chat-user-list">
+            <li>
+              <a>
+                <div class="media d-flex">
+                  <span class="avatar flex-shrink-0"><img alt="" src="assets/img/profiles/avatar-16.jpg"></span>
+                  <div class="media-body media-middle text-nowrap flex-grow-1">
+                    <div class="user-name">Jeffery Lalor</div>
+                    <span class="designation">Team Leader</span>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a>
+                <div class="media d-flex">
+                  <span class="avatar flex-shrink-0"><img alt="" src="assets/img/profiles/avatar-8.jpg"></span>
+                  <div class="media-body media-middle text-nowrap flex-grow-1">
+                    <div class="user-name">Catherine Manseau</div>
+                    <span class="designation">Android Developer</span>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a>
+                <div class="media d-flex">
+                  <span class="avatar flex-shrink-0"><img alt="" src="assets/img/profiles/avatar-26.jpg"></span>
+                  <div class="media-body media-middle text-nowrap flex-grow-1">
+                    <div class="user-name">Wilmer Deluna</div>
+                    <span class="designation">Team Leader</span>
+                  </div>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="submit-section">
+          <button class="btn btn-primary submit-btn">Add to Follow</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal custom-modal fade" id="confirm_task" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="form-header">
+          <h3>Confirm Task Completion</h3>
+          <p>Are you sure want to confirm the completion of this task ?</p>
+        </div>
+        <div class="modal-btn delete-action">
+          <div class="row">
+            <div class="col-6">
+              <a  class="btn btn-primary continue-btn"
+                  (click)="validateTask(tempId)">Confirm</a>
+            </div>
+            <div class=" col-6">
+              <a  data-bs-dismiss="modal"
+                  class="btn btn-primary cancel-btn">Cancel</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal custom-modal fade" id="show_task" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="form-header">
+          <h3>Task assignment</h3>
+          <p>Name : {{foundUser?.name}}</p>
+          <p>Name : {{foundUser?.name}}</p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+

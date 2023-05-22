@@ -1,0 +1,333 @@
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-inner slimscroll">
+        <div class="sidebar-menu">
+            <ul>
+                <li>
+                    <a routerLink="/layout/dashboard/admin"><i class="la la-home"></i> <span>Back to Home</span></a>
+                </li>
+                <li class="active">
+                    <a href="javaScript:void(0)">Tasks Management</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- /Sidebar -->
+
+<!--PageContent-->
+<div class="chat-main-row">
+    <div class="chat-main-wrapper">
+        <div class="col-lg-7 message-view task-view task-left-sidebar">
+            <div class="chat-window">
+                <div class="fixed-header">
+                    <div class="navbar">
+                        <div class="float-start me-auto">
+                            <div class="add-task-btn-wrapper">
+                                <span class="add-task-btn btn btn-white btn-sm">
+                                    Add Task
+                                </span>
+                            </div>
+                        </div>
+                        <a class="task-chat profile-rightbar float-end" id="task_chat" href="#task_window"><i
+                                class="fa fa fa-comment"></i></a>
+                        <ul class="nav float-end custom-menu">
+                            <li class="nav-item dropdown dropdown-action">
+                                <a href="" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i
+                                        class="fa fa-cog"></i></a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" >Pending Tasks</a>
+                                    <a class="dropdown-item" >Completed Tasks</a>
+                                    <a class="dropdown-item" >All Tasks</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="chat-contents">
+                    <div class="chat-content-wrap">
+                        <div class="chat-wrap-inner">
+                            <div class="chat-box">
+                                <div class="task-wrapper">
+                                    <div class="task-list-container">
+                                        <div class="task-list-body">
+                                            <ul id="task-list">
+                                                <li class="task">
+                                                    <div class="task-container">
+                                                        <span class="task-action-btn task-check">
+                                                            <span class="action-circle large complete-btn"
+                                                                title="Mark Complete">
+                                                                <i class="material-icons">check</i>
+                                                            </span>
+                                                        </span>
+                                                        <span class="task-label" contenteditable="true">Patient
+                                                            appointment booking</span>
+                                                        <span class="task-action-btn task-btn-right">
+                                                            <span class="action-circle large" title="Assign">
+                                                                <i class="material-icons">person_add</i>
+                                                            </span>
+                                                            <span class="action-circle large delete-btn"
+                                                                title="Delete Task">
+                                                                <i class="material-icons">delete</i>
+                                                            </span>
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                                <li class="task">
+                                                    <div class="task-container">
+                                                        <span class="task-action-btn task-check">
+                                                            <span class="action-circle large complete-btn"
+                                                                title="Mark Complete">
+                                                                <i class="material-icons">check</i>
+                                                            </span>
+                                                        </span>
+                                                        <span class="task-label" contenteditable="true">Appointment
+                                                            booking with payment gateway</span>
+                                                        <span class="task-action-btn task-btn-right">
+                                                            <span class="action-circle large" title="Assign">
+                                                                <i class="material-icons">person_add</i>
+                                                            </span>
+                                                            <span class="action-circle large delete-btn"
+                                                                title="Delete Task">
+                                                                <i class="material-icons">delete</i>
+                                                            </span>
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                                <li class="completed task">
+                                                    <div class="task-container">
+                                                        <span class="task-action-btn task-check">
+                                                            <span class="action-circle large complete-btn"
+                                                                title="Mark Complete">
+                                                                <i class="material-icons">check</i>
+                                                            </span>
+                                                        </span>
+                                                        <span class="task-label">Doctor available module</span>
+                                                        <span class="task-action-btn task-btn-right">
+                                                            <span class="action-circle large" title="Assign">
+                                                                <i class="material-icons">person_add</i>
+                                                            </span>
+                                                            <span class="action-circle large delete-btn"
+                                                                title="Delete Task">
+                                                                <i class="material-icons">delete</i>
+                                                            </span>
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                                <li class="task">
+                                                    <div class="task-container">
+                                                        <span class="task-action-btn task-check">
+                                                            <span class="action-circle large complete-btn"
+                                                                title="Mark Complete">
+                                                                <i class="material-icons">check</i>
+                                                            </span>
+                                                        </span>
+                                                        <span class="task-label" contenteditable="true">Patient and
+                                                            Doctor video conferencing</span>
+                                                        <span class="task-action-btn task-btn-right">
+                                                            <span class="action-circle large" title="Assign">
+                                                                <i class="material-icons">person_add</i>
+                                                            </span>
+                                                            <span class="action-circle large delete-btn"
+                                                                title="Delete Task">
+                                                                <i class="material-icons">delete</i>
+                                                            </span>
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                                <li class="task">
+                                                    <div class="task-container">
+                                                        <span class="task-action-btn task-check">
+                                                            <span class="action-circle large complete-btn"
+                                                                title="Mark Complete">
+                                                                <i class="material-icons">check</i>
+                                                            </span>
+                                                        </span>
+                                                        <span class="task-label" contenteditable="true">Private chat
+                                                            module</span>
+                                                        <span class="task-action-btn task-btn-right">
+                                                            <span class="action-circle large" title="Assign">
+                                                                <i class="material-icons">person_add</i>
+                                                            </span>
+                                                            <span class="action-circle large delete-btn"
+                                                                title="Delete Task">
+                                                                <i class="material-icons">delete</i>
+                                                            </span>
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                                <li class="task">
+                                                    <div class="task-container">
+                                                        <span class="task-action-btn task-check">
+                                                            <span class="action-circle large complete-btn"
+                                                                title="Mark Complete">
+                                                                <i class="material-icons">check</i>
+                                                            </span>
+                                                        </span>
+                                                        <span class="task-label" contenteditable="true">Patient
+                                                            Profile add</span>
+                                                        <span class="task-action-btn task-btn-right">
+                                                            <span class="action-circle large" title="Assign">
+                                                                <i class="material-icons">person_add</i>
+                                                            </span>
+                                                            <span class="action-circle large delete-btn"
+                                                                title="Delete Task">
+                                                                <i class="material-icons">delete</i>
+                                                            </span>
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="task-list-footer">
+                                            <div class="new-task-wrapper">
+                                                <textarea id="new-task"
+                                                    placeholder="Enter new task here. . ."></textarea>
+                                                <span class="error-message hidden">You need to enter a task
+                                                    first</span>
+                                                <span class="add-new-task-btn btn" id="add-task">Add Task</span>
+                                                <span class="btn" id="close-task-panel">Close</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="notification-popup hide">
+                                    <p>
+                                        <span class="task"></span>
+                                        <span class="notification-text"></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/PageContent-->
+
+
+<!-- Assignee Modal -->
+<div id="assignee" class="modal custom-modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Assign to this task</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group m-b-30">
+                    <input placeholder="Search to add" class="form-control search-input" type="text">
+                    <button class="btn btn-primary">Search</button>
+                </div>
+                <div>
+                    <ul class="chat-user-list">
+                        <li>
+                            <a>
+                                <div class="media d-flex">
+                                    <span class="avatar flex-shrink-0"><img alt="" src="assets/img/profiles/avatar-9.jpg"></span>
+                                    <div class="media-body align-self-center text-nowrap flex-grow-1">
+                                        <div class="user-name">Richard Miles</div>
+                                        <span class="designation">Web Developer</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                                <div class="media d-flex">
+                                    <span class="avatar flex-shrink-0"><img alt="" src="assets/img/profiles/avatar-10.jpg"></span>
+                                    <div class="media-body align-self-center text-nowrap flex-grow-1">
+                                        <div class="user-name">John Smith</div>
+                                        <span class="designation">Android Developer</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                                <div class="media d-flex">
+                                    <span class="avatar flex-shrink-0">
+                                        <img alt="" src="assets/img/profiles/avatar-16.jpg">
+                                    </span>
+                                    <div class="media-body align-self-center text-nowrap flex-grow-1">
+                                        <div class="user-name">Jeffery Lalor</div>
+                                        <span class="designation">Team Leader</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="submit-section">
+                    <button class="btn btn-primary submit-btn">Assign</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Assignee Modal -->
+
+<!-- Task Followers Modal -->
+<div id="task_followers" class="modal custom-modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add followers to this task</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group m-b-30">
+                    <input placeholder="Search to add" class="form-control search-input" type="text">
+                    <button class="btn btn-primary">Search</button>
+                </div>
+                <div>
+                    <ul class="chat-user-list">
+                        <li>
+                            <a>
+                                <div class="media d-flex">
+                                    <span class="avatar flex-shrink-0"><img alt="" src="assets/img/profiles/avatar-16.jpg"></span>
+                                    <div class="media-body media-middle text-nowrap flex-grow-1">
+                                        <div class="user-name">Jeffery Lalor</div>
+                                        <span class="designation">Team Leader</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                                <div class="media d-flex">
+                                    <span class="avatar flex-shrink-0"><img alt="" src="assets/img/profiles/avatar-8.jpg"></span>
+                                    <div class="media-body media-middle text-nowrap flex-grow-1">
+                                        <div class="user-name">Catherine Manseau</div>
+                                        <span class="designation">Android Developer</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                                <div class="media d-flex">
+                                    <span class="avatar flex-shrink-0"><img alt="" src="assets/img/profiles/avatar-26.jpg"></span>
+                                    <div class="media-body media-middle text-nowrap flex-grow-1">
+                                        <div class="user-name">Wilmer Deluna</div>
+                                        <span class="designation">Team Leader</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="submit-section">
+                    <button class="btn btn-primary submit-btn">Add to Follow</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Task Followers Modal -->

@@ -1,0 +1,261 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h3 class="page-title">Projects</h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/layout/dashboard/admin">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Projects</li>
+                </ul>
+            </div>
+            <div class="col-auto float-end ms-auto">
+                <a class="btn add-btn" data-bs-toggle="modal" data-bs-target="#create_project"><i class="fa fa-plus"></i>
+                    Create Project</a>
+                <div class="view-icons">
+                    <a routerLink="/layout/projects/projectpage" class="grid-view btn btn-link active"><i
+                            class="fa fa-th"></i></a></div>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Header -->
+
+    <!-- Search Filter -->
+    <div class="row filter-row">
+        <div class="col-sm-6 col-md-4">
+            <div class="form-group form-focus">
+                <input type="text" class="form-control floating" (input)="searchName($event.target.value)">
+                <label class="focus-label">Project Name</label>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+            <div class="form-group form-focus">
+                <input type="text" class="form-control floating" (input)="searchByEmpname($event.target.value)">
+                <label class="focus-label">Project Description</label>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+            <a class="btn btn-success w-100"> Search </a>
+        </div>
+    </div>
+    <!-- Search Filter -->
+
+    <div class="row">
+        <div *ngFor="let project of projects" class="col-lg-4 col-sm-6 col-md-4 col-xl-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="dropdown dropdown-action profile-action">
+                        <a class="action-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i
+                                class="material-icons">more_vert</i></a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#edit_project"
+                               (click)="editProject(project._id)"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                            <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#delete_project"
+                                (click)="tempId = project._id"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                        </div>
+                    </div>
+                    <h4 class="project-title"><a routerLink="/layout/projects/projectview/{{project._id}}">{{project.project_name}}</a>
+                    </h4>
+                    <small class="block text-ellipsis m-b-15">
+                    </small>
+                    <p class="text-muted" >{{ project.description | slice:0:50 }}
+
+
+                    </p>
+                    <div class="pro-deadline m-b-15">
+                        <div class="sub-title">
+                            Deadline:
+                        </div>
+                        <div class="text-muted">
+                            {{project.Deadline | date}}
+                        </div>
+                    </div>
+                    <div class="project-members m-b-15">
+                        <div>Project Leader :</div>
+                        <ul class="team-members">
+                            <li>
+                                <a data-bs-toggle="tooltip" title="Project Manager"><img alt=""
+                                        src="https://www.kindpng.com/picc/m/616-6169200_supervised-distribution-team-project-manager-icon-hd-png.png"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Page Content -->
+
+<!-- Create Project Modal -->
+<div id="create_project" class="modal custom-modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create Project</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="addProjectForm">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Project Name</label>
+                                <input class="form-control" type="text" formControlName="projectName">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Client</label>
+                                <select class="form-select form-control" formControlName="projectCategory">
+                                    <option>SaaS</option>
+                                    <option>Consulting</option>
+                                  <option>Administration</option>
+                                  <option>Operations</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Start Date</label>
+                                <div class="cal-icon">
+                                    <input class="form-control datetimepicker" type="text" bsDatepicker type="text"
+                                        [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY',  returnFocusToInput: true }"
+                                        [class.invalid]="addProjectForm.get('projectStartDate').invalid && addProjectForm.get('projectStartDate').touched"
+                                        formControlName="projectStartDate">
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Deadline</label>
+                                <div class="cal-icon">
+                                    <input class="form-control datetimepicker" type="text" bsDatepicker type="text"
+                                        [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY',  returnFocusToInput: true }"
+                                        formControlName="projectEndDate">
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea rows="4" class="form-control summernote" placeholder="Enter your message here"
+                            formControlName="projectDescription"></textarea>
+                        <div
+                            *ngIf="addProjectForm.get('projectDescription').invalid && addProjectForm.get('projectDescription').touched">
+                            <small
+                                *ngIf="addProjectForm.get('projectDescription').invalid && addProjectForm.get('projectDescription').touched"
+                                class="text-danger"> *Description is required</small>
+                        </div>
+                    </div>
+                    <div class="submit-section">
+                        <button class="btn btn-primary submit-btn" (click)="addProject()">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Create Project Modal -->
+
+<!-- Edit Project Modal -->
+<div id="edit_project" class="modal custom-modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Project</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="editProjectForm">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Project Name</label>
+                                <input class="form-control" type="text"
+                                    formControlName="editProjectName">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Category</label>
+                                <select class="form-select form-control" formControlName="EditprojectCategory">
+                                  <option selected disabled>{{projectCategory}}</option>
+                                    <option>SaaS</option>
+                                    <option>Consulting</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Deadline</label>
+                                <div class="cal-icon">
+                                    <input class="form-control datetimepicker" type="text" bsDatepicker type="text" value="{{deadline | date:'yyyy-MM-dd' }}"
+                                        [bsConfig]="{ dateInputFormat: 'YYYY-MM-dd',  returnFocusToInput: true }"
+                                        formControlName="editProjectEndDate">
+                                </div>
+                            </div>
+                        </div>
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label>Project Status</label>
+                          <input class="form-control" type="text"
+                                 formControlName="editProjectStatus">
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea rows="4" class="form-control summernote" placeholder="Enter your message here"
+                            formControlName="editProjectDescription"></textarea>
+                    </div>
+                    <div class="submit-section">
+                        <button class="btn btn-primary submit-btn" (click)="saveProject(tempId)">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Edit Project Modal -->
+
+<!-- Delete Project Modal -->
+<div class="modal custom-modal fade" id="delete_project" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="form-header">
+                    <h3>Delete Project</h3>
+                    <p>Are you sure want to delete?</p>
+                </div>
+                <div class="modal-btn delete-action">
+                    <div class="row">
+                        <div class="col-6">
+                            <a  class="btn btn-primary continue-btn"
+                                (click)="deleteProject(tempId)">Delete</a>
+                        </div>
+                        <div class="col-6">
+                            <a  data-bs-dismiss="modal"
+                                class="btn btn-primary cancel-btn">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Delete Project Modal -->

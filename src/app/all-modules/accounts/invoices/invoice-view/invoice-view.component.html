@@ -1,0 +1,120 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h3 class="page-title">Training Details</h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/layout/dashboard/admin">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Training Details</li>
+                </ul>
+            </div>
+            <div class="col-auto float-end ms-auto">
+                <div class="btn-group btn-group-sm">
+                    <button class="btn btn-white">PDF</button>
+                    <button class="btn btn-white"><i class="fa fa-print fa-lg"></i> Print</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Header -->
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-6 m-b-20">
+                            <img src="assets/img/Logo/200x200.png" class="inv-logo" alt="">
+                            <ul class="list-unstyled">
+                                <li>Training Responsible : </li>
+                                <li>{{trainingResponsible}}</li>
+                              <br>
+                              <li>Training Link :</li>
+                                <li>{{trainingLink}}</li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6 m-b-20">
+                            <div class="invoice-details">
+                                <h3 class="text-uppercase">{{trainingName}}</h3>
+                                <ul class="list-unstyled">
+                                    <li>Training Date: <span>{{traininDate | date}}</span></li>
+                                    <li>Training Type: <span>{{trainingType}}</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8 col-lg-10 col-xl-10 m-b-20">
+                            <h5>Description :</h5>
+                          <p class="text-muted">{{trainingDescription}}</p>
+                        </div>
+                    </div>
+                  <div class="invoice-info">
+                    <h5>List of participants</h5>
+                  </div>
+                  <br>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th class="d-none d-sm-table-cell">Departement</th>
+                                    <th>Email</th>
+                                    <th class="text-end">Remove from training ?</th>
+                                    <th class="text-end">Presence</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let user of usersByTraining;let i = index">
+                                    <td>{{user.name}}</td>
+                                    <td>{{user.role}}</td>
+                                    <td class="d-none d-sm-table-cell">{{user.email}}</td>
+                                  <td class="text-end" ><button type="button" class="btn btn-outline-danger" (click)="tempId = user._id" data-bs-toggle="modal" data-bs-target="#modal_remove_user">Remove</button></td>
+                                    <td class="text-end"><button type="button" class="btn btn-outline-primary">Confirm</button></td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                        <div class="row invoice-payment">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Page Content -->
+
+
+<!-- Objectives Modal -->
+<div class="modal custom-modal fade" id="modal_remove_user" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="form-header">
+          <h3>Remove User !!</h3>
+          <p>Are you sure want to remove this user from the objective ?</p>
+        </div>
+        <div class="modal-btn delete-action">
+          <div class="row">
+            <div class="col-6">
+              <a  class="btn btn-primary continue-btn"
+                  (click)="removeUserfromtraining(tempId)">Validate</a>
+            </div>
+            <div class="col-6">
+              <a  data-bs-dismiss="modal"
+                  class="btn btn-primary cancel-btn">Cancel</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Objectives Modal -->

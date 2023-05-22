@@ -1,0 +1,265 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 class="page-title">Candidate Details</h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/layout/dashboard/admin">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Candidate Details</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Header -->
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="job-info job-widget">
+                <h3 class="job-title">{{name}} {{last_name}}</h3>
+                <span class="job-dept">{{status}}</span>
+                <ul class="job-post-det">
+                    <li><i class="fa fa-calendar"></i> Creation Date: <span class="text-blue">May 31, 2019</span></li>
+                    <li><i class="fa fa-user-o"></i> <span class="text-blue"> {{gender}} </span></li>
+                  <li><i class="fa fa-calendar"></i> Birth Day: <span class="text-blue">{{Birth_date | date}}</span></li>
+                  <li><i class="fa fa-address-book"></i> Email: <span class="text-blue">{{email}}</span></li>
+                </ul>
+            </div>
+            <div class="job-content job-widget">
+              <br><br>
+                <div class="job-desc-title">
+                    <h4>Departement</h4>
+                </div>
+                <div class="job-description">
+                    <ul class="square-list">
+                        <li>{{departement}}</li>
+                    </ul>
+                </div>
+              <br><br>
+              <div class="job-desc-title">
+                <h4>Tests Status</h4>
+              </div>
+              <div class="job-description">
+                <ul class="square-list">
+                  <li>{{tests_status}}</li>
+                </ul>
+              </div>
+              <br><br>
+              <div class="job-desc-title">
+                <h4>IRT Score (if applicable)</h4>
+              </div>
+              <div class="job-description">
+                <ul class="square-list">
+                  <li>{{irt_score}}</li>
+                </ul>
+              </div>
+              <br><br>
+              <div class="job-desc-title">
+                <h4>Psychological Test</h4>
+              </div>
+              <div class="job-description">
+                <ul class="square-list">
+                  <li>{{psy_score}}</li>
+                </ul>
+              </div>
+              <br><br>
+              <div class="job-desc-title">
+                <h4>Consultant Test (if applicable)</h4>
+              </div>
+              <div class="job-description">
+                <ul class="square-list">
+                  <li>{{tech_test}}</li>
+                </ul>
+              </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="job-det-info job-widget">
+              <div class="info-list">
+                    <span><i class="fa fa-bar-chart"></i></span>
+                    <h5>Email</h5>
+                    <p> {{email}}</p>
+                </div>
+                <div class="info-list">
+                    <span><i class="fa fa-money"></i></span>
+                    <h5>Gender</h5>
+                    <p>{{gender}}</p>
+                </div>
+                <div class="info-list">
+                    <span><i class="fa fa-suitcase"></i></span>
+                    <h5>Phone</h5>
+                    <p>{{phone}}</p>
+                </div>
+                <div class="info-list">
+                    <span><i class="fa fa-ticket"></i></span>
+                    <h5>Status</h5>
+                    <p>{{status}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Page Content -->
+
+<!-- Edit Job Modal -->
+<div id="edit_job" class="modal custom-modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Job</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Job Title</label>
+                                <input class="form-control" type="text" value="Web Developer">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Department</label>
+                                <select class="form-select">
+                                    <option>-</option>
+                                    <option selected>Web Development</option>
+                                    <option>Application Development</option>
+                                    <option>IT Management</option>
+                                    <option>Accounts Management</option>
+                                    <option>Support Management</option>
+                                    <option>Marketing</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Job Location</label>
+                                <input class="form-control" type="text" value="California">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>No of Vacancies</label>
+                                <input class="form-control" type="text" value="5">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Experience</label>
+                                <input class="form-control" type="text" value="2 Years">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Age</label>
+                                <input class="form-control" type="text" value="-">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Salary From</label>
+                                <input type="text" class="form-control" value="32k">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Salary To</label>
+                                <input type="text" class="form-control" value="38k">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Job Type</label>
+                                <select class="form-select">
+                                    <option selected>Full Time</option>
+                                    <option>Part Time</option>
+                                    <option>Internship</option>
+                                    <option>Temporary</option>
+                                    <option>Remote</option>
+                                    <option>Others</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select class="form-select">
+                                    <option selected>Open</option>
+                                    <option>Closed</option>
+                                    <option>Cancelled</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Start Date</label>
+                                <input type="text" class="form-control datetimepicker" value="3 Mar 2019">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Expired Date</label>
+                                <input type="text" class="form-control datetimepicker" value="31 May 2019">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Description</label>
+                                <textarea class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="submit-section">
+                        <button class="btn btn-primary submit-btn">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Edit Job Modal -->
+
+
+<!-- Objectives Modal -->
+<div class="modal custom-modal fade" id="interviewing_candidate" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="form-header">
+          <h3>Validate Candidate</h3>
+          <p>Are you sure want to Validate this Candidate to the interviewing Process ?</p>
+        </div>
+        <div class="modal-btn delete-action">
+          <div class="row">
+            <div class="col-6">
+              <a  class="btn btn-primary continue-btn"
+                  (click)="updateCandidate()">Validate</a>
+            </div>
+            <div class="col-6">
+              <a  data-bs-dismiss="modal"
+                  class="btn btn-primary cancel-btn">Cancel</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Objectives Modal -->

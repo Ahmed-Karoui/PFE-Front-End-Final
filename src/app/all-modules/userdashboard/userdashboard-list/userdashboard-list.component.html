@@ -1,0 +1,421 @@
+<!-- Page Wrapper -->
+<div class="page-wrapper">
+
+				<!-- Page Content -->
+                <div class="content container-fluid">
+
+					<!-- Page Header -->
+					<div class="page-header">
+						<div class="row">
+							<div class="col-sm-12">
+								<h3 class="page-title">Candidates Dashboard</h3>
+								<ul class="breadcrumb">
+									<li class="breadcrumb-item"><a routerLink="/layout/dashboard/admin">Dashboard</a></li>
+									<li class="breadcrumb-item">Candidates</li>
+									<li class="breadcrumb-item">Candidates Dashboard</li>
+								</ul>
+							</div>
+              <div class="col-auto float-end ms-auto">
+                <a  class="btn add-btn" data-bs-toggle="modal" data-bs-target="#add_job"><i class="fa fa-plus"></i>
+                  Add Candidate</a>
+              </div>
+						</div>
+					</div>
+
+					<!-- /Page Header -->
+
+					<!-- Content Starts -->
+					<div class="card">
+						<div class="card-body">
+							<!-- <h4 class="card-title">Solid justified</h4> -->
+							<ul class="nav nav-tabs nav-tabs-solid nav-justified">
+								<li class="nav-item"><a class="nav-link active" routerLink="/layout/userdashboard/user-dashboard">Tests Phase </a></li>
+								<li class="nav-item"><a class="nav-link" routerLink="/layout/savedjobs/saved-jobs">Interviewing</a></li>
+								<li class="nav-item"><a class="nav-link" routerLink="/layout/appliedjobs/applied-jobs">Offered</a></li>
+								<li class="nav-item"><a class="nav-link" routerLink="/layout/interviewing/interviewing">Confirmed</a></li>
+								<li class="nav-item"><a class="nav-link" routerLink="/layout/offeredjobs/offered-jobs">Rejected</a></li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+							<div class="card dash-widget">
+								<div class="card-body">
+									<span class="dash-widget-icon"><i class="fa fa-file-text-o"></i></span>
+									<div class="dash-widget-info">
+										<h3>{{this.candidatesinterview.length}}</h3>
+										<span>Interviewing</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+							<div class="card dash-widget">
+								<div class="card-body">
+									<span class="dash-widget-icon"><i class="fa fa-clipboard"></i></span>
+									<div class="dash-widget-info">
+										<h3>{{this.candidatesoffered.length}}</h3>
+										<span>Offered</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+							<div class="card dash-widget">
+								<div class="card-body">
+									<span class="dash-widget-icon"><i class="fa fa-retweet"></i></span>
+									<div class="dash-widget-info">
+										<h3>{{this.candidatesaccepeted.length}}</h3>
+										<span>Accepeted</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+							<div class="card dash-widget">
+								<div class="card-body">
+									<span class="dash-widget-icon"><i class="fa fa-floppy-o"></i></span>
+									<div class="dash-widget-info">
+										<h3>{{this.candidatesrejected.length}}</h3>
+										<span>Rejected</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+                  <!-- Search Filter -->
+                  <div class="row filter-row">
+                    <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 col-12">
+                      <div class="form-group form-focus">
+                        <input type="text" class="form-control floating" (input)="searchName($event.target.value)">
+                        <label class="focus-label">Ticket Description</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 col-12">
+                      <div class="form-group form-focus">
+                        <input type="text" class="form-control floating" (input)="searchEmail($event.target.value)">
+                        <label class="focus-label">Candidate Email</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 col-12">
+                      <div class="form-group form-focus select-focus">
+                        <select class="-form-select floating form-control" (input)="searchGender($event.target.value)">
+                          <option value=""> -- Select -- </option>
+                          <option value="Male"> Male </option>
+                          <option value="Female"> Female </option>
+                        </select>
+                        <label class="focus-label">Gender</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 col-12">
+                      <a class="btn btn-success w-100"> Search </a>
+                    </div>
+                  </div>
+                  <!-- Search Filter -->
+
+
+					<div class="row">
+						<div class="col-md-12">
+							<div class="card card-table">
+								<div class="card-header">
+									<h3 class="card-title mb-0">Candiates on Testing Phase</h3>
+								</div>
+								<div class="card-body">
+									<div class="table-responsive">
+										<table class="table table-nowrap custom-table mb-0">
+											<thead>
+												<tr>
+													<th>#</th>
+													<th>Name</th>
+													<th>Last Name</th>
+													<th>Email</th>
+													<th>gender</th>
+													<th class="text-center">Status</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr *ngFor="let candidate of candidatesData">
+													<td>1</td>
+													<td><a routerLink="/layout/jobs/job-details/{{candidate._id}}">{{candidate.name}}</a></td>
+													<td>{{candidate.last_name}}</td>
+													<td>{{candidate.email}}</td>
+													<td>{{candidate.gender}}</td>
+													<td class="text-center">
+														<div class="action-label">
+															<a class="btn btn-white btn-sm btn-rounded" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+																<i class="fa fa-file-text text-blue"></i> Tests Phase
+															</a>
+														</div>
+													</td>
+
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- /Content End -->
+
+                </div>
+				<!-- /Page Content -->
+
+            </div>
+			<!-- /Page Wrapper -->
+
+<!-- Add Client Modal -->
+<div id="add_job" class="modal custom-modal fade" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Candidate</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="onAddCandidate()" [formGroup]="addCandidateForm">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-form-label">First Name <span class="text-danger">*</span></label>
+                <input class="form-control" type="text"
+                       formControlName="candidateName">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-form-label">Last Name</label>
+                <input class="form-control" type="text" formControlName="candidateLastName">
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="col-form-label">Email <span class="text-danger">*</span></label>
+                <input class="form-control" type="text"
+                       formControlName="candidateEmail">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-form-label">Password</label>
+                <input class="form-control" type="password" formControlName="candidatePassword">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-form-label">Confirm Password</label>
+                <input class="form-control" type="password">
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="col-form-label">Departement</label>
+                <select class="form-select form-control" formControlName="candidateDepartement">
+                  <option>IRT</option>
+                  <option>Consulting</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="col-form-label">Birthday</label>
+                <input class="form-control" type="date" formControlName="candidateBirthday">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-form-label">Gender <span class="text-danger">*</span></label>
+                <select class="form-select form-control" formControlName="candidateGender">
+                  <option>Male</option>
+                  <option>Female</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-form-label">Phone Number</label>
+                <input class="form-control" type="phone"
+                       formControlName="candidatePhone">
+              </div>
+            </div>
+          </div>
+          <div class="submit-section">
+            <button class="btn btn-primary submit-btn">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Add Client Modal -->
+
+<!-- Edit Job Modal -->
+<div id="edit_job" class="modal custom-modal fade" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Job</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="editJobs()" [formGroup]="editManageJobs">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Job Title</label>
+                <input class="form-control" type="text"
+                       formControlName="editJobTitle">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Department</label>
+                <select class="form-select form-control"
+                        formControlName="editDepartment">
+                  <option>-</option>
+                  <option selected>Web Development</option>
+                  <option>Application Development</option>
+                  <option>IT Management</option>
+                  <option>Accounts Management</option>
+                  <option>Support Management</option>
+                  <option>Marketing</option>
+                </select>
+
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Job Location</label>
+                <input class="form-control" type="text" value="California">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>No of Vacancies</label>
+                <input class="form-control" type="text" value="5">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Experience</label>
+                <input class="form-control" type="text" value="2 Years">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Age</label>
+                <input class="form-control" type="text" value="-">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Salary From</label>
+                <input type="text" class="form-control" value="32k">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Salary To</label>
+                <input type="text" class="form-control" value="38k">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Job Type</label>
+                <select class="form-select form-control">
+                  <option selected>Full Time</option>
+                  <option>Part Time</option>
+                  <option>Internship</option>
+                  <option>Temporary</option>
+                  <option>Remote</option>
+                  <option>Others</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Status</label>
+                <select class="form-select form-control">
+                  <option selected>Open</option>
+                  <option>Closed</option>
+                  <option>Cancelled</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Start Date</label>
+                <input type="text" class="form-control datetimepicker" bsDatepicker type="text" [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY',  returnFocusToInput: true }"
+                       formControlName="editStartDate" (bsValueChange)="from($event)">
+
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Expired Date</label>
+                <input type="text" class="form-control datetimepicker" bsDatepicker type="text" [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY',  returnFocusToInput: true }"
+                       formControlName="editExpireDate" (bsValueChange)="to($event)">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Description</label>
+                <textarea class="form-control"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="submit-section">
+            <button class="btn btn-primary submit-btn">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Edit Job Modal -->
+
+<!-- Delete Job Modal -->
+<div class="modal custom-modal fade" id="delete_job" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="form-header">
+          <h3>Delete Job</h3>
+          <p>Are you sure want to delete?</p>
+        </div>
+        <div class="modal-btn delete-action">
+          <div class="row">
+            <div class="col-6">
+              <a  class="btn btn-primary continue-btn">Delete</a>
+            </div>
+            <div class="col-6">
+              <a  data-bs-dismiss="modal"
+                  class="btn btn-primary cancel-btn">Cancel</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Delete Job Modal -->

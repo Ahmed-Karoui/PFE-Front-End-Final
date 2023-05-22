@@ -1,0 +1,375 @@
+
+<!-- Page Content -->
+<div class="content container-fluid">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h3 class="page-title">Tickets</h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/layout/dashboard/admin">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Tickets</li>
+                </ul>
+            </div>
+            <div class="col-auto float-end ms-auto">
+                <a class="btn add-btn" data-bs-toggle="modal" data-bs-target="#add_ticket"><i class="fa fa-plus"></i>
+                    Add Ticket</a>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Header -->
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card-group m-b-30">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between mb-3">
+                            <div>
+                                <span class="d-block">All Tickets</span>
+                            </div>
+                            <div>
+                            </div>
+                        </div>
+                        <h3 class="mb-3">{{nbticket}}</h3>
+                        <div class="progress mb-2" style="height: 5px;">
+                            <div class="progress-bar bg-primary" role="progressbar" style="width: 100%;"
+                                aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between mb-3">
+                            <div>
+                                <span class="d-block">Open Tickets</span>
+                            </div>
+                            <div>
+                            </div>
+                        </div>
+                        <h3 class="mb-3">{{nbticketopen}}</h3>
+                        <div class="progress mb-2" style="height: 5px;">
+                            <div class="progress-bar bg-primary" role="progressbar" style="width: {{nbticketopen/nbticket*100}}%;"
+                                aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between mb-3">
+                            <div>
+                                <span class="d-block">Solved Tickets</span>
+                            </div>
+                            <div>
+                            </div>
+                        </div>
+                        <h3 class="mb-3">{{nbticketsolved}}</h3>
+                        <div class="progress mb-2" style="height: 5px;">
+                            <div class="progress-bar bg-primary" role="progressbar" style="width: {{nbticketsolved/nbticket*100}}%;"
+                                aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Filter -->
+    <div class="row filter-row">
+        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 col-12">
+            <div class="form-group form-focus">
+                <input type="text" class="form-control floating" (input)="searchName($event.target.value)">
+                <label class="focus-label">Ticket Description</label>
+            </div>
+        </div>
+      <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 col-12">
+            <div class="form-group form-focus select-focus">
+                <select class="-form-select floating form-control" (input)="searchStatus($event.target.value)">
+                    <option value=""> -- Select -- </option>
+                    <option value="active"> Active </option>
+                    <option value="solved"> Solved </option>
+                </select>
+                <label class="focus-label">Status</label>
+            </div>
+        </div>
+      <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 col-12">
+            <div class="form-group form-focus select-focus">
+                <select class="-form-select floating form-control" (input)="searchPriority($event.target.value)">
+                    <option value=""> -- Select -- </option>
+                    <option value="P1"> P1 </option>
+                    <option value="P2"> P2 </option>
+                    <option value="P3"> P3 </option>
+                  <option value="P4"> P4 </option>
+
+                </select>
+                <label class="focus-label">Priority</label>
+            </div>
+        </div>
+      <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 col-12">
+            <a class="btn btn-success w-100"> Search </a>
+        </div>
+    </div>
+    <!-- /Search Filter -->
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+                    class="table table-striped custom-table mb-0 datatable">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Ticket Id</th>
+                            <th>Ticket Subject</th>
+                          <th>Ticket Owner</th>
+                          <th>Owner's Departement</th>
+                          <th>Category</th>
+                            <th>Created Date</th>
+                            <th>Due Date</th>
+                            <th>Priority</th>
+                            <th class="text-center">Status</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let tickets of allTickets;let i = index">
+                            <td>{{i + 1}}</td>
+                            <td><a routerLink="/layout/tickets/ticketsview/{{tickets._id}}">{{tickets._id | slice:6:12}}</a></td>
+                            <td>{{tickets.description}}</td>
+                          <td>{{UsersFound[i+allTickets.length].last_name}}</td>
+                          <td>{{UsersFound[i+allTickets.length].role}}</td>
+                          <td>
+                              {{tickets.category}}
+                            </td>
+                            <td>{{tickets.creation_date | date}}</td>
+                            <td>{{tickets.estiamte_date | date}}</td>
+                            <td>
+                                <div class="dropdown action-label">
+                                    <a class="btn btn-white btn-sm btn-rounded" data-bs-toggle="dropdown"
+                                        aria-expanded="false"><i *ngIf="tickets.urgency == 'P2' || tickets.urgency == 'P1';else content" class="fa fa-dot-circle-o text-danger"></i> {{tickets.urgency}} </a>
+                                </div><ng-template #content> <i class="fa fa-dot-circle-o text-warning"></i></ng-template>
+
+                            </td>
+                            <td class="text-center">
+                                <div class="dropdown action-label">
+                                    <a class="btn btn-white btn-sm btn-rounded" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        <i *ngIf="tickets.status == 'Active';else contentStatus" class="fa fa-dot-circle-o text-danger" ></i> {{tickets.status}}
+                                    </a>
+                                  <ng-template #contentStatus> <i class="fa fa-dot-circle-o text-success"></i></ng-template>
+                                </div>
+                            </td>
+                            <td class="text-end">
+                                <div class="dropdown dropdown-action">
+                                    <a class="action-icon dropdown-toggle" data-bs-toggle="dropdown"
+                                        aria-expanded="false"><i class="material-icons">more_vert</i></a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#edit_ticket"
+                                           (click)="editTicket(tickets._id)"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                        <a class="dropdown-item" data-bs-toggle="modal" (click)="tempId = tickets._id"
+                                            data-bs-target="#delete_ticket"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Page Content -->
+
+<!-- Add Ticket Modal -->
+<div id="add_ticket" class="modal custom-modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Ticket</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form (ngSubmit)="addTickets()" [formGroup]="addTicketForm">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Ticket Subject</label>
+                                <input class="form-control" type="text"
+                                    formControlName="ticketSubject">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Urgency</label>
+                                <select class="form-select form-control"
+                                    formControlName="ticketUrgency">
+                                    <option>P1</option>
+                                    <option>P2</option>
+                                    <option>P3</option>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Category</label>
+                                <select class="form-select form-control"
+                                    formControlName="TicketCategory">
+                                    <option>-</option>
+                                    <option>IT</option>
+                                    <option>Consulting</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Departement</label>
+                                <select class="form-select form-control"
+                                    formControlName="TicketDepartement">
+                                    <option>Human Resources</option>
+                                    <option>Head of Operations</option>
+                                  <option>Consulting</option>
+                                  <option>Service Manager</option>
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Content</label>
+                                <textarea class="form-control" formControlName="TicketContent"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="form-group">
+                        <label>Content</label>
+                        <input type="file" multiple formControlName="sampleFile" id="sampleFile" name="sampleFile" (change)="this.onFilechange($event)" />
+                      </div>
+                    </div>
+                  </div>
+                    <div class="submit-section">
+                        <button class="btn btn-primary submit-btn" type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Add Ticket Modal -->
+
+<!-- Edit Ticket Modal -->
+<div id="edit_ticket" class="modal custom-modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Ticket</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="editTicketForm">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="form-group">
+                        <label>Ticket Subject</label>
+                        <input class="form-control" type="text"
+                               formControlName="EditticketSubject">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label>Urgency</label>
+                        <select class="form-select form-control"
+                                formControlName="EditticketUrgency">
+                          <option>P1</option>
+                          <option>P2</option>
+                          <option>P3</option>
+
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label>Category</label>
+                        <select class="form-select form-control"
+                                formControlName="EditTicketCategory">
+                          <option>-</option>
+                          <option>IT</option>
+                          <option>Consulting</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="form-group">
+                        <label>Departement</label>
+                        <select class="form-select form-control"
+                                formControlName="EditTicketDepartement">
+                          <option>Test1</option>
+                          <option>Test2</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="form-group">
+                        <label>Content</label>
+                        <textarea class="form-control" formControlName="EditTicketContent"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                    <div class="submit-section">
+                        <button class="btn btn-primary submit-btn" (click)="saveTicket(tempId)" type="submit">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Edit Ticket Modal -->
+
+<!-- Delete Ticket Modal -->
+<div class="modal custom-modal fade" id="delete_ticket" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="form-header">
+                    <h3>Delete Ticket</h3>
+                    <p>Are you sure want to delete?</p>
+                </div>
+                <div class="modal-btn delete-action">
+                    <div class="row">
+                        <div class="col-6">
+                            <a  class="btn btn-primary continue-btn"
+                                (click)="deleteTicket(tempId)">Delete</a>
+                        </div>
+                        <div class=" col-6">
+                            <a  data-bs-dismiss="modal"
+                                class="btn btn-primary cancel-btn">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Delete Ticket Modal -->

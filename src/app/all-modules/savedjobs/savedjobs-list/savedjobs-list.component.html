@@ -1,0 +1,227 @@
+<div>
+  <!-- Page Wrapper -->
+  <div class="page-wrapper">
+
+    <!-- Page Content -->
+    <div class="content container-fluid">
+
+      <!-- Page Header -->
+      <div class="page-header">
+        <div class="row">
+          <div class="col-sm-12">
+            <h3 class="page-title">Interviewing</h3>
+            <ul class="breadcrumb">
+              <li class="breadcrumb-item"><a routerLink="/layout/dashboard/admin">Dashboard</a></li>
+              <li class="breadcrumb-item">Jobs</li>
+              <li class="breadcrumb-item">User Dashboard</li>
+              <li class="breadcrumb-item active">Interviewing</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- /Page Header -->
+
+
+      <!-- Content Starts -->
+      <div class="card">
+        <div class="card-body">
+          <!-- <h4 class="card-title">Solid justified</h4> -->
+          <ul class="nav nav-tabs nav-tabs-solid nav-justified">
+            <li class="nav-item"><a class="nav-link" routerLink="/layout/userdashboard/user-dashboard">Tests Phase </a></li>
+            <li class="nav-item"><a class="nav-link active" routerLink="/layout/savedjobs/saved-jobs">Interviewing</a></li>
+            <li class="nav-item"><a class="nav-link" routerLink="/layout/appliedjobs/applied-jobs">Offered</a></li>
+            <li class="nav-item"><a class="nav-link" routerLink="/layout/interviewing/interviewing">Confirmed</a></li>
+            <li class="nav-item"><a class="nav-link" routerLink="/layout/offeredjobs/offered-jobs">Rejected</a></li>
+          </ul>                    </div>
+      </div>
+
+      <!-- Search Filter -->
+      <div class="row filter-row">
+        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 col-12">
+          <div class="form-group form-focus">
+            <input type="text" class="form-control floating" (input)="searchName($event.target.value)">
+            <label class="focus-label">Ticket Description</label>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 col-12">
+          <div class="form-group form-focus">
+            <input type="text" class="form-control floating" (input)="searchEmail($event.target.value)">
+            <label class="focus-label">Candidate Email</label>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 col-12">
+          <div class="form-group form-focus select-focus">
+            <select class="-form-select floating form-control" (input)="searchGender($event.target.value)">
+              <option value=""> -- Select -- </option>
+              <option value="Male"> Male </option>
+              <option value="Female"> Female </option>
+            </select>
+            <label class="focus-label">Gender</label>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-4 col-lg-4 col-xl-3 col-12">
+          <a class="btn btn-success w-100"> Search </a>
+        </div>
+      </div>
+      <!-- Search Filter -->
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="tab-content">
+                <div id="home" class="tab-pane show active">
+                  <div class="card-box">
+                    <div class="table-responsive">
+                      <table class="table table-striped custom-table mb-0 datatable">
+                        <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Candidate Name</th>
+                          <th>Email</th>
+                          <th class="text-center">IRT Score</th>
+                          <th class="text-center">Angular Score</th>
+                          <th class="text-center">Node JS Score</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let candidate of candidatesinterviewing">
+                          <td>1</td>
+                          <td><a routerLink="/layout/jobs/job-details-interview/{{candidate._id}}">{{candidate.name}}</a></td>
+                          <td>{{candidate.email}}</td>
+                          <td class="text-center">{{candidate.irt_score}}
+                          </td>
+                          <td class="text-center">{{candidate.psy_score}}
+                          </td>
+                          <td class="text-center">{{candidate.tech_test}}
+                          </td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div id="menu1" class="tab-pane fade">
+                  <div class="card-box">
+                    <div class="table-responsive">
+                      <table class="table table-striped custom-table mb-0 datatable">
+                        <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Job Title</th>
+                          <th>Department</th>
+                          <th class="text-center">Job Type</th>
+                          <th class="text-center">Aptitude Test</th>
+                          <th class="text-center">Schedule Interview</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                          <td>1</td>
+                          <td><a href="#">Web Developer</a></td>
+                          <td>Development</td>
+                          <td class="text-center">
+                            <div class="action-label">
+                              <a class="btn btn-white btn-sm btn-rounded" href="#">
+                                <i class="fa fa-dot-circle-o text-danger"></i> Full Time
+                              </a>
+                            </div>
+                          </td>
+                          <td class="text-center">
+                            <a href="javascript:void(0);" class="btn btn-primary disabled"><span>Selected</span></a>
+                          </td>
+                          <td class="text-center">
+                            <a href="javascript:void(0);" class="btn btn-primary aptitude-btn" data-bs-toggle="modal" data-bs-target="#selectMyTime"><span>Select Your Time Here</span></a>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>1</td>
+                          <td><a href="#">Web Designing</a></td>
+                          <td>Development</td>
+                          <td class="text-center">
+                            <div class="action-label">
+                              <a class="btn btn-white btn-sm btn-rounded" href="#">
+                                <i class="fa fa-dot-circle-o text-warning"></i> Part Time
+                              </a>
+                            </div>
+                          </td>
+                          <td class="text-center">
+                            <a href="javascript:void(0);" class="btn btn-primary disabled"><span>Selected</span></a>
+                          </td>
+                          <td class="text-center">
+                            <a href="javascript:void(0);" class="btn btn-primary aptitude-btn" data-bs-toggle="modal" data-bs-target="#selectMyTime"><span>Select Your Time Here</span></a>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>1</td>
+                          <td><a href="#">Web Developer</a></td>
+                          <td>Development</td>
+                          <td class="text-center">
+                            <div class="action-label">
+                              <a class="btn btn-white btn-sm btn-rounded" href="#">
+                                <i class="fa fa-dot-circle-o text-warning"></i> Part Time
+                              </a>
+                            </div>
+                          </td>
+                          <td class="text-center">
+                            <a href="javascript:void(0);" class="btn btn-primary disabled"><span>Selected</span></a>
+                          </td>
+                          <td class="text-center">
+                            <a href="javascript:void(0);" class="btn btn-primary aptitude-btn" data-bs-toggle="modal" data-bs-target="#selectMyTime"><span>Select Your Time Here</span></a>
+                          </td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /Content End -->
+
+      </div>
+      <!-- /Page Content -->
+
+    </div>
+    <!-- /Page Wrapper -->
+    <!-- Modal -->
+    <div id="selectMyTime" class="modal  custom-modal fade" role="dialog">
+      <div class="modal-dialog modal-dialog-centered">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Select Your Time</h4>
+            <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label>Day1 <span class="text-danger">*</span></label>
+                  <select class="form-control form-select" name="designations" id="designations">
+                    <option value="">11.00am - 11.30am (24 Feb 2020) </option>
+                    <option value="">1.00pm - 1.30pm (25 Feb 2020) </option>
+                    <option value="">3.00pm - 3.30pm (26 Feb 2020) </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="modal-btn delete-action mt-3">
+              <div class="row">
+                <div class="col-6">
+                  <button type="button" class="btn btn-primary w-100 cancel-btn">Submit</button>
+                </div>
+                <div class="col-6">
+                  <button type="button" class="btn btn-primary w-100 cancel-btn" data-bs-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

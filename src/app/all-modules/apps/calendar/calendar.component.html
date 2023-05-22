@@ -1,0 +1,193 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="row align-items-center">
+      <div class="col">
+        <h3 class="page-title">Events</h3>
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/layout/dashboard/admin">Dashboard</a></li>
+          <li class="breadcrumb-item active">Leaves</li>
+        </ul>
+      </div>
+      <div class="col-auto float-end ms-auto">
+        <a class="btn add-btn" (click)="openAddEventModal()"><i class="fa fa-plus"></i>
+          Request Leave</a>
+      </div>
+    </div>
+  </div>
+  <!-- /Page Header -->
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card mb-0">
+        <div class="card-body">
+          <div class="row fc">
+            <div class="col-md-4">
+              <div class="fc-left">
+                <div class="fc-button-group">
+                  <button type="button" class="fc-prev-button fc-button fc-state-default fc-corner-left" mwlCalendarPreviousView [view]="view"
+                          [(viewDate)]="viewDate" (viewDateChange)="closeOpenMonthViewDay()">
+                    <span class="fc-icon fc-icon-left-single-arrow"></span>
+                  </button>
+                  <button type="button" class="fc-next-button fc-button fc-state-default fc-corner-right" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="closeOpenMonthViewDay()">
+                    <span class="fc-icon fc-icon-right-single-arrow"></span>
+                  </button>
+                  <button type="button" class="fc-today-button fc-button fc-state-default fc-corner-left fc-corner-right fc-state-disabled"  mwlCalendarToday [(viewDate)]="viewDate">today</button>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 text-center">
+              <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+            </div>
+            <div class="col-md-4 text-end">
+              <div class="fc-button-group">
+                <div class="btn btn-primary fc-button" (click)="setView(CalendarView.Month)"
+                     [class.active]="view === CalendarView.Month">
+                  Month
+                </div>
+                <div class="btn btn-primary fc-button" (click)="setView(CalendarView.Week)"
+                     [class.active]="view === CalendarView.Week">
+                  Week
+                </div>
+                <div class="btn btn-primary fc-button" (click)="setView(CalendarView.Day)"
+                     [class.active]="view === CalendarView.Day">
+                  Day
+                </div>
+              </div>
+            </div>
+          </div>
+          <br />
+          <div [ngSwitch]="view">
+            <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate"
+                                     [events]="events" [refresh]="refresh" [activeDayIsOpen]="activeDayIsOpen"
+                                     (dayClicked)="dayClicked($event.day)" (eventClicked)="handleEvent('Clicked', $event.event)"
+                                     (eventTimesChanged)="eventTimesChanged($event)">
+            </mwl-calendar-month-view>
+            <mwl-calendar-week-view *ngSwitchCase="CalendarView.Week" [viewDate]="viewDate"
+                                    [events]="events" [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event.event)"
+                                    (eventTimesChanged)="eventTimesChanged($event)">
+            </mwl-calendar-week-view>
+            <mwl-calendar-day-view *ngSwitchCase="CalendarView.Day" [viewDate]="viewDate" [events]="events"
+                                   [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event.event)"
+                                   (eventTimesChanged)="eventTimesChanged($event)">
+            </mwl-calendar-day-view>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Page Content -->
+
+
+<!-- Add Event Modal -->
+<div id="add_event" class="modal custom-modal fade" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Request Leave</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label>Leave Description <span class="text-danger">*</span></label>
+            <input class="form-control" type="text" [(ngModel)]="eventName"
+                   [ngModelOptions]="{ standalone : true }">
+          </div>
+          <div class="form-group">
+            <label>Leave Duration <span class="text-danger">*</span></label>
+            <div class="cal-icon">
+              <input type="text" [(bsValue)]="bsInlineRangeValue" placeholder="select date"
+                     class="form-control" bsDaterangepicker >
+            </div>
+          </div>
+          <div class="submit-section">
+            <button type="button" class="btn btn-primary submit-btn" (click)="addEvent()">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Add Event Modal -->
+
+<!-- Event Modal -->
+<div id="edit_event" class="modal custom-modal fade" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Request Leave</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label>Leave Description <span class="text-danger">*</span></label>
+            <input class="form-control" type="text" [(ngModel)]="editEventName"
+                   [ngModelOptions]="{ standalone : true }">
+          </div>
+          <div class="form-group">
+            <label>Leave Duration <span class="text-danger">*</span></label>
+            <div class="cal-icon">
+              <input type="text" [(bsValue)]="bsInlineRangeValue" placeholder="select date"
+                     class="form-control" bsDaterangepicker>
+            </div>
+          </div>
+          <div class="submit-section">
+            <button type="button" class="btn btn-primary submit-btn" (click)="editEvent()">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Event Modal -->
+
+<!-- Add Category Modal-->
+<div class="modal custom-modal fade" id="add-category">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add a category</h4>
+      </div>
+      <div class="modal-body p-20">
+        <form>
+          <div class="row">
+            <div class="col-md-6">
+              <label class="col-form-label">Category Name</label>
+              <input class="form-control" placeholder="Enter name" type="text" name="category-name">
+            </div>
+            <div class="col-md-6">
+              <label class="col-form-label">Choose Category Color</label>
+              <select class="form-control" data-placeholder="Choose a color..." name="category-color">
+                <option value="success">Success</option>
+                <option value="danger">Danger</option>
+                <option value="info">Info</option>
+                <option value="pink">Pink</option>
+                <option value="primary">Primary</option>
+                <option value="warning">Warning</option>
+                <option value="orange">Orange</option>
+                <option value="brown">Brown</option>
+                <option value="teal">Teal</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-white" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger save-category" data-bs-dismiss="modal">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Add Category Modal-->

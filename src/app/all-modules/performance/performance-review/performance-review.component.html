@@ -1,0 +1,415 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+
+    <!-- Page Header -->
+  <div class="page-header">
+    <div class="row align-items-center">
+      <div class="col">
+        <h3 class="page-title">Appraisal Meeting</h3>
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/layout/dashboard/admin">Dashboard</a></li>
+          <li class="breadcrumb-item active">Performance</li>
+        </ul>
+      </div>
+      <div class="col-auto float-end ms-auto">
+        <a  class="btn add-btn" data-bs-toggle="modal" (click)="updateAppraisal()"><i
+          class="fa fa-plus"></i> Validate</a>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- /Page Header -->
+
+    <section class="review-section information">
+        <div class="review-header text-center">
+            <h3 class="review-title">Employee Basic Information</h3>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-nowrap review-table mb-0">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="name">Name</label>
+                                            <input [disabled]="true" type="text" class="form-control" id="name" placeholder="{{user_name}}">
+                                        </div>
+
+                                      <div class="form-group">
+                                        <label for="name1"> Evaluator</label>
+                                        <input type="text" [disabled]="true" class="form-control" id="name1" placeholder="{{EvaluatorInfos?.name}} {{EvaluatorInfos?.last_name}}">
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="depart1"> Evaluator Previous years of Experience: </label>
+                                        <input type="text" [disabled]="true" class="form-control" id="depart1" placeholder="{{getYearDiffWithMonthManager()}}">
+                                      </div>
+
+                                    </form>
+                                </td>
+                                <td>
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="doj">Evaluation Date</label>
+                                            <input type="text" class="form-control" placeholder="{{previous_date|date: 'MM/dd/yyyy'}}" disabled="true">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="doj">Evaluated Year</label>
+                                            <input type="text" [disabled]="true" placeholder="{{previous_date|date: 'MM/dd/yyyy' | slice:6:10}}" class="form-control" id="doj">
+                                        </div>
+                                      <div class="form-group">
+                                        <label for="qualif">Previous years of Experience </label>
+                                        <input type="text" class="form-control" id="qualif" value="{{getYearDiffWithMonth()}}" [disabled]="true">
+                                      </div>
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+<form [formGroup]="activityForm">
+  <section class="review-section">
+    <div class="review-header text-center">
+      <h3 class="review-title">Review of activity over the past year</h3>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="table-responsive">
+          <table class="table table-bordered table-review review-table mb-0" id="table_achievements">
+            <thead>
+            <tr>
+              <th style="width:40px;">#</th>
+              <th>Notes</th>
+              <th>Employee</th>
+              <th>Manager</th>
+            </tr>
+            </thead>
+            <tbody id="table_achievements_tbody">
+            <tr>
+              <td>1</td>
+              <td>What are your accomplishments? <br> <br>
+               ( The projects and assignments you have worked on, alone or in a team. )</td>
+              <td><input type="text" class="form-control" formControlName="employeeAccomplishement" [value]="employee_accomplishement"></td>
+              <td><input formControlName="managerAccomplishement" type="text" class="form-control" [value]="manager_accomplishement"></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>What are the key facts and events? <br> <br>
+
+                Were there any events that had an impact on your business?</td>
+              <td><input  type="text" class="form-control" formControlName="employeeEvents" [value]="key_facts_employee"></td>
+              <td><input  formControlName="managerEvents" type="text" class="form-control"[value]="key_facts_manager"></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>What are the main difficulties encountered during the period? <br> <br>
+
+                A context or events that made it difficult to carry out your missions.</td>
+              <td><input  type="text" class="form-control" formControlName="employeeDifficulties" [value]="difficulties_employees"></td>
+              <td><input  type="text" class="form-control" formControlName="managerDifficulties" [value]="difficulties_manager"></td>
+              <td></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+</form>
+<form [formGroup]="satisfactionForm">
+  <section class="review-section">
+    <div class="review-header text-center">
+      <h3 class="review-title">Satisfaction</h3>
+      <p class="text-muted">1 - Not Satisfied</p>
+      <p class="text-muted">5 - Extremely Satisfied</p>
+
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="table-responsive">
+          <table class="table table-bordered review-table mb-0">
+            <thead>
+            <tr>
+              <th></th>
+              <th>Level Of Satisfaction</th>
+              <th>Elaborate</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>
+                What is your overall level of satisfaction over the past period?</td>
+              <td>
+                <select class="form-select form-control" formControlName="employeeSatisfaction" [value]="satisfaction_employee">
+                  <option>Select</option>
+                  <option>5</option>
+                  <option>4</option>
+                  <option>3</option>
+                  <option>2</option>
+                  <option>1</option>
+                </select>
+              </td>
+              <td><input type="text"  class="form-control" formControlName="explication_employee" [value]="explication_employee"></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+</form>
+<form [formGroup]="objectivesForm">
+  <section class="review-section">
+    <div class="review-header text-center">
+      <h3 class="review-title">Objectives for the coming year</h3>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="table-responsive">
+          <table class="table table-bordered table-review review-table mb-0" id="table_remarks">
+            <thead>
+            <tr>
+              <th style="width:40px;">#</th>
+              <th>Employee</th>
+              <th>Manager</th>
+            </tr>
+            </thead>
+            <tbody id="table_remarks_tbody">
+            <tr>
+              <td>1</td>
+              <td><input *ngIf="objectif2_employee_status == 'Confirmed'" style="background-color: #00bf6f;background-color:transparent" type="text"  class="form-control" formControlName="objectif1" [value]="objectif1_employee"></td>
+              <td><button  class="btn btn-success" style="margin-left: 40%" [disabled]="isEmployee()" data-bs-toggle="modal" data-bs-target="#modal_objective1">Confirm</button>
+                <button class="btn btn-danger" style="margin-left: 5%" [disabled]="isEmployee()"data-bs-toggle="modal" data-bs-target="#modal_refuse_objective1">Reject</button></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td> <input *ngIf="objectif2_employee_status == 'Confirmed'" style="background-color: #00bf6f" type="text"  class="form-control" formControlName="objectif2" [value]="objectif2_employee"></td>
+              <td><button class="btn btn-success" style="margin-left: 40%" [disabled]="isEmployee()" data-bs-toggle="modal" data-bs-target="#modal_objective2">Confirm</button>
+                <button class="btn btn-danger" style="margin-left: 5%" [disabled]="isEmployee()" data-bs-toggle="modal" data-bs-target="#modal_refuse_objective2">Reject</button></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td><input *ngIf="objectif2_employee_status == 'Confirmed'" style="background-color: #00bf6f" type="text"  class="form-control" formControlName="objectif3" [value]="objectif3_employee"></td>
+              <td><button  class="btn btn-success" style="margin-left: 40%" [disabled]="isEmployee()"data-bs-toggle="modal" data-bs-target="#modal_objective3">Confirm</button>
+                <button  class="btn btn-danger" style="margin-left: 5%" [disabled]="isEmployee()"data-bs-toggle="modal" data-bs-target="#modal_refuse_objective3">Reject</button></td>
+              <td></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+  </form>
+<form [formGroup]="additionalForm">
+  <section class="review-section">
+    <div class="review-header text-center">
+      <h3 class="review-title">Additional Notes</h3>
+      <p class="text-muted">
+        Are there any other points you would like to discuss during this appraisal meeting?</p>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="table-responsive">
+          <table class="table table-bordered table-review review-table mb-0" id="table_alterations">
+            <thead>
+            <tr>
+              <th style="width:40px;">#</th>
+              <th>Employee</th>
+              <th>Manager</th>
+            </tr>
+            </thead>
+            <tbody id="table_alterations_tbody">
+            <tr>
+              <td>1</td>
+              <td><input type="text"  class="form-control" formControlName="employeeadditional" [value]="addtional_notes_employee"></td>
+              <td><input type="text"  class="form-control" formControlName="manageradditional" [value]="addtional_notes_manager"></td>
+              <td></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+  </form>
+</div>
+<!-- /Page Content -->
+<!-- Objectives Modal -->
+<div class="modal custom-modal fade" id="modal_objective1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="form-header">
+          <h3>Validate Objective</h3>
+          <p>Are you sure want to Validate this objective ?</p>
+        </div>
+        <div class="modal-btn delete-action">
+          <div class="row">
+            <div class="col-6">
+              <a  class="btn btn-primary continue-btn"
+                  (click)="confirmObjective1()">Validate</a>
+            </div>
+            <div class="col-6">
+              <a  data-bs-dismiss="modal"
+                  class="btn btn-primary cancel-btn">Cancel</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Objectives Modal -->
+
+
+<!-- Objectives Modal -->
+<div class="modal custom-modal fade" id="modal_objective2" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="form-header">
+          <h3>Validate Objective</h3>
+          <p>Are you sure want to Validate this objective ?</p>
+        </div>
+        <div class="modal-btn delete-action">
+          <div class="row">
+            <div class="col-6">
+              <a  class="btn btn-primary continue-btn"
+                  (click)="confirmObjective2()">Validate</a>
+            </div>
+            <div class="col-6">
+              <a  data-bs-dismiss="modal"
+                  class="btn btn-primary cancel-btn">Cancel</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Objectives Modal -->
+
+
+<!-- Objectives Modal -->
+<div class="modal custom-modal fade" id="modal_objective3" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="form-header">
+          <h3>Validate Objective</h3>
+          <p>Are you sure want to Validate this objective ?</p>
+        </div>
+        <div class="modal-btn delete-action">
+          <div class="row">
+            <div class="col-6">
+              <a  class="btn btn-primary continue-btn"
+                  (click)="confirmObjective3()">Validate</a>
+            </div>
+            <div class="col-6">
+              <a  data-bs-dismiss="modal"
+                  class="btn btn-primary cancel-btn">Cancel</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Objectives Modal -->
+
+
+<!-- Objectives Modal -->
+<div class="modal custom-modal fade" id="modal_refuse_objective1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="form-header">
+          <h3>Refuse Objective</h3>
+          <p>Are you sure want to refuse the validation of this Objective?</p>
+        </div>
+        <div class="modal-btn delete-action">
+          <div class="row">
+            <div class="col-6">
+              <a  class="btn btn-primary continue-btn"
+                  (click)="refuseObjective1()">Validate</a>
+            </div>
+            <div class="col-6">
+              <a  data-bs-dismiss="modal"
+                  class="btn btn-primary cancel-btn">Cancel</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Objectives Modal -->
+
+<!-- Objectives Modal -->
+<div class="modal custom-modal fade" id="modal_refuse_objective2" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="form-header">
+          <h3>Refuse Objective</h3>
+          <p>Are you sure want to refuse the validation of this Objective?</p>
+        </div>
+        <div class="modal-btn delete-action">
+          <div class="row">
+            <div class="col-6">
+              <a  class="btn btn-primary continue-btn"
+                  (click)="refuseObjective2()">Validate</a>
+            </div>
+            <div class="col-6">
+              <a  data-bs-dismiss="modal"
+                  class="btn btn-primary cancel-btn">Cancel</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Objectives Modal -->
+
+<!-- Objectives Modal -->
+<div class="modal custom-modal fade" id="modal_refuse_objective3" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="form-header">
+          <h3>Refuse Objective</h3>
+          <p>Are you sure want to refuse the validation of this Objective?</p>
+        </div>
+        <div class="modal-btn delete-action">
+          <div class="row">
+            <div class="col-6">
+              <a  class="btn btn-primary continue-btn"
+                  (click)="refuseObjective2()">Validate</a>
+            </div>
+            <div class="col-6">
+              <a  data-bs-dismiss="modal"
+                  class="btn btn-primary cancel-btn">Cancel</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Objectives Modal -->
+
+
+
+
+

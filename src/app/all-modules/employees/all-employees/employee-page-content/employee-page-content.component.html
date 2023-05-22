@@ -1,0 +1,244 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h3 class="page-title">Trainings</h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/layout/dashboard/admin">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Training</li>
+                </ul>
+            </div>
+            <div class="col-auto float-end ms-auto">
+                <a  class="btn add-btn" data-bs-toggle="modal" data-bs-target="#add_employee"><i
+                        class="fa fa-plus"></i> Add Training </a>
+                <div class="view-icons">
+                    <a routerLink="/layout/accounts/invoice-view" class="grid-view btn btn-link active"><i
+                            class="fa fa-th"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Header -->
+
+    <!-- Search Filter -->
+    <div class="row filter-row">
+        <div class="col-sm-6 col-md-3">
+            <div class="form-group form-focus">
+                <input type="text" class="form-control floating" (input)="searchId($event.target.value)">
+                <label class=" focus-label">Training Name</label>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="form-group form-focus">
+                <input type="text" class="form-control floating" (input)="searchName($event.target.value)">
+                <label class="focus-label">Training Category</label>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="form-group form-focus select-focus">
+                <select class="form-select form-control" (input)="searchByDesignation($event.target.value)">
+                  <option>Select Type</option>
+                  <option>Mandatory</option>
+                  <option>Optional</option>
+                </select>
+                <label class="focus-label">Designation</label>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <a  class="btn btn-success w-100"> Search </a>
+        </div>
+    </div>
+    <!-- Search Filter -->
+
+    <div class="row staff-grid-row">
+        <div class="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3" *ngFor="let emp of lstEmployee;let i = index">
+            <div class="profile-widget">
+                <div class="profile-img">
+                    <a routerLink="/layout/accounts/invoice-view" class="avatar"><img
+                            src="https://cdn.worldvectorlogo.com/logos/training.svg" alt=""></a>
+                </div>
+                <div class="dropdown profile-action">
+                    <a  class="action-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i
+                            class="material-icons">more_vert</i></a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#edit_employee"
+                            (click)="editEmp(emp.id)"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                        <a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#delete_employee"
+                            (click)="tempId = emp.id"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                    </div>
+                </div>
+                <h4 class="user-name m-t-10 mb-0 text-ellipsis"><a
+                        routerLink="/layout/accounts/invoice-view/{{emp._id}}">{{emp.name}}</a>
+                </h4>
+                <div class="small text-muted">{{emp.category}}</div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Page Content -->
+
+
+<!-- Add Employee Modal -->
+<div id="add_employee" class="modal custom-modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Training</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form (ngSubmit)="addEmployee()" [formGroup]="addEmployeeForm">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Name <span class="text-danger">*</span></label>
+                                <input class="form-control" type="text"
+                                    formControlName="FirstName">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Description</label>
+                                <input class="form-control" type="text"
+                                    formControlName="TrainingDescription">
+                            </div>
+                        </div>
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label>Client</label>
+                          <select class="form-select form-control" formControlName="trainingCategory">
+                            <option>SaaS</option>
+                            <option>Consulting</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label>Client</label>
+                          <select class="form-select form-control" formControlName="trainingStatus">
+                            <option>Mandatory</option>
+                            <option>Optional</option>
+                          </select>
+                        </div>
+                      </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="col-form-label">Training Deadline <span class="text-danger">*</span></label>
+                                <div class="cal-icon">
+
+                                    <input class="form-control datetimepicker" type="text" bsDatepicker type="text"
+                                        [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY',  returnFocusToInput: true }"
+                                        formControlName="Deadline">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="submit-section">
+                        <button class="btn btn-primary submit-btn" type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Add Employee Modal -->
+
+<!-- Edit Employee Modal -->
+<div id="edit" class="modal custom-modal fade" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Training</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="addEmployee()" [formGroup]="editEmployeeForm">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="col-form-label">Name <span class="text-danger">*</span></label>
+                <input class="form-control" type="text"
+                       formControlName="FirstName">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="col-form-label">Description</label>
+                <input class="form-control" type="text"
+                       formControlName="TrainingDescription">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Client</label>
+                <select class="form-select form-control" formControlName="trainingCategory">
+                  <option>SaaS</option>
+                  <option>Consulting</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Client</label>
+                <select class="form-select form-control" formControlName="trainingStatus">
+                  <option>Mandatory</option>
+                  <option>Optional</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label class="col-form-label">Training Deadline <span class="text-danger">*</span></label>
+                <div class="cal-icon">
+
+                  <input class="form-control datetimepicker" type="text" bsDatepicker type="text"
+                         [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY',  returnFocusToInput: true }"
+                         formControlName="Deadline">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="submit-section">
+            <button class="btn btn-primary submit-btn" type="submit">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Edit Employee Modal -->
+
+
+<!-- Delete Employee Modal -->
+<div class="modal custom-modal fade" id="delete_employee" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="form-header">
+                    <h3>Delete Employee</h3>
+                    <p>Are you sure want to delete?</p>
+                </div>
+                <div class="modal-btn delete-action">
+                    <div class="row">
+                        <div class="col-6">
+                            <a  class="btn btn-primary continue-btn"
+                                (click)="deleteEmployee()">Delete</a>
+                        </div>
+                        <div class="col-6">
+                            <a  data-bs-dismiss="modal"
+                                class="btn btn-primary cancel-btn">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Delete Employee Modal -->

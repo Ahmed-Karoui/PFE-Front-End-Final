@@ -1,0 +1,15 @@
+.content {
+	padding: 30px;
+}
+.selected-user{
+  border : 1px solid black;
+  padding : 1rem;
+  background-color: #51c743;
+  cursor: pointer;
+}
+
+.not-selected-user{
+  border : 1px solid black;
+  padding : 1rem;
+  cursor: pointer;
+}
